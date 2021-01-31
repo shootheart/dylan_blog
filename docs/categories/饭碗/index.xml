@@ -1,0 +1,70 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</title>
+        <link>https://blog.muhowch.life/categories/%E9%A5%AD%E7%A2%97/</link>
+        <description>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 01 Mar 2019 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+    <title>Let&#39;s Encrypt证书申请</title>
+    <link>https://blog.muhowch.life/2019-03-01-letsencrypt/</link>
+    <pubDate>Fri, 01 Mar 2019 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2019-03-01-letsencrypt/</guid>
+    <description><![CDATA[环境 CentOS 7 Python 2.7.5 安装 直接使用yum安装certbot 1 yum install certbot 申请证书 确保服务器域名与公网IP绑定。 申请过程中需要使用80端口，若占用可以先关闭。]]></description>
+</item><item>
+    <title>Zabbix学习</title>
+    <link>https://blog.muhowch.life/2019-03-01-zabbix/</link>
+    <pubDate>Fri, 01 Mar 2019 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2019-03-01-zabbix/</guid>
+    <description><![CDATA[zabbix_server zabbix housekeeping housekeeping的作用是删除数据库中的过期数据。 启用housekeeper需要在zabbix_server运行时添加-R hou]]></description>
+</item><item>
+    <title>Shell学习</title>
+    <link>https://blog.muhowch.life/2019-02-26-shell/</link>
+    <pubDate>Tue, 26 Feb 2019 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2019-02-26-shell/</guid>
+    <description><![CDATA[比较两个字符串是否相等 1 if [ &#34;$test&#34;x = &#34;test&#34;x ]; then 注意： 使用单个等号 等号两边有空格 注意到&quot;$test&quot;x最后的x，这是特意安排的，因]]></description>
+</item><item>
+    <title>HTTPS原理</title>
+    <link>https://blog.muhowch.life/2019-01-06-the-process-of-https/</link>
+    <pubDate>Sun, 06 Jan 2019 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2019-01-06-the-process-of-https/</guid>
+    <description><![CDATA[HTTP和HTTPS 使用HTTP协议会存在一定的安全问题，比如客户端与服务器通信的协议可以很容易被窃取，其中的私密信息会被泄漏，再比如攻击者]]></description>
+</item><item>
+    <title>CA证书与中间人攻击</title>
+    <link>https://blog.muhowch.life/2018-12-29-ca-certificate-and-middleman-attack/</link>
+    <pubDate>Sat, 29 Dec 2018 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2018-12-29-ca-certificate-and-middleman-attack/</guid>
+    <description><![CDATA[前言 由于偶然在群中有人聊起如何抓包https，从而找了一下有什么方法可以实现。 查到Charles这个工具可以实现https的抓包，而且可以查]]></description>
+</item><item>
+    <title>Linux系统中的tty与pts</title>
+    <link>https://blog.muhowch.life/2018-12-29-tty-and-pts-of-linux/</link>
+    <pubDate>Sat, 29 Dec 2018 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2018-12-29-tty-and-pts-of-linux/</guid>
+    <description><![CDATA[问题 centos7中没有pts/0和pts/3？ tty、pty与pts的概念 tty（终端设备的统称） tty源于Teletypes，原指电传打]]></description>
+</item><item>
+    <title>kvm使用ova导入虚拟机镜像</title>
+    <link>https://blog.muhowch.life/2018-11-27-import-a-kvm-image-using-ova/</link>
+    <pubDate>Tue, 27 Nov 2018 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2018-11-27-import-a-kvm-image-using-ova/</guid>
+    <description><![CDATA[从virtualbox打包来的ova格式镜像，发现无法在kvm上直接使用，会提示镜像无法引导，因为kvm使用的虚拟磁盘格式多数都是qcow2]]></description>
+</item><item>
+    <title>802.1X学习</title>
+    <link>https://blog.muhowch.life/2018-11-19-802.1x/</link>
+    <pubDate>Mon, 19 Nov 2018 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2018-11-19-802.1x/</guid>
+    <description><![CDATA[802.1X过程 协议 客户端PAE和设备端PAE之间，EAP协议使用EAPoL格式封装，直接承载于LAN环境中。 设备端PAE和Radius服务]]></description>
+</item><item>
+    <title>vsftpd学习</title>
+    <link>https://blog.muhowch.life/2018-02-25-learning-vsftpd/</link>
+    <pubDate>Sun, 25 Feb 2018 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2018-02-25-learning-vsftpd/</guid>
+    <description><![CDATA[学习Linux运维的过程中，对于一些常见的服务的搭建是必不可少的，FTP是我们经常使用的文件传输协议，在Linux上我们用vsftpd来搭建]]></description>
+</item></channel>
+</rss>

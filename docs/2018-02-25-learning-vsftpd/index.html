@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>vsftpd学习 - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="我的日常"><meta property="og:title" content="vsftpd学习" />
+<meta property="og:description" content="学习Linux运维的过程中，对于一些常见的服务的搭建是必不可少的，FTP是我们经常使用的文件传输协议，在Linux上我们用vsftpd来搭建" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.muhowch.life/2018-02-25-learning-vsftpd/" />
+<meta property="og:image" content="https://blog.muhowch.life"/>
+<meta property="article:published_time" content="2018-02-25T00:00:00+08:00" />
+<meta property="article:modified_time" content="2018-02-25T00:00:00+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.muhowch.life"/>
+
+<meta name="twitter:title" content="vsftpd学习"/>
+<meta name="twitter:description" content="学习Linux运维的过程中，对于一些常见的服务的搭建是必不可少的，FTP是我们经常使用的文件传输协议，在Linux上我们用vsftpd来搭建"/>
+<meta name="application-name" content="Muhowch">
+<meta name="apple-mobile-web-app-title" content="Muhowch"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.muhowch.life/2018-02-25-learning-vsftpd/" /><link rel="prev" href="https://blog.muhowch.life/2018-01-14-film-cast-list/" /><link rel="next" href="https://blog.muhowch.life/2018-07-02-the-viewpoint-about-kids-in-cinema/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "vsftpd学习",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.muhowch.life\/2018-02-25-learning-vsftpd\/"
+        },"genre": "posts","keywords": "ftp, linux","wordcount":  1116 ,
+        "url": "https:\/\/blog.muhowch.life\/2018-02-25-learning-vsftpd\/","datePublished": "2018-02-25T00:00:00+08:00","dateModified": "2018-02-25T00:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Chong"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="嘛好吃 吃嘛好 好吃嘛">嘛好吃</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="返回首页"> 首页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="你能找到任何你想要的东西" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="嘛好吃 吃嘛好 好吃嘛">嘛好吃</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="你能找到任何你想要的东西" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="返回首页">首页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">vsftpd学习</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Chong</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A5%AD%E7%A2%97/"><i class="far fa-folder fa-fw"></i>饭碗</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-02-25">2018-02-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1116 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#登录">登录</a></li>
+    <li><a href="#分析报错并解决">分析报错并解决</a></li>
+    <li><a href="#chroot的探索">chroot的探索</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>学习Linux运维的过程中，对于一些常见的服务的搭建是必不可少的，FTP是我们经常使用的文件传输协议，在Linux上我们用vsftpd来搭建FTP服务器。</p>
+<h2 id="安装">安装</h2>
+<p>安装自然不必多说，在RHEL上使用yum可以轻松安装该软件。</p>
+<p>为了测试过程中不会因为防火墙阻挡而影响结果，可以先清空防火墙的规则。</p>
+<p>在vsftpd的配置文件里已经有了大多数的常见配置，并对相关语句做了注释，因此对于平常使用来说可以很容易的实现。</p>
+<p>下面我们尝试用匿名登录FTP服务器。</p>
+<h2 id="登录">登录</h2>
+<p>需要修改的配置有以下几条：</p>
+<p>1 anonymous_enable=YES</p>
+<p>2 anon_umask=022</p>
+<p>3 anon_upload_enable=YES</p>
+<p>4 anon_mkdir_write_enable=YES</p>
+<p>5 anon_other_write_enable=YES</p>
+<blockquote>
+<p>注意：每次修改完配置后都需要重启vsftpd服务才能生效。</p>
+</blockquote>
+<p>配置保存，重启服务后，可以在本机上使用ftp登录（配置中的local_enable表示是否允许本机登录），在输入用户名的时候选择anonymous，密码为空。</p>
+<p>此时可以登录成功，但是无法创建目录，原因为匿名登录的默认目录为/var/ftp/，通过查看目录我们可以发现，该目录的所有者和群组都是root，而我们需要将所有者改为
+ftp才能有该目录的写权限，所以使用chown修改目录所有者。</p>
+<p>此时再使用ftp尝试匿名登录，发现报错：</p>
+<p>500 OOPS: vsftpd: refusing to run with writable root inside chroot()</p>
+<p>Login failed.</p>
+<p>421 Service not available, remote server has closed connection</p>
+<h2 id="分析报错并解决">分析报错并解决</h2>
+<p>对于此报错，是chroot的策略导致的，在配置文件的注释中也有讲解：</p>
+<p>You may specify an explicit list of local users to chroot() to their home
+directory. If chroot_local_user is YES, then this list becomes a list of
+users to NOT chroot().
+(Warning! chroot&rsquo;ing can be very dangerous. If using chroot, make sure that
+the user does not have write access to the top level directory within the
+chroot)</p>
+<p>FTP中有chroot功能，意思是在用不同的用户登录的时候访问目录将限制在该用户的家目录中，也就是除了用户的家目录不能访问其他目录，但是使用该功能的前提是用户
+不能对自己的家目录有写权限，这也是上面报错的原因（/var/ftp的权限为755）。</p>
+<p>因此，只要将/var/ftp的权限改为555或将该目录的所有者改为root，之后在二级目录中操作文件的增删改查就可以了。</p>
+<blockquote>
+<p>对于anonymous来说，任何情况下都开启chroot。</p>
+</blockquote>
+<h2 id="chroot的探索">chroot的探索</h2>
+<p>chroot功能可以使用chroot_local_user语句来开启或关闭（针对所有有权限登录的本地用户），除此之外，也可以在关闭的状态下使用chroot_list_enable来选择为哪些用
+开启。</p>
+<blockquote>
+<p>正如配置说明中所说，当chroot为关闭状态下，设置list可以实现为用户单独开启chroot，而在chroot开启的状态下，设置list就变成了为用户单独取消chroot。</p>
+</blockquote>
+<p>虽然软件在这方面做了严格限定，但是要取消家目录的写权限实在是不方便，所以配置中还给出了一条语句allow_writeable_chroot，将其设置为YES，就可以在用户对
+其家目录保留写权限的情况下使用chroot。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-02-25</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://blog.muhowch.life/2018-02-25-learning-vsftpd/" data-title="vsftpd学习" data-hashtags="ftp,linux"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://blog.muhowch.life/2018-02-25-learning-vsftpd/" data-hashtag="ftp"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://blog.muhowch.life/2018-02-25-learning-vsftpd/" data-title="vsftpd学习" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://blog.muhowch.life/2018-02-25-learning-vsftpd/" data-title="vsftpd学习"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://blog.muhowch.life/2018-02-25-learning-vsftpd/" data-title="vsftpd学习"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://blog.muhowch.life/2018-02-25-learning-vsftpd/" data-title="vsftpd学习"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ftp/">ftp</a>,&nbsp;<a href="/tags/linux/">linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2018-01-14-film-cast-list/" class="prev" rel="prev" title="为电影夺回片尾"><i class="fas fa-angle-left fa-fw"></i>为电影夺回片尾</a>
+            <a href="/2018-07-02-the-viewpoint-about-kids-in-cinema/" class="next" rel="next" title="带小孩子进电影院看电影的正确方式">带小孩子进电影院看电影的正确方式<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href="https://gohugo.io/">Hugo</a>驱动 | <a href="https://github.com/dillonzq/LoveIt">LoveIt</a>造型</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Chong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

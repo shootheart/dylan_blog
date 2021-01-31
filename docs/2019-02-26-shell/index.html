@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Shell学习 - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="我的日常"><meta property="og:title" content="Shell学习" />
+<meta property="og:description" content="比较两个字符串是否相等 1 if [ &#34;$test&#34;x = &#34;test&#34;x ]; then 注意： 使用单个等号 等号两边有空格 注意到&quot;$test&quot;x最后的x，这是特意安排的，因" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.muhowch.life/2019-02-26-shell/" />
+<meta property="og:image" content="https://blog.muhowch.life"/>
+<meta property="article:published_time" content="2019-02-26T00:00:00+08:00" />
+<meta property="article:modified_time" content="2019-02-26T00:00:00+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.muhowch.life"/>
+
+<meta name="twitter:title" content="Shell学习"/>
+<meta name="twitter:description" content="比较两个字符串是否相等 1 if [ &#34;$test&#34;x = &#34;test&#34;x ]; then 注意： 使用单个等号 等号两边有空格 注意到&quot;$test&quot;x最后的x，这是特意安排的，因"/>
+<meta name="application-name" content="Muhowch">
+<meta name="apple-mobile-web-app-title" content="Muhowch"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.muhowch.life/2019-02-26-shell/" /><link rel="prev" href="https://blog.muhowch.life/2019-01-06-the-process-of-https/" /><link rel="next" href="https://blog.muhowch.life/2019-03-01-zabbix/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Shell学习",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.muhowch.life\/2019-02-26-shell\/"
+        },"genre": "posts","keywords": "shell","wordcount":  5647 ,
+        "url": "https:\/\/blog.muhowch.life\/2019-02-26-shell\/","datePublished": "2019-02-26T00:00:00+08:00","dateModified": "2019-02-26T00:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Chong"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="嘛好吃 吃嘛好 好吃嘛">嘛好吃</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="返回首页"> 首页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="你能找到任何你想要的东西" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="嘛好吃 吃嘛好 好吃嘛">嘛好吃</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="你能找到任何你想要的东西" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="返回首页">首页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Shell学习</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Chong</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A5%AD%E7%A2%97/"><i class="far fa-folder fa-fw"></i>饭碗</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-02-26">2019-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5647 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#比较两个字符串是否相等">比较两个字符串是否相等</a></li>
+    <li><a href="#将多行写入文件">将多行写入文件</a></li>
+    <li><a href="#echo文字效果">echo文字效果</a>
+      <ul>
+        <li><a href="#文字颜色">文字颜色</a></li>
+        <li><a href="#文字背景颜色">文字背景颜色</a></li>
+        <li><a href="#其他效果">其他效果</a></li>
+      </ul>
+    </li>
+    <li><a href="#shell括号">shell括号</a>
+      <ul>
+        <li><a href="#单小括号">单小括号</a></li>
+        <li><a href="#双小括号">双小括号</a></li>
+        <li><a href="#单方括号">单方括号</a></li>
+        <li><a href="#双方括号">双方括号</a></li>
+        <li><a href="#大括号">大括号</a></li>
+        <li><a href="#符号后的括号">符号$后的括号</a></li>
+      </ul>
+    </li>
+    <li><a href="#变量">变量</a></li>
+    <li><a href="#shell脚本调试">shell脚本调试</a></li>
+    <li><a href="#let计算工具">let计算工具</a></li>
+    <li><a href="#shell内部域分隔符ifs">shell内部域分隔符IFS</a></li>
+    <li><a href="#特殊变量">特殊变量</a></li>
+    <li><a href="#xargs与普通管道区别">xargs与普通管道区别</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="比较两个字符串是否相等">比较两个字符串是否相等</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$test</span><span class="s2">&#34;</span><span class="nv">x</span> <span class="o">=</span> <span class="s2">&#34;test&#34;</span>x <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>注意：
+<ul>
+<li>使用单个等号</li>
+<li>等号两边有空格</li>
+<li><strong>注意到&quot;$test&quot;x最后的x，这是特意安排的，因为当$test为空的时候，上面的表达式就变成了x = testx，显然是不相等的。而如果没有这个x，表达式就会报错：[: =: unary operator expected</strong></li>
+<li>双引号转义&quot;$&quot;，单引号不转义，但是对于&quot;&quot;转义需要加-e选项</li>
+</ul>
+</li>
+</ul>
+<h2 id="将多行写入文件">将多行写入文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt;&gt; filename &lt;&lt; EOF
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>输入要写入文件的内容，以EOF为结尾，输入结束</li>
+<li>在脚本中，最后EOF需要顶格，否则不被识别</li>
+<li>EOF可以换成其他字符，都是可以当作结束符而不显示在文件中</li>
+</ul>
+<h2 id="echo文字效果">echo文字效果</h2>
+<h3 id="文字颜色">文字颜色</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#字体颜色：30m-37m 黑、红、绿、黄、蓝、紫、青、白</span>
+<span class="nv">str</span><span class="o">=</span><span class="s2">&#34;kimbo zhang&#34;</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[30m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 黑色字体</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[31m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 红色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[32m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 绿色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 黄色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[34m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 蓝色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[35m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 紫色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[36m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 青色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[37m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 白色</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>echo必须添加-e选项</li>
+<li>颜色字符也是成对出现，包含在要添加文字两侧</li>
+</ul>
+<h3 id="文字背景颜色">文字背景颜色</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#背景颜色：40-47 黑、红、绿、黄、蓝、紫、青、白</span>
+<span class="nv">str</span><span class="o">=</span><span class="s2">&#34;kimbo zhang&#34;</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[41;37m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 红色背景色，白色字体</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[41;33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 红底黄字</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[1;41;33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>   <span class="c1">## 红底黄字 高亮加粗显示</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[5;41;33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>   <span class="c1">## 红底黄字 字体闪烁显示</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[47;30m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 白底黑字</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[40;37m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 黑底白字</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="其他效果">其他效果</h3>
+<ul>
+<li>\033[1;m 设置高亮加粗</li>
+<li>\033[4;m 下划线</li>
+<li>\033[5;m 闪烁</li>
+</ul>
+<h2 id="shell括号">shell括号</h2>
+<h3 id="单小括号">单小括号</h3>
+<ul>
+<li>命令组。括号中的命令将会新开一个子shell顺序执行，所以括号中的变量不能够被脚本余下的部分使用。括号中多个命令之间用分号隔开，最后一个命令可以没有分号，各命令和括号之间不必有空格。</li>
+<li>命令替换。等同于<code>cmd</code>，shell扫描一遍命令行，发现了$(cmd)结构，便将$(cmd)中的cmd执行一次，得到其标准输出，再将此输出放到原来命令。有些shell不支持，如tcsh。</li>
+<li>用于初始化数组。如：array=(a b c d)</li>
+</ul>
+<h3 id="双小括号">双小括号</h3>
+<ul>
+<li>整数扩展。这种扩展计算是整数型的计算，不支持浮点型。((exp))结构扩展并计算一个算术表达式的值，如果表达式的结果为0，那么返回的退出状态码为1，或者是&quot;假&quot;，而一个非零值的表达式所返回的退出状态码将为0，或者是&quot;true&quot;。若是逻辑判断，表达式exp为真则为1,假则为0。</li>
+<li>只要括号中的运算符、表达式符合C语言运算规则，都可用在$((exp))中，甚至是三目运算符。作不同进位(如二进制、八进制、十六进制)运算时，输出结果全都自动转化成了十进制。如：echo $((16#5f)) 结果为95 (16进制转十进制)。</li>
+<li>单纯用 (( )) 也可重定义变量值，比如 a=5; ((a++)) 可将 $a 重定义为6。</li>
+<li>常用于算术运算比较，双括号中的变量可以不使用$符号前缀。括号内支持多个表达式用逗号分开。 只要括号中的表达式符合C语言运算规则,比如可以直接使用for((i=0;i&lt;5;i++)), 如果不使用双括号, 则为for i in seq 0 4`或者for i in {0..4}。再如可以直接使用if (($i&lt;5)), 如果不使用双括号, 则为if [ $i -lt 5 ]。</li>
+</ul>
+<h3 id="单方括号">单方括号</h3>
+<ul>
+<li>bash 的内部命令，[和test是等同的。如果我们不用绝对路径指明，通常我们用的都是bash自带的命令。if/test结构中的左中括号是调用test的命令标识，右中括号是关闭条件判断的。这个命令把它的参数作为比较表达式或者作为文件测试，并且根据比较的结果来返回一个退出状态码。if/test结构中并不是必须右中括号，但是新版的Bash中要求必须这样。</li>
+<li><strong>Test和[]中可用的比较运算符只有==和!=，两者都是用于字符串比较的，不可用于整数比较</strong>，整数比较只能使用-eq，-gt这种形式。无论是字符串比较还是整数比较都不支持大于号小于号。如果实在想用，对于字符串比较可以使用转义形式，如果比较&quot;ab&quot;和&quot;bc&quot;：[ ab \&lt; bc ]，结果为真，也就是返回状态为0。<i class="far fa-square fa-fw"></i> 中的逻辑与和逻辑或使用-a 和-o 表示。</li>
+<li>字符范围。用作正则表达式的一部分，描述一个匹配的字符范围。作为test用途的中括号内不能使用正则。</li>
+<li>在一个array 结构的上下文中，中括号用来引用数组中每个元素的编号。</li>
+</ul>
+<h3 id="双方括号">双方括号</h3>
+<ul>
+<li>[[是 bash 程序语言的关键字。并不是一个命令，<strong>[<i class="far fa-square fa-fw"></i> ] 结构比<i class="far fa-square fa-fw"></i> 结构更加通用</strong>。在[[和]]之间所有的字符都不会发生文件名扩展或者单词分割，但是会发生参数扩展和命令替换。</li>
+<li>支持字符串的模式匹配，使用=~操作符时甚至支持shell的正则表达式。字符串比较时可以把右边的作为一个模式，而不仅仅是一个字符串，比如[[ hello == hell? ]]，结果为真。[<i class="far fa-square fa-fw"></i> ] 中匹配字符串或通配符，不需要引号。</li>
+<li>使用[[ &hellip; ]]条件判断结构，而不是[ &hellip; ]，能够防止脚本中的许多逻辑错误。比如，&amp;&amp;、||、&lt;和&gt; 
+操作符能够正常存在于[<i class="far fa-square fa-fw"></i> ]条件判断结构中，但是如果出现在<i class="far fa-square fa-fw"></i> 结构中的话，会报错。比如可以直接使用if [[ $a != 1 
+&amp;&amp; $a != 2 ]], 如果不适用双括号, 则为if [ $a -ne 1] &amp;&amp; [ $a != 2 ]或者if [ $a -ne 1 -a $a != 2 ]。</li>
+<li>bash把双中括号中的表达式看作一个单独的元素，并返回一个退出状态码。</li>
+</ul>
+<h3 id="大括号">大括号</h3>
+<ul>
+<li>
+<p>大括号拓展。(通配(globbing))将对大括号中的文件名做扩展。在大括号中，不允许有空白，除非这个空白被引用或转义。第一种：对大括号中的以逗号分割的文件列表进行拓展。如touch {a,b}.txt 结果为a.txt b.txt。第二种：对大括号中以点点（..）分割的顺序文件列表起拓展作用，如：touch {a..d}.txt 结果为a.txt b.txt c.txt d.txt</p>
+</li>
+<li>
+<p>代码块，又被称为内部组，这个结构事实上创建了一个匿名函数 。与小括号中的命令不同，大括号内的命令不会新开一个子shell运行，即脚本余下部分仍可使用括号内变量。括号内的命令间用分号隔开，最后一个也必须有分号。{}的第一个命令和左括号之间必须要有一个空格。</p>
+</li>
+<li>
+<p>几种特殊的替换结构：</p>
+<ul>
+<li><code>${var:-string}和${var:=string}</code>:若变量var为空，则用在命令行中用string来替换<code>${var:-string}</code>，否则变量var不为空时，则用变量var的值来替换<code>${var:-string}</code>；对于<code>${var:=string}</code>的替换规则和<code>${var:-string}</code>是一样的，所不同之处是<code>${var:=string}</code>若var为空时，用string替换<code>${var:=string}</code>的同时，把string赋给变量var： <code>${var:=string}</code>很常用的一种用法是，判断某个变量是否赋值，没有的话则给它赋上一个默认值。</li>
+<li><code>${var:+string}</code>的替换规则和上面的相反，即只有当var不是空的时候才替换成string，若var为空时则不替换或者说是替换成变量 var的值，即空值。(因为变量var此时为空，所以这两种说法是等价的)</li>
+<li><code>${var:?string}替</code>换规则为：若变量var不为空，则用变量var的值来替换<code>${var:?string}</code>；若变量var为空，则把string输出到标准错误中，并从脚本中退出。我们可利用此特性来检查是否设置了变量的值。</li>
+<li><strong>在上面这五种替换结构中string不一定是常值的，可用另外一个变量的值或是一种命令的输出。</strong></li>
+</ul>
+</li>
+<li>
+<p>四种模式匹配替换结构：</p>
+<ul>
+<li>第一种模式：<code>${variable%pattern}</code>，这种模式时，shell在variable中查找，看它是否一给的模式pattern结尾，如果是，就从命令行把variable中的内容去掉右边最短的匹配模式</li>
+<li>第二种模式：<code> ${variable%%pattern}，</code>这种模式时，shell在variable中查找，看它是否一给的模式pattern结尾，如果是，就从命令行把variable中的内容去掉右边最长的匹配模式</li>
+<li>第三种模式：<code>${variable#pattern}</code> 这种模式时，shell在variable中查找，看它是否以给的模式pattern开始，如果是，就从命令行把variable中的内容去掉左边最短的匹配模式</li>
+<li>第四种模式： <code>${variable##pattern} </code>这种模式时，shell在variable中查找，看它是否一给的模式pattern结尾，如果是，就从命令行把variable中的内容去掉右边最长的匹配模式</li>
+</ul>
+<blockquote>
+<p># 是去掉左边(在键盘上#在$之左边)</p>
+<p>% 是去掉右边(在键盘上%在$之右边)</p>
+<p>#和%中的单一符号是最小匹配，两个相同符号是最大匹配。</p>
+</blockquote>
+<ul>
+<li>这四种模式中都不会改变variable的值，其中，只有在pattern中使用了*匹配符号时，%和%%，#和##才有区别。结构中的pattern支持通配符，*表示零个或多个任意字符，?表示仅与一个任意字符匹配，[&hellip;]表示匹配中括号里面的字符，[!&hellip;]表示不匹配中括号里面的字符。</li>
+</ul>
+</li>
+<li>
+<p>字符串提取和替换：</p>
+<ul>
+<li>第一种模式：<code>${var:num}</code>，这种模式时，shell在var中提取第num个字符到末尾的所有字符。若num为正数，从左边0处开始；若num为负数，从右边开始提取字串，但必须使用在冒号后面加空格或一个数字或整个num加上括号，如${var:-2}、${var:1-3}或${var:(-2)}。</li>
+<li>第二种模式：<code>${var:num1:num2}，</code>num1是位置，num2是长度。表示从$var字符串的第$num1个位置开始提取长度为$num2的子串。不能为负数。</li>
+<li>第三种模式：<code>${var/pattern/pattern}</code>表示将var字符串的第一个匹配的pattern替换为另一个pattern。</li>
+<li>第四种模式：<code>${var//pattern/pattern}</code>表示将var字符串中的所有能匹配的pattern替换为另一个pattern。</li>
+</ul>
+</li>
+</ul>
+<h3 id="符号后的括号">符号$后的括号</h3>
+<ul>
+<li>${a} 变量a的值, 在不引起歧义的情况下可以省略大括号。</li>
+<li>$(cmd) 命令替换，和<code>cmd</code>效果相同，结果为shell命令cmd的输，过某些Shell版本不支持$()形式的命令替换, 如tcsh。</li>
+<li>$((expression)) 和<code>exprexpression</code>效果相同, 计算数学表达式exp的数值, 其中exp只要符合C语言的运算规则即可, 甚至三目运算符和逻辑表达式都可以计算。</li>
+</ul>
+<h2 id="变量">变量</h2>
+<ul>
+<li>local一般用于局部变量声明，多在函数内部使用
+<ul>
+<li>shell中定义的变量是全局的，从定义的地方到shell脚本结束或删除的地方为止。</li>
+<li>函数定义的变量默认是全局的，作用域从”函数调用时执行变量定义的地方“开始，到shell结束或被删除的地方为止。若函数内变量定义为local，作用域为函数内。函数的参数是local的。</li>
+<li>如果同名，函数定义的local变量会屏蔽全局变量。</li>
+</ul>
+</li>
+<li>export将自定义的变量设定为系统环境变量（仅限于本次登陆的当前shell中有效）
+<ul>
+<li>参数
+<ul>
+<li>-f 代表变量名称为函数名称</li>
+<li>-n 删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。</li>
+<li>-p 列出所有的shell赋予程序的环境变量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>declare和set类似，可用来声明变量并设置变量的属性（r：只读；x：指定为环境变量；i：值可以是数值，字符串或运算式），也可以用来显示shell函数（-f），不加任何参数，则显示全部shell变量和函数（与执行set效果相同）。</li>
+</ul>
+<h2 id="shell脚本调试">shell脚本调试</h2>
+<ul>
+<li>可以在脚本第一行声明解释器后加参数，也可以执行时加参数调试。</li>
+<li>参数
+<ul>
+<li>-n：不执行脚本，只查找脚本语法是否有问题，给出错误提示。</li>
+<li>-v：执行脚本时，先将脚本的内容输出，然后执行脚本，如果有错误也提示。</li>
+<li>-x：将执行的脚本内容及输出显示到屏幕上。</li>
+<li>echo也是很有用的调试工具，配合exit语句中断执行。</li>
+</ul>
+</li>
+<li>set命令也可以辅助调试
+<ul>
+<li>set -n：读取命令不执行</li>
+<li>set -v：显示读取的所有行</li>
+<li>set -x：显示所有命令及其参数</li>
+<li><strong>提示：通过set -x命令开启调试功能，通过set +x关闭调试功能，可以调试两个命令之间的部分</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="let计算工具">let计算工具</h2>
+<ul>
+<li>let是bash中用于计算的工具，用于执行一个或多个表达式，计算变量不需要加$。如果表达式中出现空格或其他特殊字符，必须引起来</li>
+</ul>
+<h2 id="shell内部域分隔符ifs">shell内部域分隔符IFS</h2>
+<ul>
+<li>IFS(Internal Field Seprator)，内部域分隔符</li>
+<li>IFS是一种 set 变量，当 shell 处理&quot;命令替换&quot;和&quot;参数替换&quot;时，shell 根据 IFS 的值，默认是 space，tab，newline 来拆解读入的变量，然后对特殊字符进行处理，最后重新组合赋值给该变量。</li>
+</ul>
+<h2 id="特殊变量">特殊变量</h2>
+<ul>
+<li>$!：后台最近执行命令的PID</li>
+<li>$?：前台最近命令的结束状态</li>
+<li>$$：当前shell的PID</li>
+<li>$#：传递给脚本的参数数目</li>
+<li>$*：以字符串形式输出所有传递给脚本的参数</li>
+<li>$@：以$IFS为分隔符列出所有传递到脚本的参数</li>
+</ul>
+<h2 id="xargs与普通管道区别">xargs与普通管道区别</h2>
+<ul>
+<li>普通管道会把前一个命令的输出当成后一个命令的输入。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">&#39;--help&#39;</span> <span class="p">|</span> cat
+<span class="c1"># 输出：</span>
+--help
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>xargs将其接受的内容当作后一个命令的参数来运行后一个命令。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">&#39;--help&#39;</span> <span class="p">|</span> xargs cat 
+<span class="c1"># 输出：</span>
+Usage: cat <span class="o">[</span>OPTION<span class="o">]</span>... <span class="o">[</span>FILE<span class="o">]</span>...
+Concatenate FILE<span class="o">(</span>s<span class="o">)</span>, or standard input, to standard output.
+ 
+  -A, --show-all           equivalent to -vET
+  -b, --number-nonblank    number nonempty output lines
+  ......
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>xargs的其他选项：
+<ul>
+<li><strong>-d</strong> 默认情况下xargs将其标准输入中的内容以空白(包括空格、Tab、回车换行等)分割成多个之后当作命令行参数传递给其后面的命令，并运行之，我们可以使用 -d 命令指定分隔符。</li>
+<li><strong>-p</strong> 使用该选项之后xargs并不会马上执行其后面的命令，而是输出即将要执行的完整的命令(包括命令以及传递给命令的命令行参数)，询问是否执行，输入 y 才继续执行，否则不执行。这种方式可以清楚的看到执行的命令是什么样子，也就是xargs传递给命令的参数是什么。</li>
+<li><strong>-n</strong> 该选项表示将xargs生成的命令行参数，每次传递几个参数给其后面的命令执行，例如如果xargs从标准输入中读入内容，然后以分隔符分割之后生成的命令行参数有10个，使用-n 3 之后表示一次传递给xargs后面的命令是3个参数，因为一共有10个参数，所以要执行4次，才能将参数用完。</li>
+<li><strong>-E ，有的系统的xargs版本可能是-e  eof-str</strong> 该选项指定一个字符串，当xargs解析出多个命令行参数的时候，如果搜索到-e指定的命令行参数，则只会将-e指定的命令行参数之前的参数(不包括-e指定的这个参数)传递给xargs后面的命令。</li>
+<li><strong>注意：-E只有在xargs不指定-d的时候有效，如果指定了-d则不起作用，而不管-d指定的是什么字符，空格也不行。</strong></li>
+</ul>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-02-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://blog.muhowch.life/2019-02-26-shell/" data-title="Shell学习" data-hashtags="shell"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://blog.muhowch.life/2019-02-26-shell/" data-hashtag="shell"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://blog.muhowch.life/2019-02-26-shell/" data-title="Shell学习" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://blog.muhowch.life/2019-02-26-shell/" data-title="Shell学习"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://blog.muhowch.life/2019-02-26-shell/" data-title="Shell学习"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://blog.muhowch.life/2019-02-26-shell/" data-title="Shell学习"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/shell/">shell</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2019-01-06-the-process-of-https/" class="prev" rel="prev" title="HTTPS原理"><i class="fas fa-angle-left fa-fw"></i>HTTPS原理</a>
+            <a href="/2019-03-01-zabbix/" class="next" rel="next" title="Zabbix学习">Zabbix学习<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href="https://gohugo.io/">Hugo</a>驱动 | <a href="https://github.com/dillonzq/LoveIt">LoveIt</a>造型</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Chong</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
