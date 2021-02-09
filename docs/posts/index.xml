@@ -3,7 +3,14 @@
         <title>所有文章 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.life/posts/</link>
         <description>所有文章 | 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 06 Oct 2019 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>WSL文件权限问题</title>
+    <link>https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/</link>
+    <pubDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/</guid>
+    <description><![CDATA[问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只]]></description>
+</item><item>
     <title>国庆之行：南京-无锡</title>
     <link>https://blog.muhowch.life/2019-10-06-travels-in-nanjing-and-wuxi/</link>
     <pubDate>Sun, 06 Oct 2019 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.life/2018-11-27-import-a-kvm-image-using-ova/</guid>
     <description><![CDATA[从virtualbox打包来的ova格式镜像，发现无法在kvm上直接使用，会提示镜像无法引导，因为kvm使用的虚拟磁盘格式多数都是qcow2]]></description>
-</item><item>
-    <title>802.1X学习</title>
-    <link>https://blog.muhowch.life/2018-11-19-802.1x/</link>
-    <pubDate>Mon, 19 Nov 2018 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.life/2018-11-19-802.1x/</guid>
-    <description><![CDATA[802.1X过程 协议 客户端PAE和设备端PAE之间，EAP协议使用EAPoL格式封装，直接承载于LAN环境中。 设备端PAE和Radius服务]]></description>
 </item></channel>
 </rss>

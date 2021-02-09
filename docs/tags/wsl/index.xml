@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>WSL - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
+        <link>https://blog.muhowch.life/tags/wsl/</link>
+        <description>WSL - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/tags/wsl/" rel="self" type="application/rss+xml" /><item>
+    <title>WSL文件权限问题</title>
+    <link>https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/</link>
+    <pubDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/</guid>
+    <description><![CDATA[问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只]]></description>
+</item></channel>
+</rss>
