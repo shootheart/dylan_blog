@@ -175,7 +175,7 @@ theme = "LoveIt"
   #  List (目录或标签) 页面配置
   [params.list]
     # list 页面每页显示文章数量
-    paginate = 20
+    paginate = 12
     # 日期格式 (月和日)
     dateFormat = "01-02"
     # RSS 文章数目
@@ -487,7 +487,7 @@ theme = "LoveIt"
 
   #  网站分析配置
   [params.analytics]
-    enable = false
+    enable = true
     # Google Analytics
     [params.analytics.google]
       id = ""
