@@ -17,13 +17,13 @@ categories: ["饭碗"]
 + 在搜索了一些网络博客后得知，wsl下的文件权限与windows上的文件权限是相关的。由此我们来进行一个测试。
 + 我们在wsl下新建一个文件，可以看到文件和目录的默认权限都为777。
 
-  ![image-20210205162607575](/2021-02-09-the-file-permissions-of-wsl.assets/image-20210205162607575.png "wsl下新建文件")
+  ![image-20210205162607575](https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210205162607575.png "wsl下新建文件")
 
 + 当我们在windows下将这个文件修改为所有者只读，在wsl中的权限会变成444（为什么会是444呢？）。
 
-  ![image-20210207140731598](/2021-02-09-the-file-permissions-of-wsl.assets/image-20210207140731598.png "文件权限修改为所有者只读")
+  ![image-20210207140731598](https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207140731598.png "文件权限修改为所有者只读")
 
-  ![image-20210207141132171](/2021-02-09-the-file-permissions-of-wsl.assets/image-20210207141132171.png "wsl中的权限变成444")
+  ![image-20210207141132171](https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207141132171.png "wsl中的权限变成444")
 
 + 也就是说在wsl下，所有者、用户组和其它用户这三者的权限是同时变化的，这依旧不能解决我们的问题。
 
@@ -65,7 +65,7 @@ categories: ["饭碗"]
 
 + 文件保存后重新启动wsl，再看我们刚才创建的文件，变成了744。没错，是我们配置文件中写的umask(022)和fmask(011)或运算后得到的反掩码的权限。
 
-  ![image-20210209112434418](/2021-02-09-the-file-permissions-of-wsl.assets/image-20210209112434418.png "文件权限变成744，umask和fmask或运算的结果")
+  ![image-20210209112434418](https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209112434418.png "文件权限变成744，umask和fmask或运算的结果")
   
   {{< admonition tip "重启wsl的方法" >}}
   
@@ -79,7 +79,7 @@ categories: ["饭碗"]
   
 + 既然wsl元数据已经配置成功了，也就是说文件在wsl下拥有了独立的文件权限，我们就可以通过chmod命令随意设置文件权限了。我们把需要修改的ssh私钥文件修改成600权限，再尝试用密钥登录服务器，显示成功！
 
-  ![image-20210209114652593](/2021-02-09-the-file-permissions-of-wsl.assets/image-20210209114652593.png "完美解决")
+  ![image-20210209114652593](https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209114652593.png "完美解决")
 
 
 {{< admonition quote "参考文档" >}}

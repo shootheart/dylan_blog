@@ -42,6 +42,10 @@ tags: ["old"]
 
 ![1](../img/in-post/first/1.jpg)
 
+![image-20210209230354317](https://dylanblog.oss-cn-beijing.aliyuncs.com/good/image-20210209230354317.png)
 
+![image-20210209230354317](https://dylanblog.oss-cn-beijing.aliyuncs.com/first/image-20210209230354317-1613746339034.png)
 
-[1]: https://hugoloveit.com/zh-cn/basic-markdown-syntax/#fnref:1
+[1]: https://hugoloveit.com/zh-cn/basic-markdown-syntax/#fnref:1!3591921260781596(C:/Users/liuchong/Pictures/3591921260781596.jpg)
+
+![235px-Kim_Il_Sung_Portrait-2](first.assets/235px-Kim_Il_Sung_Portrait-2.jpg)
