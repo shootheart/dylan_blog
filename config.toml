@@ -15,28 +15,6 @@ publishDir = "docs"
 theme = "LoveIt"
 
 [languages]
-  [languages.zh-cn]
-      [[languages.zh-cn.menu.main]]
-	    identifier = "home"
-        # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
-        pre = ""
-        # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
-        post = ""
-        name = "首页"
-        url = "/"
-        title = "返回首页"
-        weight = 1
-
-    [[languages.zh-cn.menu.main]]
-	    identifier = "posts"
-        # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
-        pre = ""
-        # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
-        post = ""
-        name = "文章"
-        url = "/posts/"
-        title = ""
-        weight = 2
       [[languages.zh-cn.menu.main]]
         identifier = "tags"
         pre = ""
@@ -44,7 +22,7 @@ theme = "LoveIt"
         name = "标签"
         url = "/tags/"
         title = ""
-        weight = 3
+        weight = 1
       [[languages.zh-cn.menu.main]]
         identifier = "categories"
         pre = ""
@@ -52,15 +30,15 @@ theme = "LoveIt"
         name = "分类"
         url = "/categories/"
         title = ""
-        weight = 4
+        weight = 2
       [[languages.zh-cn.menu.main]]
         identifier = "about"
         pre = ""
         post = ""
         name = "关于"
         url = "/about/"
-        title = ""
-        weight = 5
+        title = "关于我"
+        weight = 3
       [[languages.zh-cn.menu.main]]
         identifier = "github"
         pre = "<i class='fab fa-github fa-fw'></i>"
@@ -68,13 +46,13 @@ theme = "LoveIt"
         name = ""
         url = "https://github.com/shootheart"
         title = "GitHub"
-        weight = 6
+        weight = 4
 
 [params]
   #  LoveIt 主题版本
   version = "0.2.X"
   # 网站描述
-  description = "我的日常"
+  description = ""
   # 网站关键词
   keywords = ["Blog", "Hugo", "Life"]
   # 网站默认主题样式 ("light", "dark", "auto")
@@ -137,11 +115,11 @@ theme = "LoveIt"
       # LOGO 的 URL
       logo = ""
       # 标题名称
-      name = "嘛好吃"
+      name = "MUHOWCH"
       # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
       pre = ""
       # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
-      post = ""
+      post = "<i class='fas fa-camera-retro fa-fw'></i>"
       #  是否为标题显示打字机动画
       typeit = false
 
@@ -193,9 +171,9 @@ theme = "LoveIt"
       # 主页显示头像的 URL
       avatarURL = "/images/avatar.png"
       #  主页显示的网站标题 (支持 HTML 格式)
-      title = ""
+      title = "吾日三省吾身："
       # 主页显示的网站副标题
-      subtitle = "一条心系电影的IT汪"
+      subtitle = "嘛好吃 吃嘛好 好吃嘛"
       # 是否为副标题显示打字机动画
       typeit = true
       # 是否显示社交账号
@@ -209,7 +187,7 @@ theme = "LoveIt"
       paginate = 10
       #  被 params.page 中的 hiddenFromHomePage 替代
       # 当你没有在文章前置参数中设置 "hiddenFromHomePage" 时的默认行为
-      defaultHiddenFromHomePage = false
+      #defaultHiddenFromHomePage = false
 
   # 作者的社交信息设置
   [params.social]
@@ -287,7 +265,7 @@ theme = "LoveIt"
     #  是否使用 twemoji
     twemoji = false
     # 是否使用 lightgallery
-    lightgallery = false
+    lightgallery = true
     #  是否使用 ruby 扩展语法，了解一下
     ruby = true
     #  是否使用 fraction 扩展语法，了解一下
@@ -347,7 +325,7 @@ theme = "LoveIt"
       Twitter = true
       Facebook = true
       Linkedin = false
-      Whatsapp = true
+      Whatsapp = false
       Pinterest = false
       Tumblr = false
       HackerNews = false
@@ -555,7 +533,7 @@ theme = "LoveIt"
 
 # 作者配置
 [author]
-  name = "Chong"
+  name = "Dylan Liu"
   email = ""
   link = ""
 
