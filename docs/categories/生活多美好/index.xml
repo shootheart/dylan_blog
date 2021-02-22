@@ -3,7 +3,14 @@
         <title>生活多美好 - 分类 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.life/categories/%E7%94%9F%E6%B4%BB%E5%A4%9A%E7%BE%8E%E5%A5%BD/</link>
         <description>生活多美好 - 分类 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 06 Oct 2019 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/categories/%E7%94%9F%E6%B4%BB%E5%A4%9A%E7%BE%8E%E5%A5%BD/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 03 Feb 2021 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/categories/%E7%94%9F%E6%B4%BB%E5%A4%9A%E7%BE%8E%E5%A5%BD/" rel="self" type="application/rss+xml" /><item>
+    <title>github&#43;Typora博客搭建方案</title>
+    <link>https://blog.muhowch.life/2021-02-03-blog/</link>
+    <pubDate>Wed, 03 Feb 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2021-02-03-blog/</guid>
+    <description><![CDATA[环境 平台：github pages 框架：hugo 主题：LoveIt 编辑器：Typora 搭建记录 引用 完整搭建文档可参考：官网文档 本地安装hugo 关于Hu]]></description>
+</item><item>
     <title>国庆之行：南京-无锡</title>
     <link>https://blog.muhowch.life/2019-10-06-travels-in-nanjing-and-wuxi/</link>
     <pubDate>Sun, 06 Oct 2019 00:00:00 &#43;0800</pubDate>

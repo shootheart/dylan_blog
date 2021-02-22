@@ -2,7 +2,7 @@
     <channel>
         <title>嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.life/</link>
-        <description>我的日常</description>
+        <description>嘛好吃 吃嘛好 好吃嘛</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.muhowch.life/index.xml" rel="self" type="application/rss+xml" />
         <item>
@@ -12,6 +12,13 @@
     <author>作者</author>
     <guid>https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/</guid>
     <description><![CDATA[问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只]]></description>
+</item><item>
+    <title>github&#43;Typora博客搭建方案</title>
+    <link>https://blog.muhowch.life/2021-02-03-blog/</link>
+    <pubDate>Wed, 03 Feb 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.life/2021-02-03-blog/</guid>
+    <description><![CDATA[环境 平台：github pages 框架：hugo 主题：LoveIt 编辑器：Typora 搭建记录 引用 完整搭建文档可参考：官网文档 本地安装hugo 关于Hu]]></description>
 </item><item>
     <title>国庆之行：南京-无锡</title>
     <link>https://blog.muhowch.life/2019-10-06-travels-in-nanjing-and-wuxi/</link>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.life/2018-12-29-tty-and-pts-of-linux/</guid>
     <description><![CDATA[问题 centos7中没有pts/0和pts/3？ tty、pty与pts的概念 tty（终端设备的统称） tty源于Teletypes，原指电传打]]></description>
-</item><item>
-    <title>kvm使用ova导入虚拟机镜像</title>
-    <link>https://blog.muhowch.life/2018-11-27-import-a-kvm-image-using-ova/</link>
-    <pubDate>Tue, 27 Nov 2018 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.life/2018-11-27-import-a-kvm-image-using-ova/</guid>
-    <description><![CDATA[从virtualbox打包来的ova格式镜像，发现无法在kvm上直接使用，会提示镜像无法引导，因为kvm使用的虚拟磁盘格式多数都是qcow2]]></description>
 </item></channel>
 </rss>
