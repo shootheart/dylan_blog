@@ -127,7 +127,7 @@ theme = "LoveIt"
   [params.footer]
     enable = true
     #  自定义内容 (支持 HTML 格式)
-    custom = '<a href="https://gohugo.io/">Hugo</a>驱动 | <a href="https://github.com/dillonzq/LoveIt">LoveIt</a>造型'
+    custom = '由<a href="https://gohugo.io/">Hugo</a>驱动 | <a href="https://github.com/dillonzq/LoveIt">LoveIt</a>设计造型'
     #  是否显示 Hugo 和主题信息
     hugo = false
     #  是否显示版权信息
