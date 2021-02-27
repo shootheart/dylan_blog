@@ -7,7 +7,7 @@
 + 由于偶然在群中有人聊起如何抓包https，从而找了一下有什么方法可以实现。
 + 查到Charles这个工具可以实现https的抓包，而且可以查看其中的的数据内容。主要的原理为中间人代理（就是中间人攻击）。
 + 因为https是加密数据的，所以使用正常抓包方法即时可以抓到数据包，也无法像http一样查看其中的内容。
-+ ![img](https://img-blog.csdn.net/20180521084049872?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ZveDY0MTk0MTY3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
++ ![img](https://dylanblog.oss-cn-beijing.aliyuncs.com/2018-12-29-CA-certificate-and-middleman-attack/20180521084049872)
 + Charles是拦截https的数据包，并使用自己的证书来伪装成服务器的证书发给客户端来完成认证，那么对此就有一个问题，既然中间人可以这么轻易拦截报文并伪装，怎么还能保证https的安全性呢，认为突破点在于对证书的信任验证。
 
 ## 主机对CA证书的信任
