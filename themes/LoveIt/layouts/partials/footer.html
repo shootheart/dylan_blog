@@ -46,6 +46,14 @@
                     <span class="icp">{{ . | safeHTML }}</span>
                 {{- end -}}
             </div>
+			{{- /* busuanzi */ -}}
+			{{- if ne .Site.Params.footer.busuanzi false -}}
+			<div class="footer-line">
+					<br />
+					<span id="busuanzi_container_site_pv">您是第&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp位访问本站的小伙伴</span>
+			</div>
+			{{- end -}}	
+
         </div>
     </footer>
 {{- end -}}
