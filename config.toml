@@ -68,9 +68,9 @@ theme = "LoveIt"
   #  LoveIt 主题版本
   version = "0.2.X"
   # 网站描述
-  description = ""
+  description = "吾日三省吾身：嘛好吃 吃嘛好 好吃嘛"
   # 网站关键词
-  keywords = ["Blog", "Hugo", "Life"]
+  keywords = ["Blog", "Hugo", "Life", "影迷", "生活", "技术"]
   # 网站默认主题样式 ("light", "dark", "auto")
   defaultTheme = "auto"
   # 公共 git 仓库路径，仅在 enableGitInfo 设为 true 时有效
@@ -466,11 +466,11 @@ theme = "LoveIt"
 
   # 网站验证代码，用于 Google/Bing/Yandex/Pinterest/Baidu
   [params.verification]
-    google = ""
-    bing = ""
+    google = "eADumFecgjojpOm2G20PnqW72ruZndfwskpFfpZupm4"
+    bing = "F805EA1E6732EC156000F1D9529964A8"
     yandex = ""
     pinterest = ""
-    baidu = ""
+    baidu = "4b58ef6a6265cee026fe541397ac4f05"
 
   #  网站 SEO 配置
   [params.seo]
@@ -589,7 +589,7 @@ theme = "LoveIt"
 [outputs]
   # 
   home = ["HTML", "RSS", "JSON"]
-  page = ["HTML", "MarkDown"]
+  page = ["HTML"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
   taxonomyTerm = ["HTML"]
