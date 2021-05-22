@@ -466,11 +466,11 @@ theme = "LoveIt"
 
   # 网站验证代码，用于 Google/Bing/Yandex/Pinterest/Baidu
   [params.verification]
-    google = "eADumFecgjojpOm2G20PnqW72ruZndfwskpFfpZupm4"
-    bing = "F805EA1E6732EC156000F1D9529964A8"
+    google = ""
+    bing = ""
     yandex = ""
     pinterest = ""
-    baidu = "code-qMERVijG7F"
+    baidu = ""
 
   #  网站 SEO 配置
   [params.seo]
