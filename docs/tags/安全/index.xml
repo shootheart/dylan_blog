@@ -1,21 +1,21 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>安全 - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
-        <link>https://blog.muhowch.life/tags/%E5%AE%89%E5%85%A8/</link>
+        <link>https://blog.muhowch.com/tags/%E5%AE%89%E5%85%A8/</link>
         <description>安全 - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 06 Jan 2019 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/tags/%E5%AE%89%E5%85%A8/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 06 Jan 2019 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/%E5%AE%89%E5%85%A8/" rel="self" type="application/rss+xml" /><item>
     <title>HTTPS原理</title>
-    <link>https://blog.muhowch.life/2019-01-06-the-process-of-https/</link>
+    <link>https://blog.muhowch.com/2019-01-06-the-process-of-https/</link>
     <pubDate>Sun, 06 Jan 2019 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2019-01-06-the-process-of-https/</guid>
+    <guid>https://blog.muhowch.com/2019-01-06-the-process-of-https/</guid>
     <description><![CDATA[HTTP和HTTPS 使用HTTP协议会存在一定的安全问题，比如客户端与服务器通信的协议可以很容易被窃取，其中的私密信息会被泄漏，再比如攻击者]]></description>
 </item><item>
     <title>CA证书与中间人攻击</title>
-    <link>https://blog.muhowch.life/2018-12-29-ca-certificate-and-middleman-attack/</link>
+    <link>https://blog.muhowch.com/2018-12-29-ca-certificate-and-middleman-attack/</link>
     <pubDate>Sat, 29 Dec 2018 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2018-12-29-ca-certificate-and-middleman-attack/</guid>
+    <guid>https://blog.muhowch.com/2018-12-29-ca-certificate-and-middleman-attack/</guid>
     <description><![CDATA[前言 由于偶然在群中有人聊起如何抓包https，从而找了一下有什么方法可以实现。 查到Charles这个工具可以实现https的抓包，而且可以查]]></description>
 </item></channel>
 </rss>

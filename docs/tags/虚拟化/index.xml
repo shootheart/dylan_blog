@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>虚拟化 - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
-        <link>https://blog.muhowch.life/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
+        <link>https://blog.muhowch.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
         <description>虚拟化 - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 27 Nov 2018 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 27 Nov 2018 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="self" type="application/rss+xml" /><item>
     <title>kvm使用ova导入虚拟机镜像</title>
-    <link>https://blog.muhowch.life/2018-11-27-import-a-kvm-image-using-ova/</link>
+    <link>https://blog.muhowch.com/2018-11-27-import-a-kvm-image-using-ova/</link>
     <pubDate>Tue, 27 Nov 2018 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2018-11-27-import-a-kvm-image-using-ova/</guid>
+    <guid>https://blog.muhowch.com/2018-11-27-import-a-kvm-image-using-ova/</guid>
     <description><![CDATA[从virtualbox打包来的ova格式镜像，发现无法在kvm上直接使用，会提示镜像无法引导，因为kvm使用的虚拟磁盘格式多数都是qcow2]]></description>
 </item></channel>
 </rss>

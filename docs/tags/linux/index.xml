@@ -1,28 +1,28 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>linux - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
-        <link>https://blog.muhowch.life/tags/linux/</link>
+        <link>https://blog.muhowch.com/tags/linux/</link>
         <description>linux - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/tags/linux/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/linux/" rel="self" type="application/rss+xml" /><item>
     <title>WSL文件权限问题</title>
-    <link>https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/</link>
+    <link>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</link>
     <pubDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/</guid>
+    <guid>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</guid>
     <description><![CDATA[问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只]]></description>
 </item><item>
     <title>Linux系统中的tty与pts</title>
-    <link>https://blog.muhowch.life/2018-12-29-tty-and-pts-of-linux/</link>
+    <link>https://blog.muhowch.com/2018-12-29-tty-and-pts-of-linux/</link>
     <pubDate>Sat, 29 Dec 2018 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2018-12-29-tty-and-pts-of-linux/</guid>
+    <guid>https://blog.muhowch.com/2018-12-29-tty-and-pts-of-linux/</guid>
     <description><![CDATA[问题 centos7中没有pts/0和pts/3？ tty、pty与pts的概念 tty（终端设备的统称） tty源于Teletypes，原指电传打]]></description>
 </item><item>
     <title>vsftpd学习</title>
-    <link>https://blog.muhowch.life/2018-02-25-learning-vsftpd/</link>
+    <link>https://blog.muhowch.com/2018-02-25-learning-vsftpd/</link>
     <pubDate>Sun, 25 Feb 2018 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2018-02-25-learning-vsftpd/</guid>
+    <guid>https://blog.muhowch.com/2018-02-25-learning-vsftpd/</guid>
     <description><![CDATA[学习Linux运维的过程中，对于一些常见的服务的搭建是必不可少的，FTP是我们经常使用的文件传输协议，在Linux上我们用vsftpd来搭建]]></description>
 </item></channel>
 </rss>

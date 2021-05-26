@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>媒体中心 - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
-        <link>https://blog.muhowch.life/tags/%E5%AA%92%E4%BD%93%E4%B8%AD%E5%BF%83/</link>
+        <link>https://blog.muhowch.com/tags/%E5%AA%92%E4%BD%93%E4%B8%AD%E5%BF%83/</link>
         <description>媒体中心 - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 03 Nov 2017 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.life/tags/%E5%AA%92%E4%BD%93%E4%B8%AD%E5%BF%83/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 03 Nov 2017 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/%E5%AA%92%E4%BD%93%E4%B8%AD%E5%BF%83/" rel="self" type="application/rss+xml" /><item>
     <title>家用HTPC方案v1.0</title>
-    <link>https://blog.muhowch.life/2017-11-03-design-of-htpcv1.0/</link>
+    <link>https://blog.muhowch.com/2017-11-03-design-of-htpcv1.0/</link>
     <pubDate>Fri, 03 Nov 2017 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2017-11-03-design-of-htpcv1.0/</guid>
+    <guid>https://blog.muhowch.com/2017-11-03-design-of-htpcv1.0/</guid>
     <description><![CDATA[HTPC（Home Theater Personal Computer），即家庭影院电脑。 是以计算机担当信号源和控制的家庭影院，也就是一部预装了各种多媒体解码播放软件，可用]]></description>
 </item></channel>
 </rss>
