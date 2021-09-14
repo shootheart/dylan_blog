@@ -1,79 +1,79 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>嘛好吃 吃嘛好 好吃嘛</title>
-        <link>https://blog.muhowch.life/</link>
+        <link>https://blog.muhowch.com/</link>
         <description>吾日三省吾身：嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 22 May 2021 00:00:00 &#43;0800</lastBuildDate>
-            <atom:link href="https://blog.muhowch.life/index.xml" rel="self" type="application/rss+xml" />
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 14 Sep 2021 00:00:00 &#43;0800</lastBuildDate>
+            <atom:link href="https://blog.muhowch.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>三晋之地，游古城</title>
+    <link>https://blog.muhowch.com/2021-09-14-trip-to-shanxi-jinzhong/</link>
+    <pubDate>Tue, 14 Sep 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2021-09-14-trip-to-shanxi-jinzhong/</guid>
+    <description><![CDATA[1 论辽阔的北方大地，除了帝都与戈壁，三晋地区似乎是个容易被遗忘的地方，或许是长期被打上煤矿的标签，人们都忘了这里曾经出现了中国最会做生意的商]]></description>
+</item><item>
     <title>滨海之行，来都来了</title>
-    <link>https://blog.muhowch.life/2021-05-22-trip-to-binhai/</link>
+    <link>https://blog.muhowch.com/2021-05-22-trip-to-binhai/</link>
     <pubDate>Sat, 22 May 2021 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2021-05-22-trip-to-binhai/</guid>
+    <guid>https://blog.muhowch.com/2021-05-22-trip-to-binhai/</guid>
     <description><![CDATA[1 转眼已是2021，疫情爆发的第二个年头，这一年来的生活虽说波澜不惊，却也值得回味。从一个海滨城市转战到了另一个海滨城市，一段新的人生也就此]]></description>
 </item><item>
     <title>WSL文件权限问题</title>
-    <link>https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/</link>
+    <link>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</link>
     <pubDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/</guid>
+    <guid>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</guid>
     <description><![CDATA[问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只]]></description>
 </item><item>
     <title>github&#43;Typora博客搭建方案</title>
-    <link>https://blog.muhowch.life/2021-02-03-blog/</link>
+    <link>https://blog.muhowch.com/2021-02-03-blog/</link>
     <pubDate>Wed, 03 Feb 2021 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2021-02-03-blog/</guid>
+    <guid>https://blog.muhowch.com/2021-02-03-blog/</guid>
     <description><![CDATA[环境 平台：github pages 框架：hugo 主题：LoveIt 编辑器：Typora 搭建记录 引用 完整搭建文档可参考：官网文档 本地安装hugo 关于Hu]]></description>
 </item><item>
     <title>国庆之行：南京-无锡</title>
-    <link>https://blog.muhowch.life/2019-10-06-travels-in-nanjing-and-wuxi/</link>
+    <link>https://blog.muhowch.com/2019-10-06-travels-in-nanjing-and-wuxi/</link>
     <pubDate>Sun, 06 Oct 2019 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2019-10-06-travels-in-nanjing-and-wuxi/</guid>
+    <guid>https://blog.muhowch.com/2019-10-06-travels-in-nanjing-and-wuxi/</guid>
     <description><![CDATA[国庆因为台风的原因，归家的航班最终还是取消无补。这么一个难得的小长假绝对不容浪费，于是我用了一个上午制定了假期的b计划。 1 第一站是南京，之前]]></description>
 </item><item>
     <title>摄影与我</title>
-    <link>https://blog.muhowch.life/2019-08-26-the-photography-with-me/</link>
+    <link>https://blog.muhowch.com/2019-08-26-the-photography-with-me/</link>
     <pubDate>Mon, 26 Aug 2019 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2019-08-26-the-photography-with-me/</guid>
+    <guid>https://blog.muhowch.com/2019-08-26-the-photography-with-me/</guid>
     <description><![CDATA[我一直认为“摄影”这个词离我很远，但是，我离它似乎很近。 1 小时候家里有一部胶片傻瓜机，但在我有限的记忆里，我与它几乎没有多少交集。那是一个胶]]></description>
 </item><item>
     <title>Let&#39;s Encrypt证书申请</title>
-    <link>https://blog.muhowch.life/2019-03-01-letsencrypt/</link>
+    <link>https://blog.muhowch.com/2019-03-01-letsencrypt/</link>
     <pubDate>Fri, 01 Mar 2019 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2019-03-01-letsencrypt/</guid>
+    <guid>https://blog.muhowch.com/2019-03-01-letsencrypt/</guid>
     <description><![CDATA[环境 CentOS 7 Python 2.7.5 安装 直接使用yum安装certbot 1 yum install certbot 申请证书 确保服务器域名与公网IP绑定。 申请过程中需要使用80端口，若占用可以先关闭。]]></description>
 </item><item>
     <title>Zabbix学习</title>
-    <link>https://blog.muhowch.life/2019-03-01-zabbix/</link>
+    <link>https://blog.muhowch.com/2019-03-01-zabbix/</link>
     <pubDate>Fri, 01 Mar 2019 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2019-03-01-zabbix/</guid>
+    <guid>https://blog.muhowch.com/2019-03-01-zabbix/</guid>
     <description><![CDATA[zabbix_server zabbix housekeeping housekeeping的作用是删除数据库中的过期数据。 启用housekeeper需要在zabbix_server运行时添加-R hou]]></description>
 </item><item>
     <title>Shell学习</title>
-    <link>https://blog.muhowch.life/2019-02-26-shell/</link>
+    <link>https://blog.muhowch.com/2019-02-26-shell/</link>
     <pubDate>Tue, 26 Feb 2019 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2019-02-26-shell/</guid>
+    <guid>https://blog.muhowch.com/2019-02-26-shell/</guid>
     <description><![CDATA[比较两个字符串是否相等 1 if [ &#34;$test&#34;x = &#34;test&#34;x ]; then 注意： 使用单个等号 等号两边有空格 注意到&quot;$test&quot;x最后的x，这是特意安排的，因]]></description>
 </item><item>
     <title>HTTPS原理</title>
-    <link>https://blog.muhowch.life/2019-01-06-the-process-of-https/</link>
+    <link>https://blog.muhowch.com/2019-01-06-the-process-of-https/</link>
     <pubDate>Sun, 06 Jan 2019 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.life/2019-01-06-the-process-of-https/</guid>
+    <guid>https://blog.muhowch.com/2019-01-06-the-process-of-https/</guid>
     <description><![CDATA[HTTP和HTTPS 使用HTTP协议会存在一定的安全问题，比如客户端与服务器通信的协议可以很容易被窃取，其中的私密信息会被泄漏，再比如攻击者]]></description>
-</item><item>
-    <title>CA证书与中间人攻击</title>
-    <link>https://blog.muhowch.life/2018-12-29-ca-certificate-and-middleman-attack/</link>
-    <pubDate>Sat, 29 Dec 2018 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.life/2018-12-29-ca-certificate-and-middleman-attack/</guid>
-    <description><![CDATA[前言 由于偶然在群中有人聊起如何抓包https，从而找了一下有什么方法可以实现。 查到Charles这个工具可以实现https的抓包，而且可以查]]></description>
 </item></channel>
 </rss>

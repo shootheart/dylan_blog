@@ -8,19 +8,19 @@
         <title>WSL文件权限问题 - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="吾日三省吾身：嘛好吃 吃嘛好 好吃嘛"><meta property="og:title" content="WSL文件权限问题" />
 <meta property="og:description" content="问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/" />
-<meta property="og:image" content="https://blog.muhowch.life"/>
+<meta property="og:url" content="https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/" /><meta property="og:image" content="https://blog.muhowch.com"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-02-09T00:00:00+08:00" />
 <meta property="article:modified_time" content="2021-02-09T00:00:00+08:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://blog.muhowch.life"/>
+<meta name="twitter:image" content="https://blog.muhowch.com"/>
 
 <meta name="twitter:title" content="WSL文件权限问题"/>
 <meta name="twitter:description" content="问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只"/>
 <meta name="application-name" content="Muhowch">
 <meta name="apple-mobile-web-app-title" content="Muhowch"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/" /><link rel="prev" href="https://blog.muhowch.life/2021-02-03-blog/" /><link rel="next" href="https://blog.muhowch.life/2021-05-22-trip-to-binhai/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/" /><link rel="prev" href="https://blog.muhowch.com/2021-02-03-blog/" /><link rel="next" href="https://blog.muhowch.com/2021-05-22-trip-to-binhai/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,9 +28,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/blog.muhowch.life\/2021-02-09-the-file-permissions-of-wsl\/"
-        },"genre": "posts","keywords": "WSL, linux","wordcount":  1495 ,
-        "url": "https:\/\/blog.muhowch.life\/2021-02-09-the-file-permissions-of-wsl\/","datePublished": "2021-02-09T00:00:00+08:00","dateModified": "2021-02-09T00:00:00+08:00","publisher": {
+            "@id": "https:\/\/blog.muhowch.com\/2021-02-09-the-file-permissions-of-wsl\/"
+        },"genre": "posts","keywords": "WSL, linux","wordcount":  1380 ,
+        "url": "https:\/\/blog.muhowch.com\/2021-02-09-the-file-permissions-of-wsl\/","datePublished": "2021-02-09T00:00:00+08:00","dateModified": "2021-02-09T00:00:00+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -79,7 +79,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">WSL文件权限问题</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Dylan Liu</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A5%AD%E7%A2%97/"><i class="far fa-folder fa-fw"></i>饭碗</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-09">2021-02-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1495 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-09">2021-02-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1380 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<i class="far fa-eye fa-fw"></i><span id="busuanzi_container_page_pv">&nbsp;共阅读&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次</span>
 
             </div>
@@ -112,7 +112,7 @@
 </li>
 <li>
 <p>我们在wsl下新建一个文件，可以看到文件和目录的默认权限都为777。</p>
-<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210205162607575.png" title="image-20210205162607575" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210205162607575.png" data-sub-html="<h2>wsl下新建文件</h2><p>image-20210205162607575</p>">
+<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210205162607575.png" title="" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210205162607575.png" data-sub-html="<h2>wsl下新建文件</h2>">
         <img
             class="lazyload"
             src="/svg/loading.min.svg"
@@ -125,7 +125,7 @@
 </li>
 <li>
 <p>当我们在windows下将这个文件修改为所有者只读，在wsl中的权限会变成444（为什么会是444呢？）。</p>
-<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207140731598.png" title="image-20210207140731598" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207140731598.png" data-sub-html="<h2>文件权限修改为所有者只读</h2><p>image-20210207140731598</p>">
+<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207140731598.png" title="" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207140731598.png" data-sub-html="<h2>文件权限修改为所有者只读</h2>">
         <img
             class="lazyload"
             src="/svg/loading.min.svg"
@@ -135,7 +135,7 @@
             alt="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207140731598.png" />
     </a><figcaption class="image-caption">文件权限修改为所有者只读</figcaption>
     </figure></p>
-<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207141132171.png" title="image-20210207141132171" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207141132171.png" data-sub-html="<h2>wsl中的权限变成444</h2><p>image-20210207141132171</p>">
+<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207141132171.png" title="" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210207141132171.png" data-sub-html="<h2>wsl中的权限变成444</h2>">
         <img
             class="lazyload"
             src="/svg/loading.min.svg"
@@ -177,7 +177,7 @@
 <p>以下是官方文档给出的示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -191,14 +191,14 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="c1"># Enable extra metadata options by default</span>
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="c1"># Enable extra metadata options by default</span>
 <span class="c1"># umask和fmask用于设置权限掩码，这两个掩码作用于文件时会做“或”运算，以最终结果赋予文件权限</span>
 <span class="k">[automount]</span>
 <span class="na">enabled</span> <span class="o">=</span> <span class="s">true</span>
 <span class="na">root</span> <span class="o">=</span> <span class="s">/windir/</span>
 <span class="na">options</span> <span class="o">=</span> <span class="s">&#34;metadata,umask=22,fmask=11&#34;</span>
-<span class="na">mountFsTab</span> <span class="o">=</span> <span class="s">false
-</span><span class="s">  </span>
+<span class="na">mountFsTab</span> <span class="o">=</span> <span class="s">false</span>
+
 <span class="c1"># Enable DNS – even though these are turned on by default, we&#39;ll specify here just to be explicit.</span>
 <span class="k">[network]</span>
 <span class="na">generateHosts</span> <span class="o">=</span> <span class="s">true</span>
@@ -208,7 +208,7 @@
 </div></li>
 <li>
 <p>文件保存后重新启动wsl，再看我们刚才创建的文件，变成了744。没错，是我们配置文件中写的umask(022)和fmask(011)或运算后得到的反掩码的权限。</p>
-<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209112434418.png" title="image-20210209112434418" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209112434418.png" data-sub-html="<h2>文件权限变成744，umask和fmask或运算的结果</h2><p>image-20210209112434418</p>">
+<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209112434418.png" title="" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209112434418.png" data-sub-html="<h2>文件权限变成744，umask和fmask或运算的结果</h2>">
         <img
             class="lazyload"
             src="/svg/loading.min.svg"
@@ -232,7 +232,7 @@
 </li>
 <li>
 <p>既然wsl元数据已经配置成功了，也就是说文件在wsl下拥有了独立的文件权限，我们就可以通过chmod命令随意设置文件权限了。我们把需要修改的ssh私钥文件修改成600权限，再尝试用密钥登录服务器，显示成功！</p>
-<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209114652593.png" title="image-20210209114652593" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209114652593.png" data-sub-html="<h2>完美解决</h2><p>image-20210209114652593</p>">
+<p><figure><a class="lightgallery" href="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209114652593.png" title="" data-thumbnail="https://dylanblog.oss-cn-beijing.aliyuncs.com/2021-02-09-the-file-permissions-of-wsl/image-20210209114652593.png" data-sub-html="<h2>完美解决</h2>">
         <img
             class="lazyload"
             src="/svg/loading.min.svg"
@@ -249,7 +249,7 @@
             <i class="icon fas fa-quote-right fa-fw"></i>参考文档<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">有关WSL元数据的相关信息： <a href="https://docs.microsoft.com/zh-cn/windows/wsl/file-permissions#wsl-metadata-on-windows-files">https://docs.microsoft.com/zh-cn/windows/wsl/file-permissions#wsl-metadata-on-windows-files</a></div>
+            <div class="admonition-content">有关WSL元数据的相关信息： <a href="https://docs.microsoft.com/zh-cn/windows/wsl/file-permissions#wsl-metadata-on-windows-files" target="_blank" rel="noopener noreffer">https://docs.microsoft.com/zh-cn/windows/wsl/file-permissions#wsl-metadata-on-windows-files</a></div>
         </div>
     </div>
 </div><div class="post-footer" id="post-footer">
@@ -263,7 +263,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/" data-title="WSL文件权限问题" data-hashtags="WSL,linux"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/" data-hashtag="WSL"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/" data-title="WSL文件权限问题"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/" data-title="WSL文件权限问题"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://blog.muhowch.life/2021-02-09-the-file-permissions-of-wsl/" data-title="WSL文件权限问题"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/" data-title="WSL文件权限问题" data-hashtags="WSL,linux"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/" data-hashtag="WSL"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/" data-title="WSL文件权限问题"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/" data-title="WSL文件权限问题"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/" data-title="WSL文件权限问题"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
