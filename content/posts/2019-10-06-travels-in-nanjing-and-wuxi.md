@@ -383,3 +383,5 @@ lightgallery: true
 ![103](https://dylanblog.oss-cn-beijing.aliyuncs.com/2019-10-06-travels-in-nanjing-and-wuxi/103.jpg "老宅院")
 
 金锡之行，自此圆满，虽然人潮拥挤，却也能领略大好河山，也是满足的。收拾行装，拖着酸痛的双腿打道回府。
+
+（原载于豆瓣）

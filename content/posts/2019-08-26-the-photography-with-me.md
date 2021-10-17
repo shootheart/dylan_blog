@@ -80,3 +80,5 @@ DV光荣退休后，初三那年，因为母亲工作的原因，家中购买了
 ![14](https://dylanblog.oss-cn-beijing.aliyuncs.com/2019-08-26-the-photography-with-me/14.jpg)
 
 最后放一张全部家当。
+
+（原载于豆瓣）
