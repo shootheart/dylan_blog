@@ -99,9 +99,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">~ $ file Evergreen_trunk_Squeeze.ova
-Evergreen_trunk_Squeeze.ova:                POSIX tar archive <span class="o">(</span>GNU<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">~ $ file Evergreen_trunk_Squeeze.ova
+</span></span><span class="line"><span class="cl">Evergreen_trunk_Squeeze.ova:                POSIX tar archive <span class="o">(</span>GNU<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>所以直接解压文件就可以，解压后一般会得到一个原来的磁盘格式和一个ovf文件，qemu自带工具就可以转换格式。</li>
@@ -111,8 +111,8 @@ Evergreen_trunk_Squeeze.ova:                POSIX tar archive <span class="o">(<
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">~ $ qemu-img convert -O qcow2 Evergreen_trunk_Squeeze-disk1.vmdk Evergreen_trunk_Squeeze.qcow2
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">~ $ qemu-img convert -O qcow2 Evergreen_trunk_Squeeze-disk1.vmdk Evergreen_trunk_Squeeze.qcow2
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">

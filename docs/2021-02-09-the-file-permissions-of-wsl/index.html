@@ -191,19 +191,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="c1"># Enable extra metadata options by default</span>
-<span class="c1"># umask和fmask用于设置权限掩码，这两个掩码作用于文件时会做“或”运算，以最终结果赋予文件权限</span>
-<span class="k">[automount]</span>
-<span class="na">enabled</span> <span class="o">=</span> <span class="s">true</span>
-<span class="na">root</span> <span class="o">=</span> <span class="s">/windir/</span>
-<span class="na">options</span> <span class="o">=</span> <span class="s">&#34;metadata,umask=22,fmask=11&#34;</span>
-<span class="na">mountFsTab</span> <span class="o">=</span> <span class="s">false</span>
-
-<span class="c1"># Enable DNS – even though these are turned on by default, we&#39;ll specify here just to be explicit.</span>
-<span class="k">[network]</span>
-<span class="na">generateHosts</span> <span class="o">=</span> <span class="s">true</span>
-<span class="na">generateResolvConf</span> <span class="o">=</span> <span class="s">true</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1"># Enable extra metadata options by default</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># umask和fmask用于设置权限掩码，这两个掩码作用于文件时会做“或”运算，以最终结果赋予文件权限</span>
+</span></span><span class="line"><span class="cl"><span class="k">[automount]</span>
+</span></span><span class="line"><span class="cl"><span class="na">enabled</span> <span class="o">=</span> <span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">root</span> <span class="o">=</span> <span class="s">/windir/</span>
+</span></span><span class="line"><span class="cl"><span class="na">options</span> <span class="o">=</span> <span class="s">&#34;metadata,umask=22,fmask=11&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">mountFsTab</span> <span class="o">=</span> <span class="s">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Enable DNS – even though these are turned on by default, we&#39;ll specify here just to be explicit.</span>
+</span></span><span class="line"><span class="cl"><span class="k">[network]</span>
+</span></span><span class="line"><span class="cl"><span class="na">generateHosts</span> <span class="o">=</span> <span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">generateResolvConf</span> <span class="o">=</span> <span class="s">true</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
