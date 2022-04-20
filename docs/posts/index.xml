@@ -3,7 +3,14 @@
         <title>所有文章 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/posts/</link>
         <description>所有文章 | 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 06 Apr 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>27岁，迟到的生日祝福</title>
+    <link>https://blog.muhowch.com/2022-04-06-happy-birthday/</link>
+    <pubDate>Wed, 06 Apr 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-04-06-happy-birthday/</guid>
+    <description><![CDATA[今天偶然听到这首曲子，才意识到27岁生日已经过去好几个月了。 这个生日，我经历了人生中未曾有过的一个打击，现在想想，多少年的生日都和平常的一天]]></description>
+</item><item>
     <title>2021</title>
     <link>https://blog.muhowch.com/2021/</link>
     <pubDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2019-12-30-goodbye-2019/</guid>
     <description><![CDATA[原本有很多话想写下来，无奈提笔忘字，只能东拼西凑。 此刻借着绍兴酒的微醺，在脑中一遍一遍回放着自己今年做过的那些愚蠢的、疯狂的、压抑的、自豪的]]></description>
-</item><item>
-    <title>2019-11-21</title>
-    <link>https://blog.muhowch.com/2019-11-21-note/</link>
-    <pubDate>Thu, 21 Nov 2019 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2019-11-21-note/</guid>
-    <description><![CDATA[下班回家，打开电脑，里面是一团糟的方案和代码，看到这些，原本打算挑灯夜战的我，顿感胃酸上反。 工作时间和非工作时间，不知从什么时候开始已经融为]]></description>
 </item></channel>
 </rss>
