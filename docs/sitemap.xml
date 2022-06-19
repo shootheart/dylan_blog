@@ -2,14 +2,16 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://blog.muhowch.com/2022-04-06-happy-birthday/</loc><lastmod>2022-04-06T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.muhowch.com/categories/</loc><lastmod>2022-04-06T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.muhowch.com/posts/</loc><lastmod>2022-04-06T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.muhowch.com/tags/</loc><lastmod>2022-04-06T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.muhowch.com/tags/%E7%89%A2%E9%AA%9A/</loc><lastmod>2022-04-06T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.muhowch.com/</loc><lastmod>2022-04-06T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.muhowch.com/categories/%E4%BA%BA%E7%94%9F/</loc><lastmod>2022-04-06T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>https://blog.muhowch.com/categories/</loc><lastmod>2022-06-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/posts/</loc><lastmod>2022-06-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/</loc><lastmod>2022-06-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/</loc><lastmod>2022-06-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/%E6%83%85%E7%BB%AA/</loc><lastmod>2022-06-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/categories/%E4%BA%BA%E7%94%9F/</loc><lastmod>2022-06-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/2022-06-19-detached-from-society/</loc><lastmod>2022-06-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/2022-04-06-happy-birthday/</loc><lastmod>2022-04-06T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2021/</loc><lastmod>2021-12-29T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/%E5%B9%B4%E7%BB%88/</loc><lastmod>2021-12-29T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2021-12-07/</loc><lastmod>2021-12-07T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2021-12-04/</loc><lastmod>2021-12-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/%E6%97%85%E8%A1%8C/</loc><lastmod>2021-09-14T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -24,6 +26,7 @@
             <loc>https://blog.muhowch.com/2021-02-03-blog/</loc><lastmod>2021-02-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/about/</loc><lastmod>2021-01-31T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2020-02-26-note/</loc><lastmod>2020-02-26T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/%E7%89%A2%E9%AA%9A/</loc><lastmod>2020-02-26T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2019-12-30-goodbye-2019/</loc><lastmod>2019-12-30T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2019-11-21-note/</loc><lastmod>2019-11-21T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2019-10-20-note/</loc><lastmod>2019-10-20T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

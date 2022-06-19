@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>人生 - 分类 - 嘛好吃 吃嘛好 好吃嘛</title>
-        <link>https://blog.muhowch.com/categories/%E4%BA%BA%E7%94%9F/</link>
-        <description>人生 - 分类 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 19 Jun 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E4%BA%BA%E7%94%9F/" rel="self" type="application/rss+xml" /><item>
+        <title>情绪 - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
+        <link>https://blog.muhowch.com/tags/%E6%83%85%E7%BB%AA/</link>
+        <description>情绪 - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 19 Jun 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/%E6%83%85%E7%BB%AA/" rel="self" type="application/rss+xml" /><item>
     <title>脱离了社会</title>
     <link>https://blog.muhowch.com/2022-06-19-detached-from-society/</link>
     <pubDate>Sun, 19 Jun 2022 00:00:00 &#43;0800</pubDate>
@@ -39,18 +39,11 @@
     <guid>https://blog.muhowch.com/2021-12-04/</guid>
     <description><![CDATA[这几天过的浑浑噩噩的，为了一个也许我不该认识，却又不后悔认识的朋友，一个我在乎的人。 独居两年多的生活，我基本上是从满怀热情到寂寞难耐 ，每天除]]></description>
 </item><item>
-    <title>2019-11-21</title>
-    <link>https://blog.muhowch.com/2019-11-21-note/</link>
-    <pubDate>Thu, 21 Nov 2019 00:00:00 &#43;0800</pubDate>
+    <title>2019，我厌恶你，也感谢你</title>
+    <link>https://blog.muhowch.com/2019-12-30-goodbye-2019/</link>
+    <pubDate>Mon, 30 Dec 2019 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.muhowch.com/2019-11-21-note/</guid>
-    <description><![CDATA[下班回家，打开电脑，里面是一团糟的方案和代码，看到这些，原本打算挑灯夜战的我，顿感胃酸上反。 工作时间和非工作时间，不知从什么时候开始已经融为]]></description>
-</item><item>
-    <title>2019-10-20</title>
-    <link>https://blog.muhowch.com/2019-10-20-note/</link>
-    <pubDate>Sun, 20 Oct 2019 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2019-10-20-note/</guid>
-    <description><![CDATA[晚饭过后，闲来无事，在住的地方附近转转，一方面是看看夜景是否有好的拍照效果，另一方面来自傍晚回家时在小区里看到的一幕：一户人家，母亲在厨房做]]></description>
+    <guid>https://blog.muhowch.com/2019-12-30-goodbye-2019/</guid>
+    <description><![CDATA[原本有很多话想写下来，无奈提笔忘字，只能东拼西凑。 此刻借着绍兴酒的微醺，在脑中一遍一遍回放着自己今年做过的那些愚蠢的、疯狂的、压抑的、自豪的]]></description>
 </item></channel>
 </rss>
