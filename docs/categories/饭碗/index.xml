@@ -3,7 +3,14 @@
         <title>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/</link>
         <description>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 28 Jul 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+    <title>k8s集群 手动部署</title>
+    <link>https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/</link>
+    <pubDate>Thu, 28 Jul 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/</guid>
+    <description><![CDATA[环境 vmware虚拟机3台 centos7.9 minimal docker 20.10.9 k8s 1.24.3 主机名 规格 IP k8s-master 2c-2g-40g 192.168.36.100 k8s-node01 2c-2g-40g 192.168.36.101 k8s-node02 2c-2g-40g 192.168.36.102 步骤 常规配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 # hosts 192.168.36.100 k8s-master 192.168.36.101 k8s-node01 192.168.36.102 k8s-node02 # 验证网卡m]]></description>
+</item><item>
     <title>WSL文件权限问题</title>
     <link>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</link>
     <pubDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2018-11-19-802.1x/</guid>
     <description><![CDATA[802.1X过程 协议 客户端PAE和设备端PAE之间，EAP协议使用EAPoL格式封装，直接承载于LAN环境中。 设备端PAE和Radius服务]]></description>
-</item><item>
-    <title>vsftpd学习</title>
-    <link>https://blog.muhowch.com/2018-02-25-learning-vsftpd/</link>
-    <pubDate>Sun, 25 Feb 2018 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2018-02-25-learning-vsftpd/</guid>
-    <description><![CDATA[学习Linux运维的过程中，对于一些常见的服务的搭建是必不可少的，FTP是我们经常使用的文件传输协议，在Linux上我们用vsftpd来搭建]]></description>
 </item></channel>
 </rss>

@@ -3,7 +3,14 @@
         <title>所有文章 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/posts/</link>
         <description>所有文章 | 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 19 Jun 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 28 Jul 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>k8s集群 手动部署</title>
+    <link>https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/</link>
+    <pubDate>Thu, 28 Jul 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/</guid>
+    <description><![CDATA[环境 vmware虚拟机3台 centos7.9 minimal docker 20.10.9 k8s 1.24.3 主机名 规格 IP k8s-master 2c-2g-40g 192.168.36.100 k8s-node01 2c-2g-40g 192.168.36.101 k8s-node02 2c-2g-40g 192.168.36.102 步骤 常规配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 # hosts 192.168.36.100 k8s-master 192.168.36.101 k8s-node01 192.168.36.102 k8s-node02 # 验证网卡m]]></description>
+</item><item>
     <title>脱离了社会</title>
     <link>https://blog.muhowch.com/2022-06-19-detached-from-society/</link>
     <pubDate>Sun, 19 Jun 2022 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2021-02-03-blog/</guid>
     <description><![CDATA[环境 平台：github pages 框架：hugo 主题：LoveIt 编辑器：Typora 搭建记录 引用 完整搭建文档可参考：官网文档 本地安装hugo 关于Hu]]></description>
-</item><item>
-    <title>2020-02-26</title>
-    <link>https://blog.muhowch.com/2020-02-26-note/</link>
-    <pubDate>Wed, 26 Feb 2020 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2020-02-26-note/</guid>
-    <description><![CDATA[每次说好的早睡早起，都会被一场莫名其妙的梦给搅合了。。今天是烧烤 大概是想念东北的烧烤了，梦中出现了一群如丧尸般渴望吃烧烤的人（包括我和友人）]]></description>
 </item></channel>
 </rss>
