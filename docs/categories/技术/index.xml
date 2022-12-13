@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>技术 - 分类 - 嘛好吃 吃嘛好 好吃嘛</title>
+        <link>https://blog.muhowch.com/categories/%E6%8A%80%E6%9C%AF/</link>
+        <description>技术 - 分类 - 嘛好吃 吃嘛好 好吃嘛</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E6%8A%80%E6%9C%AF/" rel="self" type="application/rss+xml" /><item>
+    <title>测试文章</title>
+    <link>https://blog.muhowch.com/blog/</link>
+    <pubDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/blog/</guid>
+    <description><![CDATA[nmcli自定义网桥 1 2 3 4 5 6 7 8 &gt; nmcli con add type bridge ifname br-user con-name br0 # 新建网桥 &gt; nmcli con add type bridge-slave ifname eth0 master br0 # 添加端口 &gt; nmcli con modify br0 bridge.stp no # 禁用stp &gt; nmcli con down &#34;Wired connection 1&#34; # 关]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>测试文章 - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="吾日三省吾身：嘛好吃 吃嘛好 好吃嘛"><meta property="og:title" content="测试文章" />
+<meta property="og:description" content="nmcli自定义网桥 1 2 3 4 5 6 7 8 &gt; nmcli con add type bridge ifname br-user con-name br0 # 新建网桥 &gt; nmcli con add type bridge-slave ifname eth0 master br0 # 添加端口 &gt; nmcli con modify br0 bridge.stp no # 禁用stp &gt; nmcli con down &#34;Wired connection 1&#34; # 关" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.muhowch.com/blog/" />
+<meta property="og:image" content="https://blog.muhowch.com"/>
+<meta property="article:published_time" content="2021-12-29T00:00:00+08:00" />
+<meta property="article:modified_time" content="2021-12-29T00:00:00+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.muhowch.com"/>
+
+<meta name="twitter:title" content="测试文章"/>
+<meta name="twitter:description" content="nmcli自定义网桥 1 2 3 4 5 6 7 8 &gt; nmcli con add type bridge ifname br-user con-name br0 # 新建网桥 &gt; nmcli con add type bridge-slave ifname eth0 master br0 # 添加端口 &gt; nmcli con modify br0 bridge.stp no # 禁用stp &gt; nmcli con down &#34;Wired connection 1&#34; # 关"/>
+<meta name="application-name" content="Muhowch">
+<meta name="apple-mobile-web-app-title" content="Muhowch"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.muhowch.com/blog/" /><link rel="prev" href="https://blog.muhowch.com/2021-12-07/" /><link rel="next" href="https://blog.muhowch.com/blog-test-2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "测试文章",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.muhowch.com\/blog\/"
+        },"genre": "posts","keywords": "web","wordcount":  444 ,
+        "url": "https:\/\/blog.muhowch.com\/blog\/","datePublished": "2021-12-29T00:00:00+08:00","dateModified": "2021-12-29T00:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Dylan Liu"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="嘛好吃 吃嘛好 好吃嘛">MUHOWCH<span class="header-title-post"><i class='fas fa-camera-retro fa-fw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://movie.douban.com/people/142688580/collect" title="影评" rel="noopener noreffer" target="_blank"> 观影 </a><a class="menu-item" href="/about/" title="关于我"> 关于 </a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="嘛好吃 吃嘛好 好吃嘛">MUHOWCH<span class="header-title-post"><i class='fas fa-camera-retro fa-fw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://movie.douban.com/people/142688580/collect" title="影评" rel="noopener noreffer" target="_blank">观影</a><a class="menu-item" href="/about/" title="关于我">关于</a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">测试文章</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Dylan Liu</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-29">2021-12-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 444 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;<i class="far fa-eye fa-fw"></i><span id="busuanzi_container_page_pv">&nbsp;共阅读&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次</span>
+
+            </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#nmcli自定义网桥">nmcli自定义网桥</a></li>
+        <li><a href="#将自定义网桥加入virsh">将自定义网桥加入virsh</a></li>
+        <li><a href="#qemu-kvm启动虚拟机无法设定自定义网桥">qemu-kvm启动虚拟机无法设定自定义网桥</a></li>
+        <li><a href="#调用">调用</a></li>
+        <li><a href="#libvirt网络手册">libvirt网络手册</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="nmcli自定义网桥">nmcli自定义网桥</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; nmcli con add <span class="nb">type</span> bridge ifname br-user con-name br0 <span class="c1"># 新建网桥</span>
+&gt; nmcli con add <span class="nb">type</span> bridge-slave ifname eth0 master br0 <span class="c1"># 添加端口</span>
+&gt; nmcli con modify br0 bridge.stp no <span class="c1"># 禁用stp</span>
+
+&gt; nmcli con down <span class="s2">&#34;Wired connection 1&#34;</span> <span class="c1"># 关闭eth0的连接</span>
+&gt; nmcli con up br0 <span class="c1"># 开启网桥</span>
+
+<span class="c1"># 通过dhcp获取ip，没有手动配置</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="将自定义网桥加入virsh"><del>将自定义网桥加入virsh</del></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; cat /tmp/br-lc.xml  <span class="c1"># 编辑配置</span>
+&lt;network&gt;
+  &lt;name&gt;br-lc&lt;/name&gt;
+  &lt;forward <span class="nv">mode</span><span class="o">=</span><span class="s1">&#39;route&#39;</span>/&gt;
+  &lt;bridge <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;br-lc&#39;</span> <span class="nv">stp</span><span class="o">=</span><span class="s1">&#39;on&#39;</span> <span class="nv">delay</span><span class="o">=</span><span class="s1">&#39;0&#39;</span>/&gt;
+  &lt;ip <span class="nv">address</span><span class="o">=</span><span class="s1">&#39;192.168.56.101&#39;</span> <span class="nv">netmask</span><span class="o">=</span><span class="s1">&#39;255.255.255.0&#39;</span>&gt;
+  &lt;/ip&gt;
+&lt;/network&gt;
+
+&gt; virsh net-define /tmp/br-lc.xml
+&gt; virsh net-start br-lc
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>virsh net-start</code>会在<code>NetworkManager</code>中自动创建一个该网桥的连接，如果之前在nmcli中已经创建了一个连接，会产生冲突并出现如下报错：</p>
+<p><code>internal error: Network is already in use by interface br-lc</code></p>
+<p>libvritd: 4.5.0-36</p>
+</blockquote>
+<blockquote>
+<p>如果创建的是直连网络，可以不用这种方式，直接创建好网桥，在创建虚机时指定连接到该网桥上</p>
+</blockquote>
+<h3 id="qemu-kvm启动虚拟机无法设定自定义网桥">qemu-kvm启动虚拟机无法设定自定义网桥</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动参数</span>
+-netdev bridge,id<span class="o">=</span>net1,br<span class="o">=</span>br-lc -device virtio-net,netdev<span class="o">=</span>net1
+
+<span class="c1"># 错误信息</span>
+access denied by acl file
+qemu-kvm: bridge helper failed
+
+<span class="c1"># 在/etc/qemu-kvm/bridge.conf中添加自定义网桥</span>
+allow virbr0
+allow br-lc
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>利用libvirtd启动虚机，不存在此类问题</p>
+</blockquote>
+<h3 id="调用">调用</h3>
+<p>libvirtd -&gt; qemu -&gt; kvm</p>
+<blockquote>
+<p><a href="https://sumit-ghosh.com/articles/virtualization-hypervisors-explaining-qemu-kvm-libvirt/" target="_blank" rel="noopener noreffer">Virtualization and Hypervisors :: Explaining QEMU, KVM, and Libvirt | Sumit’s Dreams of Electric Sheeps</a></p>
+</blockquote>
+<h3 id="libvirt网络手册">libvirt网络手册</h3>
+<blockquote>
+<p><a href="https://jamielinux.com/docs/libvirt-networking-handbook/index.html" target="_blank" rel="noopener noreffer">https://jamielinux.com/docs/libvirt-networking-handbook/index.html</a></p>
+</blockquote>
+<meting-js auto="&#39;https://music.163.com/outchain/player?type=2&amp;id=212645&amp;auto=0&amp;height=66&#39;" theme="#448aff"></meting-js>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1670835931407-2574716b-7d82-421c-b1de-e84346471d1f.png" alt="图片.png" referrerPolicy="no-referrer" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://blog.muhowch.com/blog/" data-title="测试文章" data-hashtags="web"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://blog.muhowch.com/blog/" data-hashtag="web"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://blog.muhowch.com/blog/" data-title="测试文章"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://blog.muhowch.com/blog/" data-title="测试文章"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://blog.muhowch.com/blog/" data-title="测试文章"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/web/">web</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2021-12-07/" class="prev" rel="prev" title="2021-12-07"><i class="fas fa-angle-left fa-fw"></i>2021-12-07</a>
+            <a href="/blog-test-2/" class="next" rel="next" title="你好">你好<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由<a href="https://gohugo.io/">Hugo</a>驱动 | <a href="https://github.com/dillonzq/LoveIt">LoveIt</a>设计造型</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Dylan Liu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line">
+					<br />
+					<span id="busuanzi_container_site_uv">您是第&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp位访问本站的小伙伴</span>
+			</div></div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/aplayer/APlayer.min.css"><link rel="stylesheet" href="/lib/aplayer/dark.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/aplayer/APlayer.min.js"></script><script type="text/javascript" src="/lib/meting/Meting.min.js"></script><script type="text/javascript" src="/busuanzi.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
