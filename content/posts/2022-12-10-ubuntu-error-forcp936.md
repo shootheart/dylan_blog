@@ -37,3 +37,10 @@ categories: ["fer"]
 
 > 参考：[https://askubuntu.com/questions/519796/unable-to-mount-cifs-with-iocharset-utf8](https://askubuntu.com/questions/519796/unable-to-mount-cifs-with-iocharset-utf8)
 
+- your processes number limit is 1894
+
+your memory page size is 4096 bytes
+detected max file descriptor number: 4096
+lock engine: pthread robust mutexes
+jeriqueoruqoeru
+

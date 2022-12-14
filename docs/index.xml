@@ -3,9 +3,16 @@
         <title>嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/</link>
         <description>吾日三省吾身：嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 28 Jul 2022 00:00:00 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 10 Dec 2022 00:00:00 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.muhowch.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>ubuntu挂载cifs无法使用cp936字符集</title>
+    <link>https://blog.muhowch.com/2022-12-10-ubuntu-error-forcp936/</link>
+    <pubDate>Sat, 10 Dec 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-12-10-ubuntu-error-forcp936/</guid>
+    <description><![CDATA[环境 ubuntu 20.04.4 问题 使用multipass启动了ubuntu虚拟机，想要让其与win10宿主机共享目录，由于multipass提供的mount方法在]]></description>
+</item><item>
     <title>k8s集群 手动部署</title>
     <link>https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/</link>
     <pubDate>Thu, 28 Jul 2022 00:00:00 &#43;0800</pubDate>
@@ -34,6 +41,27 @@
     <guid>https://blog.muhowch.com/2021/</guid>
     <description><![CDATA[本来今年没打算写什么，这么浑浑噩噩的一年，又有什么好总结的呢，但是当自己闲下来的时候，那些乱七八糟的想说的话又总在脑子里盘旋，好像不把它们记]]></description>
 </item><item>
+    <title>test-template</title>
+    <link>https://blog.muhowch.com/%E6%B5%8B%E8%AF%95/</link>
+    <pubDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/%E6%B5%8B%E8%AF%95/</guid>
+    <description><![CDATA[测试模板 hello]]></description>
+</item><item>
+    <title>你好</title>
+    <link>https://blog.muhowch.com/blog-test-2/</link>
+    <pubDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/blog-test-2/</guid>
+    <description><![CDATA[你好]]></description>
+</item><item>
+    <title>测试文章</title>
+    <link>https://blog.muhowch.com/blog/</link>
+    <pubDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/blog/</guid>
+    <description><![CDATA[nmcli自定义网桥 1 2 3 4 5 6 7 8 &gt; nmcli con add type bridge ifname br-user con-name br0 # 新建网桥 &gt; nmcli con add type bridge-slave ifname eth0 master br0 # 添加端口 &gt; nmcli con modify br0 bridge.stp no # 禁用stp &gt; nmcli con down &#34;Wired connection 1&#34; # 关]]></description>
+</item><item>
     <title>2021-12-07</title>
     <link>https://blog.muhowch.com/2021-12-07/</link>
     <pubDate>Tue, 07 Dec 2021 00:00:00 &#43;0800</pubDate>
@@ -47,33 +75,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2021-12-04/</guid>
     <description><![CDATA[这几天过的浑浑噩噩的，为了一个也许我不该认识，却又不后悔认识的朋友，一个我在乎的人。 独居两年多的生活，我基本上是从满怀热情到寂寞难耐 ，每天除]]></description>
-</item><item>
-    <title>三晋之地，游古城</title>
-    <link>https://blog.muhowch.com/2021-09-14-trip-to-shanxi-jinzhong/</link>
-    <pubDate>Tue, 14 Sep 2021 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2021-09-14-trip-to-shanxi-jinzhong/</guid>
-    <description><![CDATA[1 论辽阔的北方大地，除了帝都与戈壁，三晋地区似乎是个容易被遗忘的地方，或许是长期被打上煤矿的标签，人们都忘了这里曾经出现了中国最会做生意的商]]></description>
-</item><item>
-    <title>滨海之行，来都来了</title>
-    <link>https://blog.muhowch.com/2021-05-22-trip-to-binhai/</link>
-    <pubDate>Sat, 22 May 2021 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2021-05-22-trip-to-binhai/</guid>
-    <description><![CDATA[1 转眼已是2021，疫情爆发的第二个年头，这一年来的生活虽说波澜不惊，却也值得回味。从一个海滨城市转战到了另一个海滨城市，一段新的人生也就此]]></description>
-</item><item>
-    <title>WSL文件权限问题</title>
-    <link>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</link>
-    <pubDate>Tue, 09 Feb 2021 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</guid>
-    <description><![CDATA[问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只]]></description>
-</item><item>
-    <title>github&#43;Typora博客搭建方案</title>
-    <link>https://blog.muhowch.com/2021-02-03-blog/</link>
-    <pubDate>Wed, 03 Feb 2021 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2021-02-03-blog/</guid>
-    <description><![CDATA[环境 平台：github pages 框架：hugo 主题：LoveIt 编辑器：Typora 搭建记录 引用 完整搭建文档可参考：官网文档 本地安装hugo 关于Hu]]></description>
 </item></channel>
 </rss>
