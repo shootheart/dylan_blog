@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>ubuntu挂载cifs无法使用cp936字符集 - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="吾日三省吾身：嘛好吃 吃嘛好 好吃嘛"><meta property="og:title" content="ubuntu挂载cifs无法使用cp936字符集" />
+<meta property="og:description" content="环境 ubuntu 20.04.4 问题 使用multipass启动了ubuntu虚拟机，想要让其与win10宿主机共享目录，由于multipass提供的mount方法在" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.muhowch.com/2022-12-10-ubuntu-error-forcp936/" /><meta property="og:image" content="https://blog.muhowch.com"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-10T00:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2022-12-10T00:00:00&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.muhowch.com"/>
+
+<meta name="twitter:title" content="ubuntu挂载cifs无法使用cp936字符集"/>
+<meta name="twitter:description" content="环境 ubuntu 20.04.4 问题 使用multipass启动了ubuntu虚拟机，想要让其与win10宿主机共享目录，由于multipass提供的mount方法在"/>
+<meta name="application-name" content="Muhowch">
+<meta name="apple-mobile-web-app-title" content="Muhowch"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.muhowch.com/2022-12-10-ubuntu-error-forcp936/" /><link rel="prev" href="https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ubuntu挂载cifs无法使用cp936字符集",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.muhowch.com\/2022-12-10-ubuntu-error-forcp936\/"
+        },"genre": "posts","keywords": "gerq","wordcount":  470 ,
+        "url": "https:\/\/blog.muhowch.com\/2022-12-10-ubuntu-error-forcp936\/","datePublished": "2022-12-10T00:00:00+08:00","dateModified": "2022-12-10T00:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Dylan Liu"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="嘛好吃 吃嘛好 好吃嘛">MUHOWCH<span class="header-title-post"><i class='fas fa-camera-retro fa-fw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://movie.douban.com/people/142688580/collect" title="影评" rel="noopener noreffer" target="_blank"> 观影 </a><a class="menu-item" href="/about/" title="关于我"> 关于 </a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="嘛好吃 吃嘛好 好吃嘛">MUHOWCH<span class="header-title-post"><i class='fas fa-camera-retro fa-fw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://movie.douban.com/people/142688580/collect" title="影评" rel="noopener noreffer" target="_blank">观影</a><a class="menu-item" href="/about/" title="关于我">关于</a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">ubuntu挂载cifs无法使用cp936字符集</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Dylan Liu</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fer/"><i class="far fa-folder fa-fw"></i>fer</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-12-10">2022-12-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 470 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;<i class="far fa-eye fa-fw"></i><span id="busuanzi_container_page_pv">&nbsp;共阅读&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次</span>
+
+            </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境">环境</a></li>
+    <li><a href="#问题">问题</a></li>
+    <li><a href="#解决">解决</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="环境">环境</h2>
+<ul>
+<li>ubuntu 20.04.4</li>
+</ul>
+<h2 id="问题">问题</h2>
+<ul>
+<li>使用multipass启动了ubuntu虚拟机，想要让其与win10宿主机共享目录，由于multipass提供的mount方法在虚拟机重启后就会失效，所以决定还是用smb来挂载。</li>
+<li>共享目录需要支持中文显示，在添加fstab条目时需要指定iocharset选项</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /etc/fstab</span>
+//172.28.192.1/python /media/share      cifs    defaults,iocharset<span class="o">=</span>cp936,uid<span class="o">=</span>1001,gid<span class="o">=</span><span class="m">4</span>        <span class="m">0</span> <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>执行<code>mount -a</code>时发生错误，查看syslog发现无法找到cp936字符集</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1670996999107-40b903d0-f9e9-4513-b703-64892e011b62.png" alt="图片.png" referrerPolicy="no-referrer" /></p>
+<h2 id="解决">解决</h2>
+<ul>
+<li>在askubuntu上找到了类似的问题，原因是缺少模块文件。</li>
+<li>查看<code>/lib/modules/$(uname -r)/kernel/fs/nls/</code>是否存在对应字符集的模块。</li>
+<li>若缺少，需要安装包含该模块的内核包，比如<code>linux-generic</code>或<code>linux-image-extra-virtual</code></li>
+<li>我的系统中已经安装了<code>linux-generic</code>内核，所以只需要安装<code>linux-image-extra-virtual</code>重启即可。</li>
+</ul>
+<blockquote>
+<p>参考：<a href="https://askubuntu.com/questions/519796/unable-to-mount-cifs-with-iocharset-utf8" target="_blank" rel="noopener noreffer">https://askubuntu.com/questions/519796/unable-to-mount-cifs-with-iocharset-utf8</a></p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-12-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://blog.muhowch.com/2022-12-10-ubuntu-error-forcp936/" data-title="ubuntu挂载cifs无法使用cp936字符集" data-hashtags="gerq"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://blog.muhowch.com/2022-12-10-ubuntu-error-forcp936/" data-hashtag="gerq"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://blog.muhowch.com/2022-12-10-ubuntu-error-forcp936/" data-title="ubuntu挂载cifs无法使用cp936字符集"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://blog.muhowch.com/2022-12-10-ubuntu-error-forcp936/" data-title="ubuntu挂载cifs无法使用cp936字符集"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://blog.muhowch.com/2022-12-10-ubuntu-error-forcp936/" data-title="ubuntu挂载cifs无法使用cp936字符集"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/gerq/">gerq</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2022-07-28-k8s-deploy-manually/" class="prev" rel="prev" title="k8s集群 手动部署"><i class="fas fa-angle-left fa-fw"></i>k8s集群 手动部署</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由<a href="https://gohugo.io/">Hugo</a>驱动 | <a href="https://github.com/dillonzq/LoveIt">LoveIt</a>设计造型</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Dylan Liu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line">
+					<br />
+					<span id="busuanzi_container_site_uv">您是第&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp位访问本站的小伙伴</span>
+			</div></div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/busuanzi.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
