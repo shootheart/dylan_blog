@@ -80,6 +80,11 @@
         <a href="/2022-07-29-k8s-create-pod/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kubernetes/">kubernetes</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/2022-07-29-deployment-and-replicaset/">k8s的Deployment与replicaSet</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Dylan Liu</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-07-29">2022-07-29</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A5%AD%E7%A2%97/"><i class="far fa-folder fa-fw"></i>饭碗</a></span></div><div class="content">Deployment 一个 Deployment 为 Pod 和 ReplicaSet 提供声明式的更新能力。 Deployment 不直接控制 Pods, 而是通过 ReplicaSet 来间接管理 Pods。 Deployments 的典型用例： 创建 Deployment 以将 ReplicaSet 上线。 ReplicaSet 在后台创建 Pods。 检查</div><div class="post-footer">
+        <a href="/2022-07-29-deployment-and-replicaset/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kubernetes/">kubernetes</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2022-07-28-k8s-deploy-manually/">k8s集群 手动部署</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Dylan Liu</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-07-28">2022-07-28</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A5%AD%E7%A2%97/"><i class="far fa-folder fa-fw"></i>饭碗</a></span></div><div class="content">环境 vmware虚拟机3台 centos7.9 minimal docker 20.10.9 k8s 1.24.3 主机名 规格 IP k8s-master 2c-2g-40g 192.168.36.100 k8s-node01 2c-2g-40g 192.168.36.101 k8s-node02 2c-2g-40g 192.168.36.102 步骤 常规配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 # hosts 192.168.36.100 k8s-master 192.168.36.101 k8s-node01 192.168.36.102 k8s-node02 # 验证网卡m</div><div class="post-footer">
         <a href="/2022-07-28-k8s-deploy-manually/">阅读全文</a><div class="post-tags">
@@ -119,11 +124,6 @@
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Dylan Liu</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-05-22">2021-05-22</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%94%9F%E6%B4%BB%E5%A4%9A%E7%BE%8E%E5%A5%BD/"><i class="far fa-folder fa-fw"></i>生活多美好</a></span></div><div class="content">1 转眼已是2021，疫情爆发的第二个年头，这一年来的生活虽说波澜不惊，却也值得回味。从一个海滨城市转战到了另一个海滨城市，一段新的人生也就此</div><div class="post-footer">
         <a href="/2021-05-22-trip-to-binhai/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%97%85%E8%A1%8C/">旅行</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/2021-02-09-the-file-permissions-of-wsl/">WSL文件权限问题</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Dylan Liu</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-02-09">2021-02-09</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A5%AD%E7%A2%97/"><i class="far fa-folder fa-fw"></i>饭碗</a></span></div><div class="content">问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只</div><div class="post-footer">
-        <a href="/2021-02-09-the-file-permissions-of-wsl/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/wsl/">WSL</a>,&nbsp;<a href="/tags/linux/">linux</a></div></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">
                         <a href="/">1</a>
