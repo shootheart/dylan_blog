@@ -3,7 +3,14 @@
         <title>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/</link>
         <description>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 29 Jul 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 02 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+    <title>k8s配置服务proxy无法访问以及iptables规则梳理</title>
+    <link>https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/</link>
+    <pubDate>Tue, 02 Aug 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/</guid>
+    <description><![CDATA[环境 centos7.9 k8s 1.24.3 问题 在k8s集群上部署了nginx服务，通过clusterIP方式配置外部访问，之后在master节点上配置proxy代理访问ap]]></description>
+</item><item>
     <title>k8s创建pod</title>
     <link>https://blog.muhowch.com/2022-07-29-k8s-create-pod/</link>
     <pubDate>Fri, 29 Jul 2022 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2018-12-29-ca-certificate-and-middleman-attack/</guid>
     <description><![CDATA[前言 由于偶然在群中有人聊起如何抓包https，从而找了一下有什么方法可以实现。 查到Charles这个工具可以实现https的抓包，而且可以查]]></description>
-</item><item>
-    <title>Linux系统中的tty与pts</title>
-    <link>https://blog.muhowch.com/2018-12-29-tty-and-pts-of-linux/</link>
-    <pubDate>Sat, 29 Dec 2018 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2018-12-29-tty-and-pts-of-linux/</guid>
-    <description><![CDATA[问题 centos7中没有pts/0和pts/3？ tty、pty与pts的概念 tty（终端设备的统称） tty源于Teletypes，原指电传打]]></description>
 </item></channel>
 </rss>

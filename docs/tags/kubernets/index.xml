@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>kubernets - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
+        <link>https://blog.muhowch.com/tags/kubernets/</link>
+        <description>kubernets - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 02 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/kubernets/" rel="self" type="application/rss+xml" /><item>
+    <title>k8s配置服务proxy无法访问以及iptables规则梳理</title>
+    <link>https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/</link>
+    <pubDate>Tue, 02 Aug 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/</guid>
+    <description><![CDATA[环境 centos7.9 k8s 1.24.3 问题 在k8s集群上部署了nginx服务，通过clusterIP方式配置外部访问，之后在master节点上配置proxy代理访问ap]]></description>
+</item></channel>
+</rss>

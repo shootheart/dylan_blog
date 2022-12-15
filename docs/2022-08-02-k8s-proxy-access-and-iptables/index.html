@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>k8s配置服务proxy无法访问以及iptables规则梳理 - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="吾日三省吾身：嘛好吃 吃嘛好 好吃嘛"><meta property="og:title" content="k8s配置服务proxy无法访问以及iptables规则梳理" />
+<meta property="og:description" content="环境 centos7.9 k8s 1.24.3 问题 在k8s集群上部署了nginx服务，通过clusterIP方式配置外部访问，之后在master节点上配置proxy代理访问ap" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/" /><meta property="og:image" content="https://blog.muhowch.com"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-02T00:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2022-08-02T00:00:00&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.muhowch.com"/>
+
+<meta name="twitter:title" content="k8s配置服务proxy无法访问以及iptables规则梳理"/>
+<meta name="twitter:description" content="环境 centos7.9 k8s 1.24.3 问题 在k8s集群上部署了nginx服务，通过clusterIP方式配置外部访问，之后在master节点上配置proxy代理访问ap"/>
+<meta name="application-name" content="Muhowch">
+<meta name="apple-mobile-web-app-title" content="Muhowch"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/" /><link rel="prev" href="https://blog.muhowch.com/2022-07-29-k8s-create-pod/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "k8s配置服务proxy无法访问以及iptables规则梳理",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.muhowch.com\/2022-08-02-k8s-proxy-access-and-iptables\/"
+        },"genre": "posts","keywords": "kubernets","wordcount":  2591 ,
+        "url": "https:\/\/blog.muhowch.com\/2022-08-02-k8s-proxy-access-and-iptables\/","datePublished": "2022-08-02T00:00:00+08:00","dateModified": "2022-08-02T00:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Dylan Liu"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="嘛好吃 吃嘛好 好吃嘛">MUHOWCH<span class="header-title-post"><i class='fas fa-camera-retro fa-fw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="https://movie.douban.com/people/142688580/collect" title="影评" rel="noopener noreffer" target="_blank"> 观影 </a><a class="menu-item" href="/about/" title="关于我"> 关于 </a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="嘛好吃 吃嘛好 好吃嘛">MUHOWCH<span class="header-title-post"><i class='fas fa-camera-retro fa-fw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="https://movie.douban.com/people/142688580/collect" title="影评" rel="noopener noreffer" target="_blank">观影</a><a class="menu-item" href="/about/" title="关于我">关于</a><a class="menu-item" href="https://github.com/shootheart" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">k8s配置服务proxy无法访问以及iptables规则梳理</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Dylan Liu</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A5%AD%E7%A2%97/"><i class="far fa-folder fa-fw"></i>饭碗</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-08-02">2022-08-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2591 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<i class="far fa-eye fa-fw"></i><span id="busuanzi_container_page_pv">&nbsp;共阅读&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次</span>
+
+            </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境">环境</a></li>
+    <li><a href="#问题">问题</a></li>
+    <li><a href="#排查">排查</a>
+      <ul>
+        <li><a href="#数据流向">数据流向</a>
+          <ul>
+            <li><a href="#master节点">master节点</a></li>
+            <li><a href="#node02节点">node02节点</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#解决">解决</a>
+      <ul>
+        <li><a href="#关于forward-drop">关于FORWARD DROP</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="环境">环境</h2>
+<ul>
+<li>centos7.9</li>
+<li>k8s 1.24.3</li>
+</ul>
+<h2 id="问题">问题</h2>
+<ul>
+<li>在k8s集群上部署了nginx服务，通过clusterIP方式配置外部访问，之后在master节点上配置proxy代理访问api server。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101074852-9f21bdc1-2491-4b9e-9ad5-2a0c5a5981d2.png" alt="图片.png](https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101074852-9f21bdc1-2491-4b9e-9ad5-2a0c5a5981d2.png#averageHue=%230a0704&clientId=u91e5e809-db05-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=148&id=u615ba899&name=%E5%9B%BE%E7%89%87.png&originHeight=148&originWidth=1217&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28594&status=done&style=none&taskId=uf7126c93-6e8a-493f-be66-076ae14a691&title=&width=1217)![图片.png" referrerPolicy="no-referrer" /></p>
+<ul>
+<li>在外部浏览器上通过master节点的proxy尝试访问nginx服务，发现无法连接</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101106934-31354631-90f7-4640-add8-2ae273a339d5.png" alt="图片.png" referrerPolicy="no-referrer" /></p>
+<ul>
+<li>正常来说，两个node节点上都存在nginx pod，可以达到负载均衡的效果，但是无论怎么尝试，两个节点上的pod都无法连通。</li>
+<li>这种情况在master上使用curl来访问podip也是一样超时，并且podip也无法ping通。</li>
+</ul>
+<h2 id="排查">排查</h2>
+<ul>
+<li>由于k8s的各种网络策略都由iptables来执行，由此尝试疏理一下整个数据包的走向以及过滤规则。</li>
+</ul>
+<h3 id="数据流向">数据流向</h3>
+<h4 id="master节点">master节点</h4>
+<ul>
+<li>根据iptables的数据流，首先进入master节点的<code>nat-PREROUTING</code>链:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Chain PREROUTING <span class="o">(</span>policy ACCEPT <span class="m">4660</span> packets, 212K bytes<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+<span class="m">14362</span>  654K KUBE-SERVICES  all  --  any    any     anywhere             anywhere             /* kubernetes service portals */
+   <span class="m">81</span>  <span class="m">4880</span> DOCKER     all  --  any    any     anywhere             anywhere             ADDRTYPE match dst-type LOCAL
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>注释很明确，有关k8s的service都跳到<code>KUBE-SERVICES</code>：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-SERVICES <span class="o">(</span><span class="m">2</span> references<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-PIU4JA5FNNNHNOAJ  tcp  --  any    any     anywhere             10.108.94.160        /* nginx-test/nginx-service cluster IP */ tcp dpt:http
+    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-NPX46M4PTMTKRN6Y  tcp  --  any    any     anywhere             10.96.0.1            /* default/kubernetes:https cluster IP */ tcp dpt:https
+    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-TCOU7JCQXEZGVUNU  udp  --  any    any     anywhere             10.96.0.10           /* kube-system/kube-dns:dns cluster IP */ udp dpt:domain
+    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-ERIFXISQEP7F7OF4  tcp  --  any    any     anywhere             10.96.0.10           /* kube-system/kube-dns:dns-tcp cluster IP */ tcp dpt:domain
+    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-JD5MR3NA4I4DYORP  tcp  --  any    any     anywhere             10.96.0.10           /* kube-system/kube-dns:metrics cluster IP */ tcp dpt:9153
+    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-Z6GDYMWE5TV2NNJN  tcp  --  any    any     anywhere             10.97.195.35         /* kubernetes-dashboard/dashboard-metrics-scraper cluster IP */ tcp dpt:irdmi
+    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-CEZPIJSAUFW5MYPQ  tcp  --  any    any     anywhere             10.111.207.171       /* kubernetes-dashboard/kubernetes-dashboard cluster IP */ tcp dpt:https
+    <span class="m">4</span>   <span class="m">240</span> KUBE-NODEPORTS  all  --  any    any     anywhere             anywhere             /* kubernetes service nodeports<span class="p">;</span> NOTE: this must be the last rule in this chain */ ADDRTYPE match dst-type LOCAL
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>  -  这里规则很多，我们找到匹配ClusterIP的规则，同时也是注释中标明nginx服务的规则，跳转到`KUBE-SVC-PIU4JA5FNNNHNOAJ`: 
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-SVC-PIU4JA5FNNNHNOAJ <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+    <span class="m">0</span>     <span class="m">0</span> KUBE-MARK-MASQ  tcp  --  any    any    !10.224.0.0/16        10.108.94.160        /* nginx-test/nginx-service cluster IP */ tcp dpt:http
+    <span class="m">0</span>     <span class="m">0</span> KUBE-SEP-ISOO2NXNTRU4Q4WM  all  --  any    any     anywhere             anywhere             /* nginx-test/nginx-service -&gt; 10.224.1.14:80 */ statistic mode random probability 0.50000000000
+    <span class="m">0</span>     <span class="m">0</span> KUBE-SEP-EKAXC3AGUDPBQ32C  all  --  any    any     anywhere             anywhere             /* nginx-test/nginx-service -&gt; 10.224.2.16:80 */
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>     -  这里有三条规则 
+        1.  第一条说明，访问不是来自flannelIP的，将会跳转到`KUBE-MARK-MASQ`，在目标链中打上标记后回来： 
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-MARK-MASQ <span class="o">(</span><span class="m">19</span> references<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+    <span class="m">0</span>     <span class="m">0</span> MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK or 0x4000
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>        2.  第二条和第三条，说明访问跳转到`10.224.1.14`和`10.224.2.16`的概率分别是50%，因为在各自跳转的链中，都做了更改对应目的地址的DNAT： 
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-SEP-ISOO2NXNTRU4Q4WM <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+    <span class="m">0</span>     <span class="m">0</span> KUBE-MARK-MASQ  all  --  *      *       10.224.1.14          0.0.0.0/0            /* nginx-test/nginx-service */
+    <span class="m">0</span>     <span class="m">0</span> DNAT       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* nginx-test/nginx-service */ tcp to:10.224.1.14:80
+---
+Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+    <span class="m">0</span>     <span class="m">0</span> KUBE-MARK-MASQ  all  --  *      *       10.224.2.16          0.0.0.0/0            /* nginx-test/nginx-service */
+    <span class="m">0</span>     <span class="m">0</span> DNAT       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* nginx-test/nginx-service */ tcp to:10.224.2.16:80
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>     -  由于目的地址并不在本机，所以会通过路由转发到`flannel.1`网卡，通过`filter-FORWARD`: 
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Chain FORWARD <span class="o">(</span>policy DROP <span class="m">1286</span> packets, <span class="m">57870</span> bytes<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+<span class="m">15727</span>  709K KUBE-FORWARD  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */
+<span class="m">15727</span>  709K KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes service portals */
+<span class="m">15727</span>  709K KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
+<span class="m">15727</span>  709K DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+<span class="m">15727</span>  709K DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+    <span class="m">0</span>     <span class="m">0</span> DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       10.244.0.0/16        0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            10.244.0.0/16
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>        -  第一条规则即时把所有包就交给`KUBE-FORWARD`处理： 
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-FORWARD <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+    <span class="m">0</span>     <span class="m">0</span> DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate INVALID
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */ mark match 0x4000/0x4000
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding conntrack rule */ ctstate RELATED,ESTABLISHED
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>           -  由于刚刚在`KUBE-MARK-MASQ`已经打了`0x4000`标记，在这里就会被匹配到并`ACCEPT`，由此直接进入`nat-POSTROUTING`： 
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Chain POSTROUTING <span class="o">(</span>policy ACCEPT <span class="m">2838</span> packets, 171K bytes<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+<span class="m">25000</span> 1506K KUBE-POSTROUTING  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes postrouting rules */
+    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      !docker0  172.17.0.0/16        0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> RETURN     all  --  *      *       10.244.0.0/16        10.244.0.0/16       
+    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *       10.244.0.0/16       !224.0.0.0/4         
+ <span class="m">7317</span>  439K RETURN     all  --  *      *      !10.244.0.0/16        10.224.0.0/24       
+    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *      !10.244.0.0/16        10.244.0.0/16
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>              -  在这里，第一条也是直接全部交给`KUBE-POSTROUTING`: 
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-POSTROUTING <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+ <span class="m">3024</span>  182K RETURN     all  --  *      *       0.0.0.0/0            0.0.0.0/0            mark match ! 0x4000/0x4000
+    <span class="m">0</span>     <span class="m">0</span> MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK xor 0x4000
+    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service traffic requiring SNAT */
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>                 - 数据包是因为打过标记才走到这条链的，在第二条规则里，这个标记会因为异或操作而被清除，然后在第三条规则里，通过nat的`MASQUERADE`把源地址改为所发出网卡的IP（也就是`flannel.1`），然后通过发到下一个节点（也就是node02）。自此master上的数据流完毕。
+</code></pre>
+<h4 id="node02节点">node02节点</h4>
+<ul>
+<li>数据包从master节点通过<code>flannel.1</code>网卡发送到了node02节点，同样从<code>flannel.1</code>网卡进入<code>nat-PREROUTING</code>
+<ul>
+<li>此时数据包的源地址是<code>10.224.0.0</code>，目的地址是<code>10.224.2.16</code></li>
+</ul>
+</li>
+<li>node02和master节点的<code>iptables</code>规则<strong>基本上是相同的</strong>。所以在nat表中，不会匹配到任何一条规则，直接走到<code>filter-FORWARD</code>。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># LOG为自行添加调试使用</span>
+Chain FORWARD <span class="o">(</span>policy DROP <span class="m">0</span> packets, <span class="m">0</span> bytes<span class="o">)</span>
+ pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+  <span class="m">695</span> <span class="m">58480</span> KUBE-FORWARD  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */
+  <span class="m">581</span> <span class="m">47724</span> LOG        all  --  *      *       0.0.0.0/0            10.224.2.16          LOG flags <span class="m">0</span> level <span class="m">4</span> prefix <span class="s2">&#34;[iptables 3:]&#34;</span>
+  <span class="m">632</span> <span class="m">50784</span> KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes service portals */
+  <span class="m">575</span> <span class="m">47364</span> LOG        all  --  *      *       0.0.0.0/0            10.224.2.16          LOG flags <span class="m">0</span> level <span class="m">4</span> prefix <span class="s2">&#34;[iptables 4:]&#34;</span>
+  <span class="m">632</span> <span class="m">50784</span> KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
+  <span class="m">632</span> <span class="m">50784</span> DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+  <span class="m">632</span> <span class="m">50784</span> DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+    <span class="m">0</span>     <span class="m">0</span> DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       10.244.0.0/16        0.0.0.0/0           
+    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            10.244.0.0/16       
+  <span class="m">554</span> <span class="m">46104</span> LOG        all  --  *      *       0.0.0.0/0            10.224.2.16          LOG flags <span class="m">0</span> level <span class="m">4</span> prefix <span class="s2">&#34;[iptables forward-end]&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>在这里也没有任何一条规则会对数据流作出改变，所以会走到最后执行默认策略：<code>DROP</code>。这也是访问该pod无法连接的根本原因。</li>
+</ul>
+<h2 id="解决">解决</h2>
+<ul>
+<li>已知根本原因在于node节点阻止了访问pod的数据包，那解决方法就有两种：
+<ul>
+<li>修改<code>filter-FORWARD</code>的默认策略为<code>ACCEPT</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>考虑到全部放行，可能会有未知的问题，暂且不用</p>
+</blockquote>
+<ul>
+<li>在<code>filter-FORWARD</code>的末尾添加一条兜底策略，放行网卡为<code>flannel.1</code>且目的地址为<code>10.224.X.X</code>的数据包：
+<code>iptables -A FORWARD -i flannel.1 -d 10.224.2.0/24 -j ACCEPT</code></li>
+<li>之后再通过外部浏览器访问：</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101154065-d965c705-55ec-4a4d-a290-b6f3d6c926ea.png" alt="图片.png" referrerPolicy="no-referrer" /></p>
+<h3 id="关于forward-drop">关于FORWARD DROP</h3>
+<ul>
+<li><code>filter-FORWARD</code>链的默认策略被置为<code>DROP</code>，实际上是<code>docker</code>所做的安全策略</li>
+</ul>
+<blockquote>
+<p>Docker also sets the policy for the <code>FORWARD</code> chain to <code>DROP</code>. If your Docker host also acts as a router, this will result in that router not forwarding any traffic anymore. If you want your system to continue functioning as a router, you can add explicit <code>ACCEPT</code> rules to the <code>DOCKER-USER</code> chain to allow it:</p>
+<p><a href="https://docs.docker.com/network/iptables/#docker-on-a-router" target="_blank" rel="noopener noreffer">https://docs.docker.com/network/iptables/#docker-on-a-router</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ iptables -I DOCKER-USER -i src_if -o dst_if -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>所以按官方文档给出的方法，在<code>DOCKER-USER</code>链中加入希望开通的转发规则就可以解决。</li>
+<li>但是按这种方式配置，在系统重启后，这条规则就会时效，所以还是需要配置启动脚本，在docker服务启动之后加载这条规则。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /usr/lib/systemd/system/iptables-user.service</span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>
+<span class="nv">After</span><span class="o">=</span>docker.service
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">Type</span><span class="o">=</span>simple
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/sbin/iptables -I DOCKER-USER -i flannel.1 -o cni0 -j ACCEPT
+<span class="nv">ExecReload</span><span class="o">=</span>
+<span class="nv">ExecStop</span><span class="o">=</span>
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-08-02</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/" data-title="k8s配置服务proxy无法访问以及iptables规则梳理" data-hashtags="kubernets"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/" data-hashtag="kubernets"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/" data-title="k8s配置服务proxy无法访问以及iptables规则梳理"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/" data-title="k8s配置服务proxy无法访问以及iptables规则梳理"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/" data-title="k8s配置服务proxy无法访问以及iptables规则梳理"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kubernets/">kubernets</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2022-07-29-k8s-create-pod/" class="prev" rel="prev" title="k8s创建pod"><i class="fas fa-angle-left fa-fw"></i>k8s创建pod</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由<a href="https://gohugo.io/">Hugo</a>驱动 | <a href="https://github.com/dillonzq/LoveIt">LoveIt</a>设计造型</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Dylan Liu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line">
+					<br />
+					<span id="busuanzi_container_site_uv">您是第&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp位访问本站的小伙伴</span>
+			</div></div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/busuanzi.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
