@@ -5,6 +5,13 @@
         <description>1 - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/1/" rel="self" type="application/rss+xml" /><item>
     <title>test-template</title>
+    <link>https://blog.muhowch.com/sert/</link>
+    <pubDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/sert/</guid>
+    <description><![CDATA[测试模板 hello erouqeorueqotret]]></description>
+</item><item>
+    <title>test-template</title>
     <link>https://blog.muhowch.com/%E6%B5%8B%E8%AF%95/</link>
     <pubDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
