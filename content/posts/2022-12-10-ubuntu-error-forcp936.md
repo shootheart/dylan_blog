@@ -50,3 +50,13 @@ jrqieoru
 eworuqoeriu
 ```
 
+-  然后重新加载kvm模块 
+```bash
+rmmod kvm-intel
+## 卸载kvm_intel模块
+modprobe kvm-intel ept=0 unrestricted_guest=0
+## 安装kvm_intel模块
+```
+ 
+
+-  重启云主机，就可以正常进入了 
