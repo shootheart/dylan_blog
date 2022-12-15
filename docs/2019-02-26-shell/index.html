@@ -9,8 +9,8 @@
 <meta property="og:description" content="比较两个字符串是否相等 1 if [ &#34;$test&#34;x = &#34;test&#34;x ]; then 注意： 使用单个等号 等号两边有空格 注意到&quot;$test&quot;x最后的x，这是特意安排的，因" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.muhowch.com/2019-02-26-shell/" /><meta property="og:image" content="https://blog.muhowch.com"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-02-26T00:00:00+08:00" />
-<meta property="article:modified_time" content="2019-02-26T00:00:00+08:00" />
+<meta property="article:published_time" content="2019-02-26T00:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2019-02-26T00:00:00&#43;08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.muhowch.com"/>
@@ -120,11 +120,11 @@
             </div><div class="content" id="content"><h2 id="比较两个字符串是否相等">比较两个字符串是否相等</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$test</span><span class="s2">&#34;</span><span class="nv">x</span> <span class="o">=</span> <span class="s2">&#34;test&#34;</span>x <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$test</span><span class="s2">&#34;</span><span class="nv">x</span> <span class="o">=</span> <span class="s2">&#34;test&#34;</span>x <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>注意：
@@ -139,11 +139,11 @@
 <h2 id="将多行写入文件">将多行写入文件</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt;&gt; filename &lt;&lt; EOF
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt;&gt; filename &lt;&lt; EOF
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>输入要写入文件的内容，以EOF为结尾，输入结束</li>
@@ -154,7 +154,7 @@
 <h3 id="文字颜色">文字颜色</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -166,17 +166,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#字体颜色：30m-37m 黑、红、绿、黄、蓝、紫、青、白</span>
-</span></span><span class="line"><span class="cl"><span class="nv">str</span><span class="o">=</span><span class="s2">&#34;kimbo zhang&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[30m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 黑色字体</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[31m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 红色</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[32m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 绿色</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 黄色</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[34m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 蓝色</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[35m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 紫色</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[36m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 青色</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[37m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 白色</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#字体颜色：30m-37m 黑、红、绿、黄、蓝、紫、青、白</span>
+<span class="nv">str</span><span class="o">=</span><span class="s2">&#34;kimbo zhang&#34;</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[30m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 黑色字体</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[31m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 红色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[32m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 绿色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 黄色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[34m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 蓝色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[35m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 紫色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[36m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 青色</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[37m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2">\033[0m&#34;</span>      <span class="c1">## 白色</span>
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>echo必须添加-e选项</li>
@@ -185,7 +185,7 @@
 <h3 id="文字背景颜色">文字背景颜色</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -195,15 +195,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#背景颜色：40-47 黑、红、绿、黄、蓝、紫、青、白</span>
-</span></span><span class="line"><span class="cl"><span class="nv">str</span><span class="o">=</span><span class="s2">&#34;kimbo zhang&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[41;37m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 红色背景色，白色字体</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[41;33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 红底黄字</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[1;41;33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>   <span class="c1">## 红底黄字 高亮加粗显示</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[5;41;33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>   <span class="c1">## 红底黄字 字体闪烁显示</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[47;30m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 白底黑字</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[40;37m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 黑底白字</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#背景颜色：40-47 黑、红、绿、黄、蓝、紫、青、白</span>
+<span class="nv">str</span><span class="o">=</span><span class="s2">&#34;kimbo zhang&#34;</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[41;37m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 红色背景色，白色字体</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[41;33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 红底黄字</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[1;41;33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>   <span class="c1">## 红底黄字 高亮加粗显示</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[5;41;33m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>   <span class="c1">## 红底黄字 字体闪烁显示</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[47;30m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 白底黑字</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[40;37m </span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> \033[0m&#34;</span>     <span class="c1">## 黑底白字</span>
+</code></pre></td></tr></table>
 </div>
 </div><h3 id="其他效果">其他效果</h3>
 <ul>
@@ -236,8 +236,8 @@
 <ul>
 <li>[[是 bash 程序语言的关键字。并不是一个命令，<strong>[<i class="far fa-square fa-fw"></i> ] 结构比<i class="far fa-square fa-fw"></i> 结构更加通用</strong>。在[[和]]之间所有的字符都不会发生文件名扩展或者单词分割，但是会发生参数扩展和命令替换。</li>
 <li>支持字符串的模式匹配，使用=~操作符时甚至支持shell的正则表达式。字符串比较时可以把右边的作为一个模式，而不仅仅是一个字符串，比如[[ hello == hell? ]]，结果为真。[<i class="far fa-square fa-fw"></i> ] 中匹配字符串或通配符，不需要引号。</li>
-<li>使用[[ &hellip; ]]条件判断结构，而不是[ &hellip; ]，能够防止脚本中的许多逻辑错误。比如，&amp;&amp;、||、&lt;和&gt; 
-操作符能够正常存在于[<i class="far fa-square fa-fw"></i> ]条件判断结构中，但是如果出现在<i class="far fa-square fa-fw"></i> 结构中的话，会报错。比如可以直接使用if [[ $a != 1 
+<li>使用[[ &hellip; ]]条件判断结构，而不是[ &hellip; ]，能够防止脚本中的许多逻辑错误。比如，&amp;&amp;、||、&lt;和&gt;
+操作符能够正常存在于[<i class="far fa-square fa-fw"></i> ]条件判断结构中，但是如果出现在<i class="far fa-square fa-fw"></i> 结构中的话，会报错。比如可以直接使用if [[ $a != 1
 &amp;&amp; $a != 2 ]], 如果不适用双括号, 则为if [ $a -ne 1] &amp;&amp; [ $a != 2 ]或者if [ $a -ne 1 -a $a != 2 ]。</li>
 <li>bash把双中括号中的表达式看作一个单独的元素，并返回一个退出状态码。</li>
 </ul>
@@ -357,22 +357,22 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;--help&#39;</span> <span class="p">|</span> cat
-</span></span><span class="line"><span class="cl"><span class="c1"># 输出：</span>
-</span></span><span class="line"><span class="cl">--help
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">&#39;--help&#39;</span> <span class="p">|</span> cat
+<span class="c1"># 输出：</span>
+--help
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>xargs将其接受的内容当作后一个命令的参数来运行后一个命令。</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -382,15 +382,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;--help&#39;</span> <span class="p">|</span> xargs cat 
-</span></span><span class="line"><span class="cl"><span class="c1"># 输出：</span>
-</span></span><span class="line"><span class="cl">Usage: cat <span class="o">[</span>OPTION<span class="o">]</span>... <span class="o">[</span>FILE<span class="o">]</span>...
-</span></span><span class="line"><span class="cl">Concatenate FILE<span class="o">(</span>s<span class="o">)</span>, or standard input, to standard output.
-</span></span><span class="line"><span class="cl"> 
-</span></span><span class="line"><span class="cl">  -A, --show-all           equivalent to -vET
-</span></span><span class="line"><span class="cl">  -b, --number-nonblank    number nonempty output lines
-</span></span><span class="line"><span class="cl">  ......
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">&#39;--help&#39;</span> <span class="p">|</span> xargs cat 
+<span class="c1"># 输出：</span>
+Usage: cat <span class="o">[</span>OPTION<span class="o">]</span>... <span class="o">[</span>FILE<span class="o">]</span>...
+Concatenate FILE<span class="o">(</span>s<span class="o">)</span>, or standard input, to standard output.
+ 
+  -A, --show-all           equivalent to -vET
+  -b, --number-nonblank    number nonempty output lines
+  ......
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>xargs的其他选项：

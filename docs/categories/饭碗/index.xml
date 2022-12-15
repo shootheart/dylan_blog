@@ -3,7 +3,14 @@
         <title>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/</link>
         <description>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 28 Jul 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 29 Jul 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+    <title>k8s创建pod</title>
+    <link>https://blog.muhowch.com/2022-07-29-k8s-create-pod/</link>
+    <pubDate>Fri, 29 Jul 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-07-29-k8s-create-pod/</guid>
+    <description><![CDATA[创建pod的流程 创建pod操作 使用yaml 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 # 编写y]]></description>
+</item><item>
     <title>k8s集群 手动部署</title>
     <link>https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/</link>
     <pubDate>Thu, 28 Jul 2022 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2018-11-27-import-a-kvm-image-using-ova/</guid>
     <description><![CDATA[从virtualbox打包来的ova格式镜像，发现无法在kvm上直接使用，会提示镜像无法引导，因为kvm使用的虚拟磁盘格式多数都是qcow2]]></description>
-</item><item>
-    <title>802.1X学习</title>
-    <link>https://blog.muhowch.com/2018-11-19-802.1x/</link>
-    <pubDate>Mon, 19 Nov 2018 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2018-11-19-802.1x/</guid>
-    <description><![CDATA[802.1X过程 协议 客户端PAE和设备端PAE之间，EAP协议使用EAPoL格式封装，直接承载于LAN环境中。 设备端PAE和Radius服务]]></description>
 </item></channel>
 </rss>

@@ -9,8 +9,8 @@
 <meta property="og:description" content="利用github、Typora和Hugo搭建自己的博客" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.muhowch.com/2021-02-03-blog/" /><meta property="og:image" content="https://blog.muhowch.com"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-02-03T00:00:00+08:00" />
-<meta property="article:modified_time" content="2021-02-03T00:00:00+08:00" />
+<meta property="article:published_time" content="2021-02-03T00:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2021-02-03T00:00:00&#43;08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.muhowch.com"/>
@@ -158,13 +158,13 @@
 <p>Hugo 提供了一个 <code>new</code> 命令来创建一个新的网站：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new site my_website
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> my_website
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">hugo new site my_website
+<span class="nb">cd</span> my_website
+</code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -193,13 +193,13 @@
 <h3 id="构建本地网站">构建本地网站</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo serve --disableFastRender
-</span></span><span class="line"><span class="cl"><span class="c1"># --disableFastRender可以通过hugo的.Scratch来实现实时预览文章效果</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">hugo serve --disableFastRender
+<span class="c1"># --disableFastRender可以通过hugo的.Scratch来实现实时预览文章效果</span>
+</code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>通过<code>localhost:1313</code>可以访问本地搭建的网站。</li>
@@ -214,7 +214,7 @@
 <p>可以在文章的内容前面加上yaml格式或json格式的元数据参数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -227,18 +227,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># 常用</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;文章标题&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="ld">2021-02-03T00:00:00</span><span class="m">+08</span><span class="p">:</span><span class="m">00</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">draft</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="l">(是否为草稿，如果在hugo serve中加入了参数--buildDrafts/-D，将决定此篇文章是否显示在主页)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">toc</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="l">(是否启用目录)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;blog&#34;</span><span class="p">]</span><span class="w"> </span><span class="l">(标签)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;生活多美好&#34;</span><span class="p">]</span><span class="w"> </span><span class="l">(分类)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">lightgallery</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="l">(是否启用lightgallery)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">文章正文</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 常用</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;文章标题&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="ld">2021-02-03T00:00:00</span><span class="m">+08</span><span class="p">:</span><span class="m">00</span><span class="w">
+</span><span class="w"></span><span class="nt">draft</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="l">(是否为草稿，如果在hugo serve中加入了参数--buildDrafts/-D，将决定此篇文章是否显示在主页)</span><span class="w">
+</span><span class="w"></span><span class="nt">toc</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="l">(是否启用目录)</span><span class="w">
+</span><span class="w"></span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;blog&#34;</span><span class="p">]</span><span class="w"> </span><span class="l">(标签)</span><span class="w">
+</span><span class="w"></span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;生活多美好&#34;</span><span class="p">]</span><span class="w"> </span><span class="l">(分类)</span><span class="w">
+</span><span class="w"></span><span class="nt">lightgallery</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="l">(是否启用lightgallery)</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="l">文章正文</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -266,7 +266,7 @@
 <p>先在源文件的根目录下执行<code>hugo</code>命令生成网站文件，网站文件输出的目录，可以在config.toml中配置“publishDir”参数。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -283,29 +283,29 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ hugo
-</span></span><span class="line"><span class="cl">Start building sites …
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">                   <span class="p">|</span> ZH-CN
-</span></span><span class="line"><span class="cl">-------------------+--------
-</span></span><span class="line"><span class="cl">  Pages            <span class="p">|</span>    <span class="m">82</span>
-</span></span><span class="line"><span class="cl">  Paginator pages  <span class="p">|</span>     <span class="m">1</span>
-</span></span><span class="line"><span class="cl">  Non-page files   <span class="p">|</span>     <span class="m">0</span>
-</span></span><span class="line"><span class="cl">  Static files     <span class="p">|</span>    <span class="m">94</span>
-</span></span><span class="line"><span class="cl">  Processed images <span class="p">|</span>     <span class="m">0</span>
-</span></span><span class="line"><span class="cl">  Aliases          <span class="p">|</span>    <span class="m">22</span>
-</span></span><span class="line"><span class="cl">  Sitemaps         <span class="p">|</span>     <span class="m">1</span>
-</span></span><span class="line"><span class="cl">  Cleaned          <span class="p">|</span>     <span class="m">0</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Total in <span class="m">3026</span> ms
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ hugo
+Start building sites …
+  
+                   <span class="p">|</span> ZH-CN
+-------------------+--------
+  Pages            <span class="p">|</span>    <span class="m">82</span>
+  Paginator pages  <span class="p">|</span>     <span class="m">1</span>
+  Non-page files   <span class="p">|</span>     <span class="m">0</span>
+  Static files     <span class="p">|</span>    <span class="m">94</span>
+  Processed images <span class="p">|</span>     <span class="m">0</span>
+  Aliases          <span class="p">|</span>    <span class="m">22</span>
+  Sitemaps         <span class="p">|</span>     <span class="m">1</span>
+  Cleaned          <span class="p">|</span>     <span class="m">0</span>
+  
+Total in <span class="m">3026</span> ms
+</code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>完成之后，根目录下会出现一个新目录，其中包含的就是我们转换后得到的网站文件。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -319,34 +319,34 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ls -l
-</span></span><span class="line"><span class="cl">total <span class="m">37</span>
-</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:58 archetypes/
-</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  2月  <span class="m">9</span> 14:45 assets/
-</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> liuchong <span class="m">197609</span>    <span class="m">19</span>  1月 <span class="m">31</span> 19:58 CNAME
-</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> liuchong <span class="m">197609</span> <span class="m">16770</span>  1月 <span class="m">31</span> 19:58 config.toml
-</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:58 content/
-</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  8月 <span class="m">31</span>  <span class="m">1754</span> docs/  &lt;-- 这就是我们的网站文件目录
-</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> liuchong <span class="m">197609</span>  <span class="m">7169</span>  1月 <span class="m">31</span> 19:58 LICENSE
-</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:59 resources/
-</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:58 static/
-</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:58 themes/
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ ls -l
+total <span class="m">37</span>
+drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:58 archetypes/
+drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  2月  <span class="m">9</span> 14:45 assets/
+-rw-r--r-- <span class="m">1</span> liuchong <span class="m">197609</span>    <span class="m">19</span>  1月 <span class="m">31</span> 19:58 CNAME
+-rw-r--r-- <span class="m">1</span> liuchong <span class="m">197609</span> <span class="m">16770</span>  1月 <span class="m">31</span> 19:58 config.toml
+drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:58 content/
+drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  8月 <span class="m">31</span>  <span class="m">1754</span> docs/  &lt;-- 这就是我们的网站文件目录
+-rw-r--r-- <span class="m">1</span> liuchong <span class="m">197609</span>  <span class="m">7169</span>  1月 <span class="m">31</span> 19:58 LICENSE
+drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:59 resources/
+drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:58 static/
+drwxr-xr-x <span class="m">1</span> liuchong <span class="m">197609</span>     <span class="m">0</span>  1月 <span class="m">31</span> 19:58 themes/
+</code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>现在我们就可以用git推送到自己的仓库啦。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git add *
-</span></span><span class="line"><span class="cl">$ git commit -m <span class="s2">&#34;初始化网站&#34;</span>
-</span></span><span class="line"><span class="cl">$ git push origin main
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git add *
+$ git commit -m <span class="s2">&#34;初始化网站&#34;</span>
+$ git push origin main
+</code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
         <div class="details-summary admonition-title">
@@ -588,7 +588,7 @@
 <p>最终脚本实现如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -601,18 +601,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#! /bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># 脚本参数1：从Typora传入的文件名；参数2...：图片的本地绝对路径</span>
-</span></span><span class="line"><span class="cl"><span class="nv">conf</span><span class="o">=</span><span class="s2">&#34;/c/Users/liuchong/AppData/Roaming/picgo/data.json&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nv">path</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$*</span> <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="s2">/&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nv">pics</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$*</span> <span class="p">|</span> awk <span class="s1">&#39;{$1=&#34;&#34;; print $0}&#39;</span><span class="k">)</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 修改PicGo配置中的路径值</span>
-</span></span><span class="line"><span class="cl">sed -i /path/<span class="o">{</span><span class="s2">&#34;s|\:.*|\: \&#34;</span><span class="nv">$path</span><span class="s2">\&#34;|&#34;</span><span class="o">}</span> <span class="nv">$conf</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 这里调用PicGo之后，执行完不会自动结束进程，所以我们将调用放入后台，在上传图片并成功返回链接后，将进程结束（权宜之计）。</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="k">$(</span>/e/PicGo/PicGo.exe upload <span class="nv">$pics</span> <span class="p">|</span> grep https<span class="k">)</span><span class="s2">&#34;</span> <span class="p">&amp;</span>
-</span></span><span class="line"><span class="cl">sleep <span class="m">5</span>
-</span></span><span class="line"><span class="cl">ps -ef <span class="p">|</span> grep <span class="s2">&#34;PicGo&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span> <span class="p">|</span> xargs <span class="nb">kill</span> &gt;&gt; /dev/null
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /bin/bash
+</span><span class="cp"></span><span class="c1"># 脚本参数1：从Typora传入的文件名；参数2...：图片的本地绝对路径</span>
+<span class="nv">conf</span><span class="o">=</span><span class="s2">&#34;/c/Users/liuchong/AppData/Roaming/picgo/data.json&#34;</span>
+<span class="nv">path</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$*</span> <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="s2">/&#34;</span>
+<span class="nv">pics</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$*</span> <span class="p">|</span> awk <span class="s1">&#39;{$1=&#34;&#34;; print $0}&#39;</span><span class="k">)</span><span class="s2">&#34;</span>
+<span class="c1"># 修改PicGo配置中的路径值</span>
+sed -i /path/<span class="o">{</span><span class="s2">&#34;s|\:.*|\: \&#34;</span><span class="nv">$path</span><span class="s2">\&#34;|&#34;</span><span class="o">}</span> <span class="nv">$conf</span>
+<span class="c1"># 这里调用PicGo之后，执行完不会自动结束进程，所以我们将调用放入后台，在上传图片并成功返回链接后，将进程结束（权宜之计）。</span>
+<span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="k">$(</span>/e/PicGo/PicGo.exe upload <span class="nv">$pics</span> <span class="p">|</span> grep https<span class="k">)</span><span class="s2">&#34;</span> <span class="p">&amp;</span>
+sleep <span class="m">5</span>
+ps -ef <span class="p">|</span> grep <span class="s2">&#34;PicGo&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span> <span class="p">|</span> xargs <span class="nb">kill</span> &gt;&gt; /dev/null
+</code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
