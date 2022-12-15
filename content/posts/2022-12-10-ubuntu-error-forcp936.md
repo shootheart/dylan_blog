@@ -42,11 +42,5 @@ categories: ["fer"]
 your memory page size is 4096 bytes
 detected max file descriptor number: 4096
 lock engine: pthread robust mutexes
-> eroquetoe
-
-```bash
-
-jrqieoru
-eworuqoeriu
-```
+jeriqueoruqoeru
 
