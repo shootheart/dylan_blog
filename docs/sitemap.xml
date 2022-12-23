@@ -2,13 +2,16 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://blog.muhowch.com/categories/</loc><lastmod>2022-08-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/categories/</loc><lastmod>2022-08-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/docker/</loc><lastmod>2022-08-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/</loc><lastmod>2022-08-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/linux/</loc><lastmod>2022-08-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/posts/</loc><lastmod>2022-08-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/</loc><lastmod>2022-08-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/</loc><lastmod>2022-08-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/</loc><lastmod>2022-08-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2022-08-03-replace-cri-to-containerd/</loc><lastmod>2022-08-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/kubernets/</loc><lastmod>2022-08-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/posts/</loc><lastmod>2022-08-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/tags/</loc><lastmod>2022-08-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/</loc><lastmod>2022-08-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/</loc><lastmod>2022-08-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/</loc><lastmod>2022-08-02T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2022-07-29-k8s-create-pod/</loc><lastmod>2022-07-29T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2022-07-29-deployment-and-replicaset/</loc><lastmod>2022-07-29T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -26,7 +29,6 @@
             <loc>https://blog.muhowch.com/tags/%E6%97%85%E8%A1%8C/</loc><lastmod>2021-09-14T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/categories/%E7%94%9F%E6%B4%BB%E5%A4%9A%E7%BE%8E%E5%A5%BD/</loc><lastmod>2021-09-14T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2021-05-22-trip-to-binhai/</loc><lastmod>2021-05-22T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/tags/linux/</loc><lastmod>2021-02-09T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/wsl/</loc><lastmod>2021-02-09T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</loc><lastmod>2021-02-09T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/blog/</loc><lastmod>2021-02-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

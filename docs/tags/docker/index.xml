@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>docker - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
+        <link>https://blog.muhowch.com/tags/docker/</link>
+        <description>docker - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 04 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>docker容器进程用户问题</title>
+    <link>https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/</link>
+    <pubDate>Thu, 04 Aug 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/</guid>
+    <description><![CDATA[环境 宿主机：CentOS7.9 docker：20.10.9 过程 在宿主机上部署docker服务并运行一个rabbitmq容器 1 docker run -d --hostname rabbitmq02 --name rabbitmq02 -v]]></description>
+</item></channel>
+</rss>
