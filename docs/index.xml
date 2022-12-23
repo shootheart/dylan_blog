@@ -20,6 +20,13 @@
     <guid>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</guid>
     <description><![CDATA[环境 openstack：mitaka；ironic：5.1.0 制作环境：centos7.9；python：3.6.8 ironic-pytho]]></description>
 </item><item>
+    <title>vmware部署kvm无法启动云主机</title>
+    <link>https://blog.muhowch.com/2022-08-25-issue-about-kvm-on-vmware/</link>
+    <pubDate>Thu, 25 Aug 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-08-25-issue-about-kvm-on-vmware/</guid>
+    <description><![CDATA[问题 在vmware环境部署zstack all in one环境，创建虚拟机之后无法启动，只显示seabios的信息，无法进入系统 更换硬盘的接口模式无效]]></description>
+</item><item>
     <title>ubuntu挂载cifs无法使用cp936字符集</title>
     <link>https://blog.muhowch.com/2022-08-05-issue-about-cifs-on-ubuntu/</link>
     <pubDate>Fri, 05 Aug 2022 00:00:00 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/</guid>
     <description><![CDATA[环境 vmware虚拟机3台 centos7.9 minimal docker 20.10.9 k8s 1.24.3 主机名 规格 IP k8s-master 2c-2g-40g 192.168.36.100 k8s-node01 2c-2g-40g 192.168.36.101 k8s-node02 2c-2g-40g 192.168.36.102 步骤 常规配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 # hosts 192.168.36.100 k8s-master 192.168.36.101 k8s-node01 192.168.36.102 k8s-node02 # 验证网卡m]]></description>
-</item><item>
-    <title>脱离了社会</title>
-    <link>https://blog.muhowch.com/2022-06-19-detached-from-society/</link>
-    <pubDate>Sun, 19 Jun 2022 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2022-06-19-detached-from-society/</guid>
-    <description><![CDATA[pyq留下的最后一张图片" pyq留下的最后一张图片 1 又是一个炎热的夏夜，赤膊着上身坐在屋里，哪怕一动不动都会汗流浃背。 手里晃着没喝完的半罐啤]]></description>
 </item></channel>
 </rss>

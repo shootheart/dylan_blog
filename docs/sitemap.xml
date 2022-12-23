@@ -11,6 +11,8 @@
             <loc>https://blog.muhowch.com/</loc><lastmod>2022-10-20T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/</loc><lastmod>2022-10-20T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</loc><lastmod>2022-10-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/2022-08-25-issue-about-kvm-on-vmware/</loc><lastmod>2022-08-25T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc><lastmod>2022-08-25T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/linux/</loc><lastmod>2022-08-05T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2022-08-05-issue-about-cifs-on-ubuntu/</loc><lastmod>2022-08-05T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/docker/</loc><lastmod>2022-08-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -61,7 +63,6 @@
             <loc>https://blog.muhowch.com/2018-12-29-tty-and-pts-of-linux/</loc><lastmod>2018-12-29T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/kvm/</loc><lastmod>2018-11-27T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2018-11-27-import-a-kvm-image-using-ova/</loc><lastmod>2018-11-27T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc><lastmod>2018-11-27T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/802.1x/</loc><lastmod>2018-11-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2018-11-19-802.1x/</loc><lastmod>2018-11-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2018-07-02-the-viewpoint-about-kids-in-cinema/</loc><lastmod>2018-07-02T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
