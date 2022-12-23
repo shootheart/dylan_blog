@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>OpenStack - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
+        <link>https://blog.muhowch.com/tags/openstack/</link>
+        <description>OpenStack - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 19 Oct 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/openstack/" rel="self" type="application/rss+xml" /><item>
+    <title>制作openstack-mitaka版centos9裸机ramdisk</title>
+    <link>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</link>
+    <pubDate>Wed, 19 Oct 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</guid>
+    <description><![CDATA[环境 openstack：mitaka；ironic：5.1.0 制作环境：centos7.9；python：3.6.8 ironic-pytho]]></description>
+</item></channel>
+</rss>

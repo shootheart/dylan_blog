@@ -3,7 +3,14 @@
         <title>所有文章 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/posts/</link>
         <description>所有文章 | 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 04 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 19 Oct 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>制作openstack-mitaka版centos9裸机ramdisk</title>
+    <link>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</link>
+    <pubDate>Wed, 19 Oct 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</guid>
+    <description><![CDATA[环境 openstack：mitaka；ironic：5.1.0 制作环境：centos7.9；python：3.6.8 ironic-pytho]]></description>
+</item><item>
     <title>docker容器进程用户问题</title>
     <link>https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/</link>
     <pubDate>Thu, 04 Aug 2022 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2021/</guid>
     <description><![CDATA[本来今年没打算写什么，这么浑浑噩噩的一年，又有什么好总结的呢，但是当自己闲下来的时候，那些乱七八糟的想说的话又总在脑子里盘旋，好像不把它们记]]></description>
-</item><item>
-    <title>2021-12-07</title>
-    <link>https://blog.muhowch.com/2021-12-07/</link>
-    <pubDate>Tue, 07 Dec 2021 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2021-12-07/</guid>
-    <description><![CDATA[我觉得我做了不可饶恕的事。 她的情况越来越糟，原本的自杀念头已经演变成自残行为了，我觉得事情已经到了危险的地步了，坚定地去报了警。 我觉得只能为]]></description>
 </item></channel>
 </rss>
