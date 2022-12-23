@@ -48,7 +48,7 @@ Chain PREROUTING (policy ACCEPT 4660 packets, 212K bytes)
 ```
  
 
-   -  注释很明确，有关k8s的service都跳到`KUBE-SERVICES`： 
+- 注释很明确，有关k8s的service都跳到`KUBE-SERVICES`： 
 ```bash
 Chain KUBE-SERVICES (2 references)
  pkts bytes target     prot opt in     out     source               destination         
@@ -63,7 +63,7 @@ Chain KUBE-SERVICES (2 references)
 ```
  
 
-      -  这里规则很多，我们找到匹配ClusterIP的规则，同时也是注释中标明nginx服务的规则，跳转到`KUBE-SVC-PIU4JA5FNNNHNOAJ`: 
+-  这里规则很多，我们找到匹配ClusterIP的规则，同时也是注释中标明nginx服务的规则，跳转到`KUBE-SVC-PIU4JA5FNNNHNOAJ`: 
 ```bash
 Chain KUBE-SVC-PIU4JA5FNNNHNOAJ (1 references)
  pkts bytes target     prot opt in     out     source               destination         
@@ -73,8 +73,8 @@ Chain KUBE-SVC-PIU4JA5FNNNHNOAJ (1 references)
 ```
  
 
-         -  这里有三条规则 
-            1.  第一条说明，访问不是来自flannelIP的，将会跳转到`KUBE-MARK-MASQ`，在目标链中打上标记后回来： 
+- 这里有三条规则 
+   1. 第一条说明，访问不是来自flannelIP的，将会跳转到`KUBE-MARK-MASQ`，在目标链中打上标记后回来： 
 ```bash
 Chain KUBE-MARK-MASQ (19 references)
  pkts bytes target     prot opt in     out     source               destination         
@@ -82,7 +82,7 @@ Chain KUBE-MARK-MASQ (19 references)
 ```
  
 
-            2.  第二条和第三条，说明访问跳转到`10.224.1.14`和`10.224.2.16`的概率分别是50%，因为在各自跳转的链中，都做了更改对应目的地址的DNAT： 
+   2. 第二条和第三条，说明访问跳转到`10.224.1.14`和`10.224.2.16`的概率分别是50%，因为在各自跳转的链中，都做了更改对应目的地址的DNAT： 
 ```bash
 Chain KUBE-SEP-ISOO2NXNTRU4Q4WM (1 references)
  pkts bytes target     prot opt in     out     source               destination         
@@ -96,7 +96,7 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C (1 references)
 ```
   
 
-         -  由于目的地址并不在本机，所以会通过路由转发到`flannel.1`网卡，通过`filter-FORWARD`: 
+- 由于目的地址并不在本机，所以会通过路由转发到`flannel.1`网卡，通过`filter-FORWARD`: 
 ```bash
 Chain FORWARD (policy DROP 1286 packets, 57870 bytes)
  pkts bytes target     prot opt in     out     source               destination         
@@ -114,7 +114,7 @@ Chain FORWARD (policy DROP 1286 packets, 57870 bytes)
 ```
  
 
-            -  第一条规则即时把所有包就交给`KUBE-FORWARD`处理： 
+- 第一条规则即时把所有包就交给`KUBE-FORWARD`处理： 
 ```bash
 Chain KUBE-FORWARD (1 references)
  pkts bytes target     prot opt in     out     source               destination         
@@ -124,7 +124,7 @@ Chain KUBE-FORWARD (1 references)
 ```
  
 
-               -  由于刚刚在`KUBE-MARK-MASQ`已经打了`0x4000`标记，在这里就会被匹配到并`ACCEPT`，由此直接进入`nat-POSTROUTING`： 
+- 由于刚刚在`KUBE-MARK-MASQ`已经打了`0x4000`标记，在这里就会被匹配到并`ACCEPT`，由此直接进入`nat-POSTROUTING`： 
 ```bash
 Chain POSTROUTING (policy ACCEPT 2838 packets, 171K bytes)
  pkts bytes target     prot opt in     out     source               destination         
@@ -137,7 +137,7 @@ Chain POSTROUTING (policy ACCEPT 2838 packets, 171K bytes)
 ```
  
 
-                  -  在这里，第一条也是直接全部交给`KUBE-POSTROUTING`: 
+- 在这里，第一条也是直接全部交给`KUBE-POSTROUTING`: 
 ```bash
 Chain KUBE-POSTROUTING (1 references)
  pkts bytes target     prot opt in     out     source               destination         
@@ -147,7 +147,7 @@ Chain KUBE-POSTROUTING (1 references)
 ```
  
 
-                     - 数据包是因为打过标记才走到这条链的，在第二条规则里，这个标记会因为异或操作而被清除，然后在第三条规则里，通过nat的`MASQUERADE`把源地址改为所发出网卡的IP（也就是`flannel.1`），然后通过发到下一个节点（也就是node02）。自此master上的数据流完毕。
+- 数据包是因为打过标记才走到这条链的，在第二条规则里，这个标记会因为异或操作而被清除，然后在第三条规则里，通过nat的`MASQUERADE`把源地址改为所发出网卡的IP（也就是`flannel.1`），然后通过发到下一个节点（也就是node02）。自此master上的数据流完毕。
 
 #### node02节点
 

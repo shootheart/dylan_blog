@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/blog.muhowch.com\/2022-08-02-k8s-proxy-access-and-iptables\/"
-        },"genre": "posts","keywords": "kubernets","wordcount":  2591 ,
+        },"genre": "posts","keywords": "kubernets","wordcount":  2554 ,
         "url": "https:\/\/blog.muhowch.com\/2022-08-02-k8s-proxy-access-and-iptables\/","datePublished": "2022-08-02T00:00:00+08:00","dateModified": "2022-08-02T00:00:00+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -79,7 +79,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">k8s配置服务proxy无法访问以及iptables规则梳理</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Dylan Liu</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A5%AD%E7%A2%97/"><i class="far fa-folder fa-fw"></i>饭碗</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-08-02">2022-08-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2591 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-08-02">2022-08-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2554 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<i class="far fa-eye fa-fw"></i><span id="busuanzi_container_page_pv">&nbsp;共阅读&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次</span>
 
             </div>
@@ -179,8 +179,9 @@
     <span class="m">4</span>   <span class="m">240</span> KUBE-NODEPORTS  all  --  any    any     anywhere             anywhere             /* kubernetes service nodeports<span class="p">;</span> NOTE: this must be the last rule in this chain */ ADDRTYPE match dst-type LOCAL
 </code></pre></td></tr></table>
 </div>
-</div><pre><code>  -  这里规则很多，我们找到匹配ClusterIP的规则，同时也是注释中标明nginx服务的规则，跳转到`KUBE-SVC-PIU4JA5FNNNHNOAJ`: 
-</code></pre>
+</div><ul>
+<li>这里规则很多，我们找到匹配ClusterIP的规则，同时也是注释中标明nginx服务的规则，跳转到<code>KUBE-SVC-PIU4JA5FNNNHNOAJ</code>:</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -197,9 +198,13 @@
     <span class="m">0</span>     <span class="m">0</span> KUBE-SEP-EKAXC3AGUDPBQ32C  all  --  any    any     anywhere             anywhere             /* nginx-test/nginx-service -&gt; 10.224.2.16:80 */
 </code></pre></td></tr></table>
 </div>
-</div><pre><code>     -  这里有三条规则 
-        1.  第一条说明，访问不是来自flannelIP的，将会跳转到`KUBE-MARK-MASQ`，在目标链中打上标记后回来： 
-</code></pre>
+</div><ul>
+<li>这里有三条规则
+<ol>
+<li>第一条说明，访问不是来自flannelIP的，将会跳转到<code>KUBE-MARK-MASQ</code>，在目标链中打上标记后回来：</li>
+</ol>
+</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -212,8 +217,9 @@
     <span class="m">0</span>     <span class="m">0</span> MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK or 0x4000
 </code></pre></td></tr></table>
 </div>
-</div><pre><code>        2.  第二条和第三条，说明访问跳转到`10.224.1.14`和`10.224.2.16`的概率分别是50%，因为在各自跳转的链中，都做了更改对应目的地址的DNAT： 
-</code></pre>
+</div><ol start="2">
+<li>第二条和第三条，说明访问跳转到<code>10.224.1.14</code>和<code>10.224.2.16</code>的概率分别是50%，因为在各自跳转的链中，都做了更改对应目的地址的DNAT：</li>
+</ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -238,8 +244,9 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span>
     <span class="m">0</span>     <span class="m">0</span> DNAT       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* nginx-test/nginx-service */ tcp to:10.224.2.16:80
 </code></pre></td></tr></table>
 </div>
-</div><pre><code>     -  由于目的地址并不在本机，所以会通过路由转发到`flannel.1`网卡，通过`filter-FORWARD`: 
-</code></pre>
+</div><ul>
+<li>由于目的地址并不在本机，所以会通过路由转发到<code>flannel.1</code>网卡，通过<code>filter-FORWARD</code>:</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -272,8 +279,9 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span>
     <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            10.244.0.0/16
 </code></pre></td></tr></table>
 </div>
-</div><pre><code>        -  第一条规则即时把所有包就交给`KUBE-FORWARD`处理： 
-</code></pre>
+</div><ul>
+<li>第一条规则即时把所有包就交给<code>KUBE-FORWARD</code>处理：</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -290,8 +298,9 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span>
     <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding conntrack rule */ ctstate RELATED,ESTABLISHED
 </code></pre></td></tr></table>
 </div>
-</div><pre><code>           -  由于刚刚在`KUBE-MARK-MASQ`已经打了`0x4000`标记，在这里就会被匹配到并`ACCEPT`，由此直接进入`nat-POSTROUTING`： 
-</code></pre>
+</div><ul>
+<li>由于刚刚在<code>KUBE-MARK-MASQ</code>已经打了<code>0x4000</code>标记，在这里就会被匹配到并<code>ACCEPT</code>，由此直接进入<code>nat-POSTROUTING</code>：</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -314,8 +323,9 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span>
     <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *      !10.244.0.0/16        10.244.0.0/16
 </code></pre></td></tr></table>
 </div>
-</div><pre><code>              -  在这里，第一条也是直接全部交给`KUBE-POSTROUTING`: 
-</code></pre>
+</div><ul>
+<li>在这里，第一条也是直接全部交给<code>KUBE-POSTROUTING</code>:</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -332,8 +342,9 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span>
     <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service traffic requiring SNAT */
 </code></pre></td></tr></table>
 </div>
-</div><pre><code>                 - 数据包是因为打过标记才走到这条链的，在第二条规则里，这个标记会因为异或操作而被清除，然后在第三条规则里，通过nat的`MASQUERADE`把源地址改为所发出网卡的IP（也就是`flannel.1`），然后通过发到下一个节点（也就是node02）。自此master上的数据流完毕。
-</code></pre>
+</div><ul>
+<li>数据包是因为打过标记才走到这条链的，在第二条规则里，这个标记会因为异或操作而被清除，然后在第三条规则里，通过nat的<code>MASQUERADE</code>把源地址改为所发出网卡的IP（也就是<code>flannel.1</code>），然后通过发到下一个节点（也就是node02）。自此master上的数据流完毕。</li>
+</ul>
 <h4 id="node02节点">node02节点</h4>
 <ul>
 <li>数据包从master节点通过<code>flannel.1</code>网卡发送到了node02节点，同样从<code>flannel.1</code>网卡进入<code>nat-PREROUTING</code>
