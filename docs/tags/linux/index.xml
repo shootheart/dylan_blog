@@ -3,7 +3,14 @@
         <title>linux - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/tags/linux/</link>
         <description>linux - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 04 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/linux/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 05 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>ubuntu挂载cifs无法使用cp936字符集</title>
+    <link>https://blog.muhowch.com/2022-08-05-issue-about-cifs-on-ubuntu/</link>
+    <pubDate>Fri, 05 Aug 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-08-05-issue-about-cifs-on-ubuntu/</guid>
+    <description><![CDATA[环境 ubuntu 20.04.4 问题 使用multipass启动了ubuntu虚拟机，想要让其与win10宿主机共享目录，由于multipass提供的mount方法在]]></description>
+</item><item>
     <title>docker容器进程用户问题</title>
     <link>https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/</link>
     <pubDate>Thu, 04 Aug 2022 00:00:00 &#43;0800</pubDate>

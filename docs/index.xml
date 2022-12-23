@@ -20,6 +20,13 @@
     <guid>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</guid>
     <description><![CDATA[环境 openstack：mitaka；ironic：5.1.0 制作环境：centos7.9；python：3.6.8 ironic-pytho]]></description>
 </item><item>
+    <title>ubuntu挂载cifs无法使用cp936字符集</title>
+    <link>https://blog.muhowch.com/2022-08-05-issue-about-cifs-on-ubuntu/</link>
+    <pubDate>Fri, 05 Aug 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-08-05-issue-about-cifs-on-ubuntu/</guid>
+    <description><![CDATA[环境 ubuntu 20.04.4 问题 使用multipass启动了ubuntu虚拟机，想要让其与win10宿主机共享目录，由于multipass提供的mount方法在]]></description>
+</item><item>
     <title>docker容器进程用户问题</title>
     <link>https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/</link>
     <pubDate>Thu, 04 Aug 2022 00:00:00 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2022-06-19-detached-from-society/</guid>
     <description><![CDATA[pyq留下的最后一张图片" pyq留下的最后一张图片 1 又是一个炎热的夏夜，赤膊着上身坐在屋里，哪怕一动不动都会汗流浃背。 手里晃着没喝完的半罐啤]]></description>
-</item><item>
-    <title>27岁，迟到的生日祝福</title>
-    <link>https://blog.muhowch.com/2022-04-06-happy-birthday/</link>
-    <pubDate>Wed, 06 Apr 2022 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2022-04-06-happy-birthday/</guid>
-    <description><![CDATA[今天偶然听到这首曲子，才意识到27岁生日已经过去好几个月了。 这个生日，我经历了人生中未曾有过的一个打击，现在想想，多少年的生日都和平常的一天]]></description>
 </item></channel>
 </rss>

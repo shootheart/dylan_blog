@@ -18,6 +18,13 @@
     <guid>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</guid>
     <description><![CDATA[环境 openstack：mitaka；ironic：5.1.0 制作环境：centos7.9；python：3.6.8 ironic-pytho]]></description>
 </item><item>
+    <title>ubuntu挂载cifs无法使用cp936字符集</title>
+    <link>https://blog.muhowch.com/2022-08-05-issue-about-cifs-on-ubuntu/</link>
+    <pubDate>Fri, 05 Aug 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-08-05-issue-about-cifs-on-ubuntu/</guid>
+    <description><![CDATA[环境 ubuntu 20.04.4 问题 使用multipass启动了ubuntu虚拟机，想要让其与win10宿主机共享目录，由于multipass提供的mount方法在]]></description>
+</item><item>
     <title>docker容器进程用户问题</title>
     <link>https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/</link>
     <pubDate>Thu, 04 Aug 2022 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</guid>
     <description><![CDATA[问题起因 在wsl上欲通过rsync的ssh方式进行文件同步，ssh密钥文件的权限是不能过于开放的，所以需要在wsl下将密钥文件的权限修改成只]]></description>
-</item><item>
-    <title>Let&#39;s Encrypt证书申请</title>
-    <link>https://blog.muhowch.com/2019-03-01-letsencrypt/</link>
-    <pubDate>Fri, 01 Mar 2019 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2019-03-01-letsencrypt/</guid>
-    <description><![CDATA[环境 CentOS 7 Python 2.7.5 安装 直接使用yum安装certbot 1 yum install certbot 申请证书 确保服务器域名与公网IP绑定。 申请过程中需要使用80端口，若占用可以先关闭。]]></description>
 </item></channel>
 </rss>
