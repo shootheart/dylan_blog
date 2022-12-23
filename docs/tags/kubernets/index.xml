@@ -3,7 +3,14 @@
         <title>kubernets - 标签 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/tags/kubernets/</link>
         <description>kubernets - 标签 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 02 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/kubernets/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 03 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/tags/kubernets/" rel="self" type="application/rss+xml" /><item>
+    <title>k8s v1.24.3更换容器运行时为containerd</title>
+    <link>https://blog.muhowch.com/2022-08-03-replace-cri-to-containerd/</link>
+    <pubDate>Wed, 03 Aug 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-08-03-replace-cri-to-containerd/</guid>
+    <description><![CDATA[环境 CentOS 7.9 k8s 1.24.3 containerd 1.6.6 背景 k8s从1.20开始逐步放弃使用docker作为容器运行时环境，1.24开始已经删除dockershim，如果还希望使用]]></description>
+</item><item>
     <title>k8s配置服务proxy无法访问以及iptables规则梳理</title>
     <link>https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/</link>
     <pubDate>Tue, 02 Aug 2022 00:00:00 &#43;0800</pubDate>

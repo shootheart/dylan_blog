@@ -3,7 +3,14 @@
         <title>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/</link>
         <description>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 02 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 03 Aug 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+    <title>k8s v1.24.3更换容器运行时为containerd</title>
+    <link>https://blog.muhowch.com/2022-08-03-replace-cri-to-containerd/</link>
+    <pubDate>Wed, 03 Aug 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-08-03-replace-cri-to-containerd/</guid>
+    <description><![CDATA[环境 CentOS 7.9 k8s 1.24.3 containerd 1.6.6 背景 k8s从1.20开始逐步放弃使用docker作为容器运行时环境，1.24开始已经删除dockershim，如果还希望使用]]></description>
+</item><item>
     <title>k8s配置服务proxy无法访问以及iptables规则梳理</title>
     <link>https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/</link>
     <pubDate>Tue, 02 Aug 2022 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2019-01-06-the-process-of-https/</guid>
     <description><![CDATA[HTTP和HTTPS 使用HTTP协议会存在一定的安全问题，比如客户端与服务器通信的协议可以很容易被窃取，其中的私密信息会被泄漏，再比如攻击者]]></description>
-</item><item>
-    <title>CA证书与中间人攻击</title>
-    <link>https://blog.muhowch.com/2018-12-29-ca-certificate-and-middleman-attack/</link>
-    <pubDate>Sat, 29 Dec 2018 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2018-12-29-ca-certificate-and-middleman-attack/</guid>
-    <description><![CDATA[前言 由于偶然在群中有人聊起如何抓包https，从而找了一下有什么方法可以实现。 查到Charles这个工具可以实现https的抓包，而且可以查]]></description>
 </item></channel>
 </rss>
