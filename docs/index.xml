@@ -3,9 +3,16 @@
         <title>嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/</link>
         <description>吾日三省吾身：嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 19 Oct 2022 00:00:00 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 20 Oct 2022 00:00:00 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.muhowch.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>关于Ironic Python Agent(IPA)v1.2.3适配CentOS9的问题</title>
+    <link>https://blog.muhowch.com/2022-10-20-issue-about-ipa/</link>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-10-20-issue-about-ipa/</guid>
+    <description><![CDATA[报错：Temporary failure in name resolution 小镜象可以在裸机上正常启动，但是立即被ironic-conductor执行了关机操作 观察ironic-con]]></description>
+</item><item>
     <title>制作openstack-mitaka版centos9裸机ramdisk</title>
     <link>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</link>
     <pubDate>Wed, 19 Oct 2022 00:00:00 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2022-04-06-happy-birthday/</guid>
     <description><![CDATA[今天偶然听到这首曲子，才意识到27岁生日已经过去好几个月了。 这个生日，我经历了人生中未曾有过的一个打击，现在想想，多少年的生日都和平常的一天]]></description>
-</item><item>
-    <title>2021</title>
-    <link>https://blog.muhowch.com/2021/</link>
-    <pubDate>Wed, 29 Dec 2021 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2021/</guid>
-    <description><![CDATA[本来今年没打算写什么，这么浑浑噩噩的一年，又有什么好总结的呢，但是当自己闲下来的时候，那些乱七八糟的想说的话又总在脑子里盘旋，好像不把它们记]]></description>
 </item></channel>
 </rss>

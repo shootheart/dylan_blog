@@ -3,7 +3,14 @@
         <title>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/</link>
         <description>饭碗 - 分类 - 嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 19 Oct 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 20 Oct 2022 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/" rel="self" type="application/rss+xml" /><item>
+    <title>关于Ironic Python Agent(IPA)v1.2.3适配CentOS9的问题</title>
+    <link>https://blog.muhowch.com/2022-10-20-issue-about-ipa/</link>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-10-20-issue-about-ipa/</guid>
+    <description><![CDATA[报错：Temporary failure in name resolution 小镜象可以在裸机上正常启动，但是立即被ironic-conductor执行了关机操作 观察ironic-con]]></description>
+</item><item>
     <title>制作openstack-mitaka版centos9裸机ramdisk</title>
     <link>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</link>
     <pubDate>Wed, 19 Oct 2022 00:00:00 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2019-03-01-letsencrypt/</guid>
     <description><![CDATA[环境 CentOS 7 Python 2.7.5 安装 直接使用yum安装certbot 1 yum install certbot 申请证书 确保服务器域名与公网IP绑定。 申请过程中需要使用80端口，若占用可以先关闭。]]></description>
-</item><item>
-    <title>Zabbix学习</title>
-    <link>https://blog.muhowch.com/2019-03-01-zabbix/</link>
-    <pubDate>Fri, 01 Mar 2019 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2019-03-01-zabbix/</guid>
-    <description><![CDATA[zabbix_server zabbix housekeeping housekeeping的作用是删除数据库中的过期数据。 启用housekeeper需要在zabbix_server运行时添加-R hou]]></description>
 </item></channel>
 </rss>
