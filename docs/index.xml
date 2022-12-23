@@ -3,9 +3,16 @@
         <title>嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/</link>
         <description>吾日三省吾身：嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 20 Oct 2022 00:00:00 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 08 Dec 2022 00:00:00 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.muhowch.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>利用微软翻译api实现中英文互译</title>
+    <link>https://blog.muhowch.com/2022-12-08-using-microsoft-translator-api/</link>
+    <pubDate>Thu, 08 Dec 2022 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2022-12-08-using-microsoft-translator-api/</guid>
+    <description><![CDATA[注意 微软已于2021年停止了appid认证方式，如今网络上的使用appid方式的教程已不再适用 关于停用appid的公告：https://ww]]></description>
+</item><item>
     <title>关于Ironic Python Agent(IPA)v1.2.3适配CentOS9的问题</title>
     <link>https://blog.muhowch.com/2022-10-20-issue-about-ipa/</link>
     <pubDate>Thu, 20 Oct 2022 00:00:00 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2022-07-29-deployment-and-replicaset/</guid>
     <description><![CDATA[Deployment 一个 Deployment 为 Pod 和 ReplicaSet 提供声明式的更新能力。 Deployment 不直接控制 Pods, 而是通过 ReplicaSet 来间接管理 Pods。 Deployments 的典型用例： 创建 Deployment 以将 ReplicaSet 上线。 ReplicaSet 在后台创建 Pods。 检查]]></description>
-</item><item>
-    <title>k8s集群 手动部署</title>
-    <link>https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/</link>
-    <pubDate>Thu, 28 Jul 2022 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2022-07-28-k8s-deploy-manually/</guid>
-    <description><![CDATA[环境 vmware虚拟机3台 centos7.9 minimal docker 20.10.9 k8s 1.24.3 主机名 规格 IP k8s-master 2c-2g-40g 192.168.36.100 k8s-node01 2c-2g-40g 192.168.36.101 k8s-node02 2c-2g-40g 192.168.36.102 步骤 常规配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 # hosts 192.168.36.100 k8s-master 192.168.36.101 k8s-node01 192.168.36.102 k8s-node02 # 验证网卡m]]></description>
 </item></channel>
 </rss>
