@@ -4,7 +4,7 @@ date: 2021-09-14T00:00:00+08:00
 draft: false
 toc: true
 tags: ["旅行"]
-categories: ["生活多美好"]
+categories: ["生活"]
 ---
 
 ## 1

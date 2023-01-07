@@ -4,7 +4,7 @@ date: 2019-08-26T00:00:00+08:00
 draft: false
 toc: true
 tags: ["摄影"]
-categories: ["生活多美好"]
+categories: ["生活"]
 lightgallery: true
 ---
 > 我一直认为“摄影”这个词离我很远，但是，我离它似乎很近。
