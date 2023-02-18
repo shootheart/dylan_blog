@@ -3,9 +3,16 @@
         <title>嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/</link>
         <description>吾日三省吾身：嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 07 Jan 2023 00:00:00 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 18 Feb 2023 00:00:00 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.muhowch.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>对近几年网剧的一点看法</title>
+    <link>https://blog.muhowch.com/2023-02-18-viewpoint-of-webisodes/</link>
+    <pubDate>Sat, 18 Feb 2023 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2023-02-18-viewpoint-of-webisodes/</guid>
+    <description><![CDATA[从过年直到现在，《狂飙》都处于一个极度火爆的状态，不得不承认作为一个正剧，确实从剧情还是表演上都显得出圈了，于是这些就自然而然成为了热点。 即]]></description>
+</item><item>
     <title>关于春晚与本山的记忆</title>
     <link>https://blog.muhowch.com/2023-01-07-chunwan/</link>
     <pubDate>Sat, 07 Jan 2023 00:00:00 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2022-08-03-replace-cri-to-containerd/</guid>
     <description><![CDATA[环境 CentOS 7.9 k8s 1.24.3 containerd 1.6.6 背景 k8s从1.20开始逐步放弃使用docker作为容器运行时环境，1.24开始已经删除dockershim，如果还希望使用]]></description>
-</item><item>
-    <title>k8s配置服务proxy无法访问以及iptables规则梳理</title>
-    <link>https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/</link>
-    <pubDate>Tue, 02 Aug 2022 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/</guid>
-    <description><![CDATA[环境 centos7.9 k8s 1.24.3 问题 在k8s集群上部署了nginx服务，通过clusterIP方式配置外部访问，之后在master节点上配置proxy代理访问ap]]></description>
 </item></channel>
 </rss>
