@@ -8,10 +8,10 @@
         <title>k8s配置服务proxy无法访问以及iptables规则梳理 - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="吾日三省吾身：嘛好吃 吃嘛好 好吃嘛"><meta property="og:title" content="k8s配置服务proxy无法访问以及iptables规则梳理" />
 <meta property="og:description" content="环境 centos7.9 k8s 1.24.3 问题 在k8s集群上部署了nginx服务，通过clusterIP方式配置外部访问，之后在master节点上配置proxy代理访问ap" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/" />
-<meta property="og:image" content="https://blog.muhowch.com"/>
+<meta property="og:url" content="https://blog.muhowch.com/2022-08-02-k8s-proxy-access-and-iptables/" /><meta property="og:image" content="https://blog.muhowch.com"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-02T00:00:00+08:00" />
 <meta property="article:modified_time" content="2022-08-02T00:00:00+08:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.muhowch.com"/>
 
@@ -118,11 +118,11 @@
 <ul>
 <li>在k8s集群上部署了nginx服务，通过clusterIP方式配置外部访问，之后在master节点上配置proxy代理访问api server。</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101074852-9f21bdc1-2491-4b9e-9ad5-2a0c5a5981d2.png" alt="图片.png](https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101074852-9f21bdc1-2491-4b9e-9ad5-2a0c5a5981d2.png#averageHue=%230a0704&clientId=u91e5e809-db05-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=148&id=u615ba899&name=%E5%9B%BE%E7%89%87.png&originHeight=148&originWidth=1217&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28594&status=done&style=none&taskId=uf7126c93-6e8a-493f-be66-076ae14a691&title=&width=1217)![图片.png" referrerPolicy="no-referrer" /></p>
+<img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101074852-9f21bdc1-2491-4b9e-9ad5-2a0c5a5981d2.png" alt="图片.png](https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101074852-9f21bdc1-2491-4b9e-9ad5-2a0c5a5981d2.png#averageHue=%230a0704&clientId=u91e5e809-db05-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=148&id=u615ba899&name=%E5%9B%BE%E7%89%87.png&originHeight=148&originWidth=1217&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28594&status=done&style=none&taskId=uf7126c93-6e8a-493f-be66-076ae14a691&title=&width=1217)![图片.png" referrerPolicy="no-referrer" />
 <ul>
 <li>在外部浏览器上通过master节点的proxy尝试访问nginx服务，发现无法连接</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101106934-31354631-90f7-4640-add8-2ae273a339d5.png" alt="图片.png" referrerPolicy="no-referrer" /></p>
+<img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101106934-31354631-90f7-4640-add8-2ae273a339d5.png" alt="图片.png" referrerPolicy="no-referrer" />
 <ul>
 <li>正常来说，两个node节点上都存在nginx pod，可以达到负载均衡的效果，但是无论怎么尝试，两个节点上的pod都无法连通。</li>
 <li>这种情况在master上使用curl来访问podip也是一样超时，并且podip也无法ping通。</li>
@@ -138,24 +138,24 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Chain PREROUTING <span class="o">(</span>policy ACCEPT <span class="m">4660</span> packets, 212K bytes<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-<span class="m">14362</span>  654K KUBE-SERVICES  all  --  any    any     anywhere             anywhere             /* kubernetes service portals */
-   <span class="m">81</span>  <span class="m">4880</span> DOCKER     all  --  any    any     anywhere             anywhere             ADDRTYPE match dst-type LOCAL
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Chain PREROUTING <span class="o">(</span>policy ACCEPT <span class="m">4660</span> packets, 212K bytes<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl"><span class="m">14362</span>  654K KUBE-SERVICES  all  --  any    any     anywhere             anywhere             /* kubernetes service portals */
+</span></span><span class="line"><span class="cl">   <span class="m">81</span>  <span class="m">4880</span> DOCKER     all  --  any    any     anywhere             anywhere             ADDRTYPE match dst-type LOCAL
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>注释很明确，有关k8s的service都跳到<code>KUBE-SERVICES</code>：</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -167,36 +167,36 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-SERVICES <span class="o">(</span><span class="m">2</span> references<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-PIU4JA5FNNNHNOAJ  tcp  --  any    any     anywhere             10.108.94.160        /* nginx-test/nginx-service cluster IP */ tcp dpt:http
-    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-NPX46M4PTMTKRN6Y  tcp  --  any    any     anywhere             10.96.0.1            /* default/kubernetes:https cluster IP */ tcp dpt:https
-    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-TCOU7JCQXEZGVUNU  udp  --  any    any     anywhere             10.96.0.10           /* kube-system/kube-dns:dns cluster IP */ udp dpt:domain
-    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-ERIFXISQEP7F7OF4  tcp  --  any    any     anywhere             10.96.0.10           /* kube-system/kube-dns:dns-tcp cluster IP */ tcp dpt:domain
-    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-JD5MR3NA4I4DYORP  tcp  --  any    any     anywhere             10.96.0.10           /* kube-system/kube-dns:metrics cluster IP */ tcp dpt:9153
-    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-Z6GDYMWE5TV2NNJN  tcp  --  any    any     anywhere             10.97.195.35         /* kubernetes-dashboard/dashboard-metrics-scraper cluster IP */ tcp dpt:irdmi
-    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-CEZPIJSAUFW5MYPQ  tcp  --  any    any     anywhere             10.111.207.171       /* kubernetes-dashboard/kubernetes-dashboard cluster IP */ tcp dpt:https
-    <span class="m">4</span>   <span class="m">240</span> KUBE-NODEPORTS  all  --  any    any     anywhere             anywhere             /* kubernetes service nodeports<span class="p">;</span> NOTE: this must be the last rule in this chain */ ADDRTYPE match dst-type LOCAL
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Chain KUBE-SERVICES <span class="o">(</span><span class="m">2</span> references<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-PIU4JA5FNNNHNOAJ  tcp  --  any    any     anywhere             10.108.94.160        /* nginx-test/nginx-service cluster IP */ tcp dpt:http
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-NPX46M4PTMTKRN6Y  tcp  --  any    any     anywhere             10.96.0.1            /* default/kubernetes:https cluster IP */ tcp dpt:https
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-TCOU7JCQXEZGVUNU  udp  --  any    any     anywhere             10.96.0.10           /* kube-system/kube-dns:dns cluster IP */ udp dpt:domain
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-ERIFXISQEP7F7OF4  tcp  --  any    any     anywhere             10.96.0.10           /* kube-system/kube-dns:dns-tcp cluster IP */ tcp dpt:domain
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-JD5MR3NA4I4DYORP  tcp  --  any    any     anywhere             10.96.0.10           /* kube-system/kube-dns:metrics cluster IP */ tcp dpt:9153
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-Z6GDYMWE5TV2NNJN  tcp  --  any    any     anywhere             10.97.195.35         /* kubernetes-dashboard/dashboard-metrics-scraper cluster IP */ tcp dpt:irdmi
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-SVC-CEZPIJSAUFW5MYPQ  tcp  --  any    any     anywhere             10.111.207.171       /* kubernetes-dashboard/kubernetes-dashboard cluster IP */ tcp dpt:https
+</span></span><span class="line"><span class="cl">    <span class="m">4</span>   <span class="m">240</span> KUBE-NODEPORTS  all  --  any    any     anywhere             anywhere             /* kubernetes service nodeports<span class="p">;</span> NOTE: this must be the last rule in this chain */ ADDRTYPE match dst-type LOCAL
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>这里规则很多，我们找到匹配ClusterIP的规则，同时也是注释中标明nginx服务的规则，跳转到<code>KUBE-SVC-PIU4JA5FNNNHNOAJ</code>:</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-SVC-PIU4JA5FNNNHNOAJ <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-    <span class="m">0</span>     <span class="m">0</span> KUBE-MARK-MASQ  tcp  --  any    any    !10.224.0.0/16        10.108.94.160        /* nginx-test/nginx-service cluster IP */ tcp dpt:http
-    <span class="m">0</span>     <span class="m">0</span> KUBE-SEP-ISOO2NXNTRU4Q4WM  all  --  any    any     anywhere             anywhere             /* nginx-test/nginx-service -&gt; 10.224.1.14:80 */ statistic mode random probability 0.50000000000
-    <span class="m">0</span>     <span class="m">0</span> KUBE-SEP-EKAXC3AGUDPBQ32C  all  --  any    any     anywhere             anywhere             /* nginx-test/nginx-service -&gt; 10.224.2.16:80 */
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Chain KUBE-SVC-PIU4JA5FNNNHNOAJ <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-MARK-MASQ  tcp  --  any    any    !10.224.0.0/16        10.108.94.160        /* nginx-test/nginx-service cluster IP */ tcp dpt:http
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-SEP-ISOO2NXNTRU4Q4WM  all  --  any    any     anywhere             anywhere             /* nginx-test/nginx-service -&gt; 10.224.1.14:80 */ statistic mode random probability 0.50000000000
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-SEP-EKAXC3AGUDPBQ32C  all  --  any    any     anywhere             anywhere             /* nginx-test/nginx-service -&gt; 10.224.2.16:80 */
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>这里有三条规则
@@ -207,22 +207,22 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-MARK-MASQ <span class="o">(</span><span class="m">19</span> references<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-    <span class="m">0</span>     <span class="m">0</span> MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK or 0x4000
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Chain KUBE-MARK-MASQ <span class="o">(</span><span class="m">19</span> references<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK or 0x4000
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>第二条和第三条，说明访问跳转到<code>10.224.1.14</code>和<code>10.224.2.16</code>的概率分别是50%，因为在各自跳转的链中，都做了更改对应目的地址的DNAT：</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -233,23 +233,23 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-SEP-ISOO2NXNTRU4Q4WM <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-    <span class="m">0</span>     <span class="m">0</span> KUBE-MARK-MASQ  all  --  *      *       10.224.1.14          0.0.0.0/0            /* nginx-test/nginx-service */
-    <span class="m">0</span>     <span class="m">0</span> DNAT       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* nginx-test/nginx-service */ tcp to:10.224.1.14:80
----
-Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-    <span class="m">0</span>     <span class="m">0</span> KUBE-MARK-MASQ  all  --  *      *       10.224.2.16          0.0.0.0/0            /* nginx-test/nginx-service */
-    <span class="m">0</span>     <span class="m">0</span> DNAT       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* nginx-test/nginx-service */ tcp to:10.224.2.16:80
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Chain KUBE-SEP-ISOO2NXNTRU4Q4WM <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-MARK-MASQ  all  --  *      *       10.224.1.14          0.0.0.0/0            /* nginx-test/nginx-service */
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> DNAT       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* nginx-test/nginx-service */ tcp to:10.224.1.14:80
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> KUBE-MARK-MASQ  all  --  *      *       10.224.2.16          0.0.0.0/0            /* nginx-test/nginx-service */
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> DNAT       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* nginx-test/nginx-service */ tcp to:10.224.2.16:80
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>由于目的地址并不在本机，所以会通过路由转发到<code>flannel.1</code>网卡，通过<code>filter-FORWARD</code>:</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -264,46 +264,46 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span>
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Chain FORWARD <span class="o">(</span>policy DROP <span class="m">1286</span> packets, <span class="m">57870</span> bytes<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-<span class="m">15727</span>  709K KUBE-FORWARD  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */
-<span class="m">15727</span>  709K KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes service portals */
-<span class="m">15727</span>  709K KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
-<span class="m">15727</span>  709K DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
-<span class="m">15727</span>  709K DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
-    <span class="m">0</span>     <span class="m">0</span> DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       10.244.0.0/16        0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            10.244.0.0/16
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Chain FORWARD <span class="o">(</span>policy DROP <span class="m">1286</span> packets, <span class="m">57870</span> bytes<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl"><span class="m">15727</span>  709K KUBE-FORWARD  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */
+</span></span><span class="line"><span class="cl"><span class="m">15727</span>  709K KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes service portals */
+</span></span><span class="line"><span class="cl"><span class="m">15727</span>  709K KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
+</span></span><span class="line"><span class="cl"><span class="m">15727</span>  709K DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl"><span class="m">15727</span>  709K DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       10.244.0.0/16        0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            10.244.0.0/16
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>第一条规则即时把所有包就交给<code>KUBE-FORWARD</code>处理：</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-FORWARD <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-    <span class="m">0</span>     <span class="m">0</span> DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate INVALID
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */ mark match 0x4000/0x4000
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding conntrack rule */ ctstate RELATED,ESTABLISHED
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Chain KUBE-FORWARD <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate INVALID
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */ mark match 0x4000/0x4000
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding conntrack rule */ ctstate RELATED,ESTABLISHED
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>由于刚刚在<code>KUBE-MARK-MASQ</code>已经打了<code>0x4000</code>标记，在这里就会被匹配到并<code>ACCEPT</code>，由此直接进入<code>nat-POSTROUTING</code>：</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -313,34 +313,34 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Chain POSTROUTING <span class="o">(</span>policy ACCEPT <span class="m">2838</span> packets, 171K bytes<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-<span class="m">25000</span> 1506K KUBE-POSTROUTING  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes postrouting rules */
-    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      !docker0  172.17.0.0/16        0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> RETURN     all  --  *      *       10.244.0.0/16        10.244.0.0/16       
-    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *       10.244.0.0/16       !224.0.0.0/4         
- <span class="m">7317</span>  439K RETURN     all  --  *      *      !10.244.0.0/16        10.224.0.0/24       
-    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *      !10.244.0.0/16        10.244.0.0/16
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Chain POSTROUTING <span class="o">(</span>policy ACCEPT <span class="m">2838</span> packets, 171K bytes<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl"><span class="m">25000</span> 1506K KUBE-POSTROUTING  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes postrouting rules */
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      !docker0  172.17.0.0/16        0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> RETURN     all  --  *      *       10.244.0.0/16        10.244.0.0/16       
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *       10.244.0.0/16       !224.0.0.0/4         
+</span></span><span class="line"><span class="cl"> <span class="m">7317</span>  439K RETURN     all  --  *      *      !10.244.0.0/16        10.224.0.0/24       
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *      !10.244.0.0/16        10.244.0.0/16
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>在这里，第一条也是直接全部交给<code>KUBE-POSTROUTING</code>:</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Chain KUBE-POSTROUTING <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
- <span class="m">3024</span>  182K RETURN     all  --  *      *       0.0.0.0/0            0.0.0.0/0            mark match ! 0x4000/0x4000
-    <span class="m">0</span>     <span class="m">0</span> MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK xor 0x4000
-    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service traffic requiring SNAT */
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Chain KUBE-POSTROUTING <span class="o">(</span><span class="m">1</span> references<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl"> <span class="m">3024</span>  182K RETURN     all  --  *      *       0.0.0.0/0            0.0.0.0/0            mark match ! 0x4000/0x4000
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK xor 0x4000
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> MASQUERADE  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service traffic requiring SNAT */
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>数据包是因为打过标记才走到这条链的，在第二条规则里，这个标记会因为异或操作而被清除，然后在第三条规则里，通过nat的<code>MASQUERADE</code>把源地址改为所发出网卡的IP（也就是<code>flannel.1</code>），然后通过发到下一个节点（也就是node02）。自此master上的数据流完毕。</li>
@@ -356,7 +356,7 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -375,24 +375,24 @@ Chain KUBE-SEP-EKAXC3AGUDPBQ32C <span class="o">(</span><span class="m">1</span>
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># LOG为自行添加调试使用</span>
-Chain FORWARD <span class="o">(</span>policy DROP <span class="m">0</span> packets, <span class="m">0</span> bytes<span class="o">)</span>
- pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
-  <span class="m">695</span> <span class="m">58480</span> KUBE-FORWARD  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */
-  <span class="m">581</span> <span class="m">47724</span> LOG        all  --  *      *       0.0.0.0/0            10.224.2.16          LOG flags <span class="m">0</span> level <span class="m">4</span> prefix <span class="s2">&#34;[iptables 3:]&#34;</span>
-  <span class="m">632</span> <span class="m">50784</span> KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes service portals */
-  <span class="m">575</span> <span class="m">47364</span> LOG        all  --  *      *       0.0.0.0/0            10.224.2.16          LOG flags <span class="m">0</span> level <span class="m">4</span> prefix <span class="s2">&#34;[iptables 4:]&#34;</span>
-  <span class="m">632</span> <span class="m">50784</span> KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
-  <span class="m">632</span> <span class="m">50784</span> DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
-  <span class="m">632</span> <span class="m">50784</span> DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
-    <span class="m">0</span>     <span class="m">0</span> DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       10.244.0.0/16        0.0.0.0/0           
-    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            10.244.0.0/16       
-  <span class="m">554</span> <span class="m">46104</span> LOG        all  --  *      *       0.0.0.0/0            10.224.2.16          LOG flags <span class="m">0</span> level <span class="m">4</span> prefix <span class="s2">&#34;[iptables forward-end]&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># LOG为自行添加调试使用</span>
+</span></span><span class="line"><span class="cl">Chain FORWARD <span class="o">(</span>policy DROP <span class="m">0</span> packets, <span class="m">0</span> bytes<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> pkts bytes target     prot opt in     out     <span class="nb">source</span>               destination         
+</span></span><span class="line"><span class="cl">  <span class="m">695</span> <span class="m">58480</span> KUBE-FORWARD  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */
+</span></span><span class="line"><span class="cl">  <span class="m">581</span> <span class="m">47724</span> LOG        all  --  *      *       0.0.0.0/0            10.224.2.16          LOG flags <span class="m">0</span> level <span class="m">4</span> prefix <span class="s2">&#34;[iptables 3:]&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="m">632</span> <span class="m">50784</span> KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes service portals */
+</span></span><span class="line"><span class="cl">  <span class="m">575</span> <span class="m">47364</span> LOG        all  --  *      *       0.0.0.0/0            10.224.2.16          LOG flags <span class="m">0</span> level <span class="m">4</span> prefix <span class="s2">&#34;[iptables 4:]&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="m">632</span> <span class="m">50784</span> KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
+</span></span><span class="line"><span class="cl">  <span class="m">632</span> <span class="m">50784</span> DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl">  <span class="m">632</span> <span class="m">50784</span> DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       10.244.0.0/16        0.0.0.0/0           
+</span></span><span class="line"><span class="cl">    <span class="m">0</span>     <span class="m">0</span> ACCEPT     all  --  *      *       0.0.0.0/0            10.244.0.0/16       
+</span></span><span class="line"><span class="cl">  <span class="m">554</span> <span class="m">46104</span> LOG        all  --  *      *       0.0.0.0/0            10.224.2.16          LOG flags <span class="m">0</span> level <span class="m">4</span> prefix <span class="s2">&#34;[iptables forward-end]&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>在这里也没有任何一条规则会对数据流作出改变，所以会走到最后执行默认策略：<code>DROP</code>。这也是访问该pod无法连接的根本原因。</li>
@@ -413,7 +413,7 @@ Chain FORWARD <span class="o">(</span>policy DROP <span class="m">0</span> packe
 <code>iptables -A FORWARD -i flannel.1 -d 10.224.2.0/24 -j ACCEPT</code></li>
 <li>之后再通过外部浏览器访问：</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101154065-d965c705-55ec-4a4d-a290-b6f3d6c926ea.png" alt="图片.png" referrerPolicy="no-referrer" /></p>
+<img src="https://cdn.nlark.com/yuque/0/2022/png/12871581/1671101154065-d965c705-55ec-4a4d-a290-b6f3d6c926ea.png" alt="图片.png" referrerPolicy="no-referrer" />
 <h3 id="关于forward-drop">关于FORWARD DROP</h3>
 <ul>
 <li><code>filter-FORWARD</code>链的默认策略被置为<code>DROP</code>，实际上是<code>docker</code>所做的安全策略</li>
@@ -424,11 +424,11 @@ Chain FORWARD <span class="o">(</span>policy DROP <span class="m">0</span> packe
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ iptables -I DOCKER-USER -i src_if -o dst_if -j ACCEPT
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ iptables -I DOCKER-USER -i src_if -o dst_if -j ACCEPT
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>所以按官方文档给出的方法，在<code>DOCKER-USER</code>链中加入希望开通的转发规则就可以解决。</li>
@@ -436,7 +436,7 @@ Chain FORWARD <span class="o">(</span>policy DROP <span class="m">0</span> packe
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -451,20 +451,20 @@ Chain FORWARD <span class="o">(</span>policy DROP <span class="m">0</span> packe
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /usr/lib/systemd/system/iptables-user.service</span>
-<span class="o">[</span>Unit<span class="o">]</span>
-<span class="nv">Description</span><span class="o">=</span>
-<span class="nv">After</span><span class="o">=</span>docker.service
-
-<span class="o">[</span>Service<span class="o">]</span>
-<span class="nv">Type</span><span class="o">=</span>simple
-<span class="nv">ExecStart</span><span class="o">=</span>/usr/sbin/iptables -I DOCKER-USER -i flannel.1 -o cni0 -j ACCEPT
-<span class="nv">ExecReload</span><span class="o">=</span>
-<span class="nv">ExecStop</span><span class="o">=</span>
-
-<span class="o">[</span>Install<span class="o">]</span>
-<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># /usr/lib/systemd/system/iptables-user.service</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Unit<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Description</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="nv">After</span><span class="o">=</span>docker.service
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Type</span><span class="o">=</span>simple
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStart</span><span class="o">=</span>/usr/sbin/iptables -I DOCKER-USER -i flannel.1 -o cni0 -j ACCEPT
+</span></span><span class="line"><span class="cl"><span class="nv">ExecReload</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStop</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Install<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">

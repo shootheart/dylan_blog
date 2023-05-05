@@ -2,24 +2,26 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://blog.muhowch.com/categories/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.muhowch.com/posts/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.muhowch.com/tags/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.muhowch.com/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.muhowch.com/2023-02-18-viewpoint-of-webisodes/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.muhowch.com/categories/%E6%B6%89%E8%AF%BB%E7%94%B5%E5%BD%B1/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.muhowch.com/tags/%E7%BD%91%E5%89%A7/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.muhowch.com/2023-01-07-chunwan/</loc><lastmod>2023-01-07T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/categories/</loc><lastmod>2023-05-05T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/posts/</loc><lastmod>2023-05-05T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/</loc><lastmod>2023-05-05T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/2023-05-05-the-memory-of-baidu-tieba/</loc><lastmod>2023-05-05T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/%E5%9B%9E%E5%BF%86/</loc><lastmod>2023-05-05T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/</loc><lastmod>2023-05-05T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/categories/%E7%94%9F%E6%B4%BB/</loc><lastmod>2023-05-05T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.muhowch.com/2023-02-18-viewpoint-of-webisodes/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/categories/%E6%B6%89%E8%AF%BB%E7%94%B5%E5%BD%B1/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/%E7%BD%91%E5%89%A7/</loc><lastmod>2023-02-18T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/%E6%98%A5%E6%99%9A/</loc><lastmod>2023-01-07T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/2023-01-07-chunwan/</loc><lastmod>2023-01-07T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/%E6%9D%82%E8%B0%88/</loc><lastmod>2023-01-07T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/categories/%E7%94%9F%E6%B4%BB/</loc><lastmod>2023-01-07T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2022-12-30-2022/</loc><lastmod>2022-12-30T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/categories/%E4%BA%BA%E7%94%9F/</loc><lastmod>2022-12-30T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/%E5%B9%B4%E7%BB%88/</loc><lastmod>2022-12-30T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/%E6%83%85%E7%BB%AA/</loc><lastmod>2022-12-30T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/categories/%E4%BA%BA%E7%94%9F/</loc><lastmod>2022-12-30T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/python/</loc><lastmod>2022-12-08T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/2022-12-08-using-microsoft-translator-api/</loc><lastmod>2022-12-08T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/categories/%E9%A5%AD%E7%A2%97/</loc><lastmod>2022-12-08T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/2022-12-08-using-microsoft-translator-api/</loc><lastmod>2022-12-08T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/openstack/</loc><lastmod>2022-10-20T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2022-10-20-issue-about-ipa/</loc><lastmod>2022-10-20T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/</loc><lastmod>2022-10-19T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -41,8 +43,8 @@
             <loc>https://blog.muhowch.com/2021/</loc><lastmod>2021-12-29T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2021-12-07/</loc><lastmod>2021-12-07T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2021-12-04/</loc><lastmod>2021-12-04T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/2021-09-14-trip-to-shanxi-jinzhong/</loc><lastmod>2021-09-14T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/%E6%97%85%E8%A1%8C/</loc><lastmod>2021-09-14T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/2021-09-14-trip-to-shanxi-jinzhong/</loc><lastmod>2021-09-14T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2021-05-22-trip-to-binhai/</loc><lastmod>2021-05-22T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/tags/wsl/</loc><lastmod>2021-02-09T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2021-02-09-the-file-permissions-of-wsl/</loc><lastmod>2021-02-09T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -78,5 +80,5 @@
             <loc>https://blog.muhowch.com/tags/ftp/</loc><lastmod>2018-02-25T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2018-02-25-learning-vsftpd/</loc><lastmod>2018-02-25T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.muhowch.com/2018-01-14-film-cast-list/</loc><lastmod>2018-01-14T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/tags/%E5%AA%92%E4%BD%93%E4%B8%AD%E5%BF%83/</loc><lastmod>2017-11-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.muhowch.com/2017-11-03-design-of-htpcv1.0/</loc><lastmod>2017-11-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
+            <loc>https://blog.muhowch.com/2017-11-03-design-of-htpcv1.0/</loc><lastmod>2017-11-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.muhowch.com/tags/%E5%AA%92%E4%BD%93%E4%B8%AD%E5%BF%83/</loc><lastmod>2017-11-03T00:00:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>

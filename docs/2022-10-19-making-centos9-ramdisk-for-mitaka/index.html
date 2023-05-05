@@ -8,10 +8,10 @@
         <title>制作openstack-mitaka版centos9裸机ramdisk - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="吾日三省吾身：嘛好吃 吃嘛好 好吃嘛"><meta property="og:title" content="制作openstack-mitaka版centos9裸机ramdisk" />
 <meta property="og:description" content="环境 openstack：mitaka；ironic：5.1.0 制作环境：centos7.9；python：3.6.8 ironic-pytho" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/" />
-<meta property="og:image" content="https://blog.muhowch.com"/>
+<meta property="og:url" content="https://blog.muhowch.com/2022-10-19-making-centos9-ramdisk-for-mitaka/" /><meta property="og:image" content="https://blog.muhowch.com"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-10-19T00:00:00+08:00" />
 <meta property="article:modified_time" content="2022-10-19T00:00:00+08:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.muhowch.com"/>
 
@@ -115,7 +115,7 @@
 <h3 id="安装工具">安装工具</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -125,20 +125,20 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 安装依赖工具</span>
-yum install qemu-img yum-utils bind-chroot git gdisk
-
-<span class="c1"># 如果没有安装python和pip，需要单独安装</span>
-yum intall python3 python3-pip
-
-<span class="c1"># 安装ironic-python-agent-builder和diskimage-builder</span>
-pip3 install ironic-python-agent-builder diskimage-builder
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装依赖工具</span>
+</span></span><span class="line"><span class="cl">yum install qemu-img yum-utils bind-chroot git gdisk
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果没有安装python和pip，需要单独安装</span>
+</span></span><span class="line"><span class="cl">yum intall python3 python3-pip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装ironic-python-agent-builder和diskimage-builder</span>
+</span></span><span class="line"><span class="cl">pip3 install ironic-python-agent-builder diskimage-builder
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="下载需要的文件">下载需要的文件</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -146,13 +146,13 @@ pip3 install ironic-python-agent-builder diskimage-builder
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 下载ironic-python-agent和ironic-lib</span>
-curl -O https://tarballs.opendev.org/openstack/ironic-python-agent/ironic-python-agent-1.2.3.tar.gz
-curl -O https://tarballs.opendev.org/openstack/ironic-lib/ironic-lib-1.2.0.tar.gz
-
-<span class="c1"># 下载依赖软件列表</span>
-curl -O https://opendev.org/openstack/requirements/raw/tag/mitaka-eol/upper-constraints.txt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 下载ironic-python-agent和ironic-lib</span>
+</span></span><span class="line"><span class="cl">curl -O https://tarballs.opendev.org/openstack/ironic-python-agent/ironic-python-agent-1.2.3.tar.gz
+</span></span><span class="line"><span class="cl">curl -O https://tarballs.opendev.org/openstack/ironic-lib/ironic-lib-1.2.0.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 下载依赖软件列表</span>
+</span></span><span class="line"><span class="cl">curl -O https://opendev.org/openstack/requirements/raw/tag/mitaka-eol/upper-constraints.txt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="修改source-repositories">修改source-repositories</h3>
 <ul>
@@ -161,11 +161,11 @@ curl -O https://opendev.org/openstack/requirements/raw/tag/mitaka-eol/upper-cons
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/local/share/ironic-python-agent-builder/dib/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/share/ironic-python-agent-builder/dib/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>上面提到的三个文件的来源，在ironic-python-agent-ramdisk目录中定义，以&quot;source-repository-名称&quot;为文件名</li>
@@ -173,20 +173,20 @@ curl -O https://opendev.org/openstack/requirements/raw/tag/mitaka-eol/upper-cons
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;name&gt; &lt;type&gt; &lt;destination&gt; &lt;location&gt; [&lt;ref&gt;]
-名称	  类型		目标		文件位置  可选，取决于类型
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;name&gt; &lt;type&gt; &lt;destination&gt; &lt;location&gt; [&lt;ref&gt;]
+</span></span><span class="line"><span class="cl">名称	  类型		目标		文件位置  可选，取决于类型
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>我们将三个文件的来源指定为我们下载好的本地文件</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -196,15 +196,15 @@ curl -O https://opendev.org/openstack/requirements/raw/tag/mitaka-eol/upper-cons
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># source-repository-ironic-python-agent</span>
-ironic-python-agent tar /tmp/ironic-python-agent file:///root/ironic-python-agent-1.2.3.tar.gz
-
-<span class="c1"># source-repository-ironic-lib</span>
-ironic-lib tar /tmp/ironic-lib file:///root/ironic-lib-1.1.0.tar.gz
-
-<span class="c1"># source-repository-requirements</span>
-requirements file /tmp/requirements/upper-constraints.txt file:///root/upper-constraints.txt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># source-repository-ironic-python-agent</span>
+</span></span><span class="line"><span class="cl">ironic-python-agent tar /tmp/ironic-python-agent file:///root/ironic-python-agent-1.2.3.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># source-repository-ironic-lib</span>
+</span></span><span class="line"><span class="cl">ironic-lib tar /tmp/ironic-lib file:///root/ironic-lib-1.1.0.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># source-repository-requirements</span>
+</span></span><span class="line"><span class="cl">requirements file /tmp/requirements/upper-constraints.txt file:///root/upper-constraints.txt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="制作镜像">制作镜像</h3>
 <ul>
@@ -212,24 +212,24 @@ requirements file /tmp/requirements/upper-constraints.txt file:///root/upper-con
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">export</span> <span class="nv">DIB_DEV_USER_PWDLESS_SUDO</span><span class="o">=</span><span class="s2">&#34;yes&#34;</span>		<span class="c1"># 设置sudo可以免密执行</span>
-<span class="nb">export</span> <span class="nv">DIB_DEV_USER_USERNAME</span><span class="o">=</span><span class="s2">&#34;user&#34;</span>			<span class="c1"># 定义ramdisk的用户</span>
-<span class="nb">export</span> <span class="nv">DIB_DEV_USER_PASSWORD</span><span class="o">=</span><span class="s2">&#34;password&#34;</span>		<span class="c1"># 定义ramdisk的密码</span>
-<span class="nb">export</span> <span class="nv">DIB_DISABLE_KERNEL_CLEANUP</span><span class="o">=</span><span class="m">1</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">DIB_DEV_USER_PWDLESS_SUDO</span><span class="o">=</span><span class="s2">&#34;yes&#34;</span>		<span class="c1"># 设置sudo可以免密执行</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">DIB_DEV_USER_USERNAME</span><span class="o">=</span><span class="s2">&#34;user&#34;</span>			<span class="c1"># 定义ramdisk的用户</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">DIB_DEV_USER_PASSWORD</span><span class="o">=</span><span class="s2">&#34;password&#34;</span>		<span class="c1"># 定义ramdisk的密码</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">DIB_DISABLE_KERNEL_CLEANUP</span><span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>执行ironic-python-agent-builder命令</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -239,15 +239,15 @@ requirements file /tmp/requirements/upper-constraints.txt file:///root/upper-con
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">ironic-python-agent-builder -o mitaka-centos9 -e dhcp-all-interfaces -e devuser -r 9-stream centos -v <span class="p">|</span> tee build.log
-<span class="c1"># -o 为输出文件的名称前缀</span>
-<span class="c1"># -e 为附加的elements</span>
-<span class="c1"># dhcp-all-interfaces表示启动镜像后扫描所有的网络端口的dhcp</span>
-<span class="c1"># devuser支持创建用户</span>
-<span class="c1"># -r 为使用的发行版版本号</span>
-<span class="c1"># centos为使用的发行版</span>
-<span class="c1"># -v 输出debug内容</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ironic-python-agent-builder -o mitaka-centos9 -e dhcp-all-interfaces -e devuser -r 9-stream centos -v <span class="p">|</span> tee build.log
+</span></span><span class="line"><span class="cl"><span class="c1"># -o 为输出文件的名称前缀</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -e 为附加的elements</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># dhcp-all-interfaces表示启动镜像后扫描所有的网络端口的dhcp</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># devuser支持创建用户</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -r 为使用的发行版版本号</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># centos为使用的发行版</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -v 输出debug内容</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>执行完毕，会生成<code>mitaka-centos9.kernel</code>、<code>mitaka-centos9.initramfs</code>、<code>mitaka-centos9.d</code>（不需要）</li>
@@ -258,26 +258,26 @@ requirements file /tmp/requirements/upper-constraints.txt file:///root/upper-con
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">glance image-create --name mitaka-centos9-kernel --disk-format aki --container-format aki --file mitaka-centos9.kernel  --progress
-
-glance image-create --name mitaka-centos9-ramdisk --disk-format ari --container-format ari --file mitaka-centos9.initramfs  --progress
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">glance image-create --name mitaka-centos9-kernel --disk-format aki --container-format aki --file mitaka-centos9.kernel  --progress
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">glance image-create --name mitaka-centos9-ramdisk --disk-format ari --container-format ari --file mitaka-centos9.initramfs  --progress
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>然后将小镜象配置到ironic node上</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">ironic node-update &lt;uuid&gt; replace driver_info/deploy_kernel<span class="o">=</span>&lt;kernel_uuid&gt; driver_info/deploy_ramdisk<span class="o">=</span>&lt;ramdisk_uuid&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ironic node-update &lt;uuid&gt; replace driver_info/deploy_kernel<span class="o">=</span>&lt;kernel_uuid&gt; driver_info/deploy_ramdisk<span class="o">=</span>&lt;ramdisk_uuid&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>之后新建裸机的实例测试</li>

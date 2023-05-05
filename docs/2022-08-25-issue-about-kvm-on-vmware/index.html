@@ -8,10 +8,10 @@
         <title>vmware部署kvm无法启动云主机 - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="吾日三省吾身：嘛好吃 吃嘛好 好吃嘛"><meta property="og:title" content="vmware部署kvm无法启动云主机" />
 <meta property="og:description" content="问题 在vmware环境部署zstack all in one环境，创建虚拟机之后无法启动，只显示seabios的信息，无法进入系统 更换硬盘的接口模式无效" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.muhowch.com/2022-08-25-issue-about-kvm-on-vmware/" />
-<meta property="og:image" content="https://blog.muhowch.com"/>
+<meta property="og:url" content="https://blog.muhowch.com/2022-08-25-issue-about-kvm-on-vmware/" /><meta property="og:image" content="https://blog.muhowch.com"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-25T00:00:00+08:00" />
 <meta property="article:modified_time" content="2022-08-25T00:00:00+08:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.muhowch.com"/>
 
@@ -107,28 +107,28 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">options kvm_intel <span class="nv">nested</span><span class="o">=</span><span class="m">1</span> <span class="nv">ept</span><span class="o">=</span><span class="m">0</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">options kvm_intel <span class="nv">nested</span><span class="o">=</span><span class="m">1</span> <span class="nv">ept</span><span class="o">=</span><span class="m">0</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>然后重新加载kvm模块</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">rmmod kvm-intel
-<span class="c1">## 卸载kvm_intel模块</span>
-modprobe kvm-intel <span class="nv">ept</span><span class="o">=</span><span class="m">0</span> <span class="nv">unrestricted_guest</span><span class="o">=</span><span class="m">0</span>
-<span class="c1">## 安装kvm_intel模块</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rmmod kvm-intel
+</span></span><span class="line"><span class="cl"><span class="c1">## 卸载kvm_intel模块</span>
+</span></span><span class="line"><span class="cl">modprobe kvm-intel <span class="nv">ept</span><span class="o">=</span><span class="m">0</span> <span class="nv">unrestricted_guest</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 安装kvm_intel模块</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>重启云主机，就可以正常进入了</li>

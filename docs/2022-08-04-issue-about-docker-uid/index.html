@@ -8,10 +8,10 @@
         <title>docker容器进程用户问题 - 嘛好吃 吃嘛好 好吃嘛</title><meta name="Description" content="吾日三省吾身：嘛好吃 吃嘛好 好吃嘛"><meta property="og:title" content="docker容器进程用户问题" />
 <meta property="og:description" content="环境 宿主机：CentOS7.9 docker：20.10.9 过程 在宿主机上部署docker服务并运行一个rabbitmq容器 1 docker run -d --hostname rabbitmq02 --name rabbitmq02 -v" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/" />
-<meta property="og:image" content="https://blog.muhowch.com"/>
+<meta property="og:url" content="https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/" /><meta property="og:image" content="https://blog.muhowch.com"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-04T00:00:00+08:00" />
 <meta property="article:modified_time" content="2022-08-04T00:00:00+08:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.muhowch.com"/>
 
@@ -106,11 +106,11 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -d --hostname rabbitmq02 --name rabbitmq02 -v /var/lib/rabbitmq02:/var/lib/rabbitmq   -v /var/log/rabbitmq02:/var/log/rabbitmq -v /etc/rabbitmq02:/etc/rabbitmq --privileged<span class="o">=</span>True -e <span class="nv">RABBITMQ_ERLANG_COOKIE</span><span class="o">=</span><span class="s1">&#39;rabbitmqCookie&#39;</span> rabbitmq:3.10-management
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d --hostname rabbitmq02 --name rabbitmq02 -v /var/lib/rabbitmq02:/var/lib/rabbitmq   -v /var/log/rabbitmq02:/var/log/rabbitmq -v /etc/rabbitmq02:/etc/rabbitmq --privileged<span class="o">=</span>True -e <span class="nv">RABBITMQ_ERLANG_COOKIE</span><span class="o">=</span><span class="s1">&#39;rabbitmqCookie&#39;</span> rabbitmq:3.10-management
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>启动后发现挂载的日志目录无法写入，导致rabbitmq进程退出</li>
@@ -118,11 +118,11 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">drwxr-xr-x. <span class="m">3</span> polkitd root <span class="m">63</span> Sep  <span class="m">8</span> 22:36 /var/lib/rabbitmq02/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">drwxr-xr-x. <span class="m">3</span> polkitd root <span class="m">63</span> Sep  <span class="m">8</span> 22:36 /var/lib/rabbitmq02/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>目录的权限居然是polkitd:root！</li>
@@ -134,33 +134,33 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">polkitd   <span class="m">11227</span>  <span class="m">11205</span>  <span class="m">0</span> Sep08 ?        00:00:00 /bin/sh /opt/rabbitmq/sbin/rabbitmq-server
-polkitd   <span class="m">11263</span>  <span class="m">11227</span>  <span class="m">1</span> Sep08 ?        00:00:55 /usr/local/lib/erlang/erts-13.0.4/bin/beam.smp -W w -MBas ageffcbf -MHas ageffcbf -MBlmbcs <span class="m">512</span> -MHlmbcs <span class="m">512</span> -MMmcs <span class="m">30</span> -P <span class="m">1048576</span> -t <span class="m">5000000</span> -stbt db -zdbbl <span class="m">128000</span> -sbwt none -sbwtdcpu none -sbwtdio none -B i -- -root /usr/local/lib/erlang -bindir /usr/local/lib/erlang/erts-13.0.4/bin -progname erl -- -home /var/lib/rabbitmq -- -pa  -noshell -noinput -s rabbit boot -boot start_sasl -syslog logger <span class="o">[]</span> -syslog syslog_error_logger <span class="nb">false</span> -kernel prevent_overlapping_partitions <span class="nb">false</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">polkitd   <span class="m">11227</span>  <span class="m">11205</span>  <span class="m">0</span> Sep08 ?        00:00:00 /bin/sh /opt/rabbitmq/sbin/rabbitmq-server
+</span></span><span class="line"><span class="cl">polkitd   <span class="m">11263</span>  <span class="m">11227</span>  <span class="m">1</span> Sep08 ?        00:00:55 /usr/local/lib/erlang/erts-13.0.4/bin/beam.smp -W w -MBas ageffcbf -MHas ageffcbf -MBlmbcs <span class="m">512</span> -MHlmbcs <span class="m">512</span> -MMmcs <span class="m">30</span> -P <span class="m">1048576</span> -t <span class="m">5000000</span> -stbt db -zdbbl <span class="m">128000</span> -sbwt none -sbwtdcpu none -sbwtdio none -B i -- -root /usr/local/lib/erlang -bindir /usr/local/lib/erlang/erts-13.0.4/bin -progname erl -- -home /var/lib/rabbitmq -- -pa  -noshell -noinput -s rabbit boot -boot start_sasl -syslog logger <span class="o">[]</span> -syslog syslog_error_logger <span class="nb">false</span> -kernel prevent_overlapping_partitions <span class="nb">false</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>但是在容器里依旧是rabbitmq用户运行</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">rabbitmq      <span class="m">1</span>      <span class="m">0</span>  <span class="m">0</span> 15:03 ?        00:00:00 /bin/sh /opt/rabbitmq/sbin/rabbitmq-server
-rabbitmq     <span class="m">19</span>      <span class="m">1</span>  <span class="m">1</span> 15:03 ?        00:00:53 /usr/local/lib/erlang/erts-13.0.4/bin/beam.smp -W w -MBas ageffcbf -MHas ageffcbf -MBlmbcs <span class="m">512</span> -MHlmbcs <span class="m">512</span> -MMmcs <span class="m">30</span> -P <span class="m">1048576</span> -t <span class="m">5000000</span> -stbt db -zdbbl <span class="m">128000</span> -sbwt none -sbwtdcpu none -sbwtdio none -B i -- -root /usr/local/lib/erlang -bindir /usr/local/lib/erlang/erts-13.0.4/bin -progname erl -- -home /var/lib/rabbitmq -- -pa  -noshell -noinput -s rabbit boot -boot start_sasl -syslog logger <span class="o">[]</span> -syslog syslog_error_logger <span class="nb">false</span> -kernel prevent_overlapping_partitions <span class="nb">false</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rabbitmq      <span class="m">1</span>      <span class="m">0</span>  <span class="m">0</span> 15:03 ?        00:00:00 /bin/sh /opt/rabbitmq/sbin/rabbitmq-server
+</span></span><span class="line"><span class="cl">rabbitmq     <span class="m">19</span>      <span class="m">1</span>  <span class="m">1</span> 15:03 ?        00:00:53 /usr/local/lib/erlang/erts-13.0.4/bin/beam.smp -W w -MBas ageffcbf -MHas ageffcbf -MBlmbcs <span class="m">512</span> -MHlmbcs <span class="m">512</span> -MMmcs <span class="m">30</span> -P <span class="m">1048576</span> -t <span class="m">5000000</span> -stbt db -zdbbl <span class="m">128000</span> -sbwt none -sbwtdcpu none -sbwtdio none -B i -- -root /usr/local/lib/erlang -bindir /usr/local/lib/erlang/erts-13.0.4/bin -progname erl -- -home /var/lib/rabbitmq -- -pa  -noshell -noinput -s rabbit boot -boot start_sasl -syslog logger <span class="o">[]</span> -syslog syslog_error_logger <span class="nb">false</span> -kernel prevent_overlapping_partitions <span class="nb">false</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>所以问题的原因，只是容器里rabbitmq的uid在宿主机上对应的是polkitd这个用户而已</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -169,14 +169,14 @@ rabbitmq     <span class="m">19</span>      <span class="m">1</span>  <span clas
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 容器</span>
-root@rabbitmq02:/# id rabbitmq
-<span class="nv">uid</span><span class="o">=</span>999<span class="o">(</span>rabbitmq<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>999<span class="o">(</span>rabbitmq<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>999<span class="o">(</span>rabbitmq<span class="o">)</span>
-
-<span class="c1"># 宿主机</span>
-<span class="o">[</span>root@localhost log<span class="o">]</span><span class="c1"># id polkitd</span>
-<span class="nv">uid</span><span class="o">=</span>999<span class="o">(</span>polkitd<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>998<span class="o">(</span>polkitd<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>998<span class="o">(</span>polkitd<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 容器</span>
+</span></span><span class="line"><span class="cl">root@rabbitmq02:/# id rabbitmq
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>999<span class="o">(</span>rabbitmq<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>999<span class="o">(</span>rabbitmq<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>999<span class="o">(</span>rabbitmq<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 宿主机</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost log<span class="o">]</span><span class="c1"># id polkitd</span>
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>999<span class="o">(</span>polkitd<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>998<span class="o">(</span>polkitd<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>998<span class="o">(</span>polkitd<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">

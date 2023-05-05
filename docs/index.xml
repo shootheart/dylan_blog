@@ -3,9 +3,16 @@
         <title>嘛好吃 吃嘛好 好吃嘛</title>
         <link>https://blog.muhowch.com/</link>
         <description>吾日三省吾身：嘛好吃 吃嘛好 好吃嘛</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 18 Feb 2023 00:00:00 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 05 May 2023 00:00:00 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.muhowch.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>百度贴吧——逝去的青春</title>
+    <link>https://blog.muhowch.com/2023-05-05-the-memory-of-baidu-tieba/</link>
+    <pubDate>Fri, 05 May 2023 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.muhowch.com/2023-05-05-the-memory-of-baidu-tieba/</guid>
+    <description><![CDATA[今天趁着发一篇磁带求助帖的机会，逛了逛我尘封已久的贴吧，那种感觉就像在看一个陌生人一样。 百度贴吧应该是我接入互联网的第一个平台，第一次感受到]]></description>
+</item><item>
     <title>对近几年网剧的一点看法</title>
     <link>https://blog.muhowch.com/2023-02-18-viewpoint-of-webisodes/</link>
     <pubDate>Sat, 18 Feb 2023 00:00:00 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://blog.muhowch.com/2022-08-04-issue-about-docker-uid/</guid>
     <description><![CDATA[环境 宿主机：CentOS7.9 docker：20.10.9 过程 在宿主机上部署docker服务并运行一个rabbitmq容器 1 docker run -d --hostname rabbitmq02 --name rabbitmq02 -v]]></description>
-</item><item>
-    <title>k8s v1.24.3更换容器运行时为containerd</title>
-    <link>https://blog.muhowch.com/2022-08-03-replace-cri-to-containerd/</link>
-    <pubDate>Wed, 03 Aug 2022 00:00:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://blog.muhowch.com/2022-08-03-replace-cri-to-containerd/</guid>
-    <description><![CDATA[环境 CentOS 7.9 k8s 1.24.3 containerd 1.6.6 背景 k8s从1.20开始逐步放弃使用docker作为容器运行时环境，1.24开始已经删除dockershim，如果还希望使用]]></description>
 </item></channel>
 </rss>
