@@ -16,18 +16,26 @@ categories: ["生活"]
 
 + 现在市面上可选的外接触控板大概有下面几种：
 
-  + **Apple Magic Trackpad**：Apple这款是公认的好用，配合苹果全家桶简直无可挑剔；windows上可能[设置会比较麻烦](https://opnir.cn/2020/07/using-apple-magic-trackpad-on-windows-pc.html)，并且手势貌似也并不丰富，但好在linux上可以直接使用，缺点就是贵；
+  + **Apple Magic Trackpad**：
 
-    > 妙控板如今已有两代产品（三代并未有官方的确认）：
+    Apple这款是公认的好用，配合Apple全家桶简直无可挑剔；windows上可能[设置会比较麻烦](https://opnir.cn/2020/07/using-apple-magic-trackpad-on-windows-pc.html)，并且手势貌似也并不丰富，但好在linux上可以直接使用，还可以通过其他驱动进行自由配置；缺点就是成色好的太贵；
+
+    > Magic Trackpad如今已有两代产品（三代并未有官方的确认）：
     >
     > + 一代年代比较久远，但优点是使用干电池供电（避免使用USB），二手价格适中；缺点是二手存量品质参差不齐，多数面板已经破裂（一般不影响使用），贴膜的办法会影响手感
-    > + 二代相比一代面积更大，手感更佳，支持蓝牙和有线；由于内置电池，角度更为平缓，同时也需要连接USB进行充电；价格较贵，二手品同样也有玻璃面板破裂的问题（较少）
+    > + 二代相比一代面积更大，手感更佳，支持蓝牙和有线；由于内置电池，角度更为平缓，同时也需要连接线进行充电；价格较贵，而且二手品同样也有玻璃面板破裂的问题（较少）
 
-  + **Lenovo K5923**：联想十几年前推出的产品，据说销量惨淡，[主要还是windows生态下用户觉得触控板不如鼠标](https://www.zhihu.com/question/290800128)，又或者没有像苹果那样好用的手势操作；现在二手市场上有一些存量，价格很便宜，但90%都丢失了USB接收器，需要自己配，实际效果不得而知；
+  + **Lenovo K5923**：
 
-  + **Logi T651**：罗技推出的外接触控板，被誉为苹果Magic Trackpad的最佳替代品；使用Logitech Options在Mac上几乎可以实现Magic Trackpad的所有手势，而且价格相对便宜，唯一的缺点可能也就是在手感上不如苹果；
+    联想十几年前推出的产品，据说销量惨淡，[主要还是windows生态下用户觉得触控板不如鼠标](https://www.zhihu.com/question/290800128)，又或者没有像苹果那样好用的手势操作；现在二手市场上有一些存量，价格很便宜，但90%都丢失了USB接收器，需要自己配，实际效果不得而知；
 
-  + **其他**：一般是一些国外的小品牌或者自制的工控触控板，要么不好买要么就是怕踩坑。
+  + **Logi T651**：
+
+    罗技推出的外接触控板，被誉为Magic Trackpad的最佳替代品；使用Logitech Options在Mac上几乎可以实现Magic Trackpad的所有手势，而且价格相对便宜，唯一的缺点可能也就是在手感上不如Apple；
+
+  + **其他**：
+
+    一般是一些国外的小品牌或者自制的工控触控板，要么不好买要么就是怕踩坑。
 
 + 综合考量了一下，我还是决定捡一个一代的Magic Trackpad，相信一次Apple的品质。
 
@@ -35,8 +43,12 @@ categories: ["生活"]
 
 + Linux内核[已经适配](https://lkml.iu.edu/hypermail/linux/kernel/1809.2/05203.html)了Magic Trackpad，目前在图形界面上主要有两种驱动：
 
-  + **xf86-input-mtrack**：运行在`Xorg`下的一个多触控驱动，提供了非常丰富的设置属性和手势定义，也可以配合`libinput-gestures`来实现更多的手势操作；但是实际在使用Magic Trackpad时问题较多，包括灵敏度过大、手势丢失的问题；而且项目上一个[release](https://github.com/p2rkw/xf86-input-mtrack/releases/tag/v0.5.0)已经是5年前的了，可以说还有很多问题需要解决；
-  + **libinput**：[freedesktop](https://wayland.freedesktop.org/libinput/doc/latest/what-is-libinput.html)维护的一个外设驱动组件，是现今发行版使用较为普遍的一个外设驱动，兼顾Xorg和Wayland；运行很稳定，我之前使用thinkpad自带的触控板就是默认由`libinput`配置的，同样也支持Magic Trackpad；
+  + **xf86-input-mtrack**：
+
+    运行在`Xorg`下的一个多触控驱动，提供了非常丰富的设置属性和手势定义，也可以配合`libinput-gestures`来实现更多的手势操作；但是实际在使用Magic Trackpad时问题较多，包括灵敏度过大、手势丢失的问题；而且项目上一个[release](https://github.com/p2rkw/xf86-input-mtrack/releases/tag/v0.5.0)已经是5年前的了，可以说还有很多问题需要解决；
+  + **libinput**：
+
+    [freedesktop](https://wayland.freedesktop.org/libinput/doc/latest/what-is-libinput.html)维护的一个外设驱动组件，是现今发行版使用较为普遍的一个外设驱动，兼顾Xorg和Wayland；运行很稳定，我之前使用thinkpad自带的触控板就是默认由`libinput`配置的，同样也支持Magic Trackpad；
 
 + 使用`libinput`驱动触控板很容易，使用其自带的配置文件已可以达到很好的使用效果。
 
@@ -93,7 +105,7 @@ categories: ["生活"]
 
   2. `libinput-gestures-setup`脚本中关于`HAS_SYSD`的检测也改为`default.target`
 
-     ```python
+     ```bash
      # /usr/bin/libinput-gestures-setup
      ...
      	# Test if systemd is installed
