@@ -77,107 +77,10 @@ EndSection
 
 `libinput`只能对触控板实现简单的手势操作（如轻触点击、点击拖动、多指按键定义等），如果想要更加丰富的自定义手势，可以使用`libinput-gestures`来实现。
 
-> 关于`libinput-gestures`对于手势操作的定义和配置，我将会在另外一篇文章中说明。
+> 关于`libinput-gestures`对于手势操作的定义和配置，[请参考另外一篇文章]({{< relref "2023-08-12-libinput-gestures.md#配置" >}})。
 
 > 本节所提到的所有操作，均在`Arch Linux`+`Xorg`环境下，如果使用其他发行版或图形环境，可能在某些细节上有所差异。
 
-### libinput-gestures服务的启动
-
-`libinput-gestures`的启动方式有两种，`systemd service`方式和`desktop application`方式，通过`libinput-gestures-setup`命令来指定启动方式或者是否自启动。
-
-我们使用`systemd`方式作为user服务来启动：`libinput-gestures-setup service`
-
-这里可能会出现“Systemd not available, can not run as service.”的错误提示，这是因为`libinput-gestures.service`中的`[Install]`是`graphical-session.target`，而我们在user环境下使用的是`default.target`，`libinput-gestures-setup`脚本无法检测到对应的`target`，所以设置失败。
-
-我的解决方法是：
-
-1. 将`libinput-gestures.service`中的所有`graphical-session.target`修改为`default.target`
-
-   ```bash
-   # /home/dylan/.config/systemd/user/libinput-gestures.service
-   [Unit]
-   Description=Actions gestures on your touchpad using libinput
-   Documentation=https://github.com/bulletmark/libinput-gestures
-   PartOf=default.target  # <-- 修改
-   After=default.target   # <-- 修改
-   
-   [Service]
-   Type=simple
-   ExecStart=/usr/bin/libinput-gestures
-   
-   [Install]
-   WantedBy=default.target  # <-- 修改
-   ```
-
-2. `libinput-gestures-setup`脚本中关于`HAS_SYSD`的检测也改为`default.target`
-
-   ```bash
-   # /usr/bin/libinput-gestures-setup
-   ...
-   	# Test if systemd is installed
-       if type systemctl &>/dev/null; then
-           #HAS_SYSD=$(sysd_prop graphical-session.target ActiveState active)  # <-- 注释，改为下面这行
-           HAS_SYSD=$(sysd_prop default.target ActiveState active)
-       else
-           HAS_SYSD=0
-       fi
-   ...
-   ```
-
-   > 这不是最好的办法，可能在`libinput-gestures`更新后被覆盖
-
-设置为`service`方式之后，设置为自动启动：`libinput-gestures-setup autostart`
-
-立即开启`libinput-gestures-setup start`
-
-### libinput-gestures对于设备的选择
-
-> *这里做个记录：*
->
-> 先前我没有仔细查看libinput-gestures.conf对于设备选择的说明，只对手势定义做了配置；
->
-> 实际使用时笔记本和外接触控板同时只能有一个对手势生效，如果我的外接触控板断开，内置的触控板不会接替生效，必须重启服务；
->
-> 于是我准备在udev rule中对触控板的连接与断开事件指定一个重启服务的操作；
->
-> 但无奈如果使用desktop方式启动libinput-gestures，udev rule在执行RUN脚本时会出现很多问题（比如X环境变量、执行用户等），并且也无法直接利用restart命令；
->
-> 最后我换成service启动，并且在rule中配置了对服务的依赖，才勉强实现了切换；
->
-> 实际上libinput-gestures可以指定某个device，甚至是监听所有的devices；
->
-> 没有仔细查看文档导致绕了这么一个大弯路，谨此作为教训。
-
-`libinput-gesture.conf`中有关于监听device的相关配置：
-
-```bash
-###############################################################################
-# This application normally determines your touchpad device
-# automatically. Some users may have multiple touchpads but by default
-# we use only the first one found. However, you can choose to specify
-# the explicit device name to use. Run "libinput list-devices" to work
-# out the name of your device (from the "Device:" field). Then add a
-# device line specifying that name, e.g:
-#
-# device DLL0665:01 06CB:76AD Touchpad
-#
-# If the device name starts with a '/' then it is instead considered as
-# the explicit device path although since device paths can change
-# through reboots this is best to be a symlink. E.g. instead of specifying
-# /dev/input/event12, you should use the corresponding full path link
-# under /dev/input/by-path/ or /dev/input/by-id/.
-#
-# You can choose to use ALL touchpad devices by setting the device name
-# to "all". E.g. Do this if you have multiple touchpads which you want
-# to use in parallel. This reduces performance slightly so only set this
-# if you have to.
-#
-# device all
-```
-
-可以通过`libinput list-devices`来确定使用设备的名称，或者直接设置成all，将会监听所有的设备。
-
-对于我的情况，笔记本内置的和外接的触控板可能都需要使用，所以简单设置为all，避免切换的麻烦。
 
 ## USB键盘+MagicTrackpad实现[DWT]^(Disable While Typing)
 
