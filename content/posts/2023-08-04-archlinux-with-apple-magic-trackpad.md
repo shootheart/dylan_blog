@@ -1,7 +1,7 @@
 ---
 title: "如何在Arch Linux下优雅地使用Apple Magic Trackpad"
 date: 2023-08-04T00:00:00+08:00
-lastmod: 2023-08-06T00:00:00+08:00
+lastmod: 2023-08-12T00:00:00+08:00
 draft: false
 toc: true
 tags: ["Linux", "Arch", "Apple"]
