@@ -156,7 +156,7 @@ theme = "LoveIt"
     icp = ""
     # 许可协议信息 (支持 HTML 格式)
     license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
-	busuanzi = true
+	busuanzi = false
   #  Section (所有文章) 页面配置
   [params.section]
     # section 页面每页显示文章数量
@@ -337,7 +337,7 @@ theme = "LoveIt"
       fullscreen = true
     #  文章页面的分享信息设置
     [params.page.share]
-      enable = true
+      enable = false
       Twitter = true
       Facebook = true
       Linkedin = false
