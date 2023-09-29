@@ -1,3 +1,15 @@
+---
+title: "利用libinput-gestures让触控板手势更丰富"
+date: 2023-08-12T00:00:00+08:00
+lastmod: 2023-08-12T00:00:00+08:00
+draft: false
+toc: true
+tags: ["Linux", "Arch"]
+categories: ["生活"]
+hiddenFromHomePage: false
+hiddenFromSearch: false
+---
+
 ## 关于libinput-gestures
 
 > [Arch Wiki对于libinput-gesture的说明](https://wiki.archlinuxcn.org/wiki/Libinput?rdfrom=https%3A%2F%2Fwiki.archlinux.org%2Findex.php%3Ftitle%3DLibinput_%28%25E7%25AE%2580%25E4%25BD%2593%25E4%25B8%25AD%25E6%2596%2587%29%26redirect%3Dno#libinput-gestures)
