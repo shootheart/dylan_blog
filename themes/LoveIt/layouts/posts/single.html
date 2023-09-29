@@ -52,8 +52,8 @@
                 {{- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -}}
                     <i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="{{ . }}">{{ . }}</time>&nbsp;
                 {{- end -}}
-                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;{{ T "wordCount" .WordCount }}&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;{{ T "readingTime" .ReadingTime }}&nbsp;
+<!--            <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;{{ T "wordCount" .WordCount }}&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;{{ T "readingTime" .ReadingTime }}&nbsp;            -->                
                 {{- $comment := .Scratch.Get "comment" | default dict -}}
                 {{- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -}}
                     <span id="{{ .RelPermalink }}" class="leancloud_visitors" data-flag-title="{{ .Title }}">
@@ -61,7 +61,9 @@
                     </span>&nbsp;
                 {{- end -}}
 				{{- /* busuanzi */ -}}
+                {{- if ne .Site.Params.footer.busuanzi false -}}
 					<i class="far fa-eye fa-fw"></i><span id="busuanzi_container_page_pv">&nbsp;共阅读&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次</span>
+                {{- end -}}
 
             </div>
         </div>
