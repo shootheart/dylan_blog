@@ -382,6 +382,7 @@ theme = "LoveIt"
         repo = "dylan_blog"
         clientId = "Ov23li4lqAT7nkla9Cbg"
         clientSecret = "e4bbd7a8e6c4456253ef4b5c9421c55e5d0cfae6"
+	admin = ["shootheart"]
       # Valine 评论系统设置
       [params.page.comment.valine]
         enable = false
