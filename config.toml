@@ -377,12 +377,11 @@ theme = "LoveIt"
       # Gitalk 评论系统设置
       [params.page.comment.gitalk]
         # 
-        enable = true
+        enable = false
         owner = "shootheart"
         repo = "dylan_blog"
-        clientId = "Ov23li4lqAT7nkla9Cbg"
-        clientSecret = "e4bbd7a8e6c4456253ef4b5c9421c55e5d0cfae6"
-	admin = ["shootheart"]
+        clientId = ""
+        clientSecret = ""
       # Valine 评论系统设置
       [params.page.comment.valine]
         enable = false
@@ -426,11 +425,11 @@ theme = "LoveIt"
         enable = false
       #  Utterances 评论系统设置
       [params.page.comment.utterances]
-        enable = false
+        enable = true
         # owner/repo
-        repo = ""
-        issueTerm = "pathname"
-        label = ""
+        repo = "shootheart/dylan_blog"
+        issueTerm = "og:title"
+        label = "comment"
         lightTheme = "github-light"
         darkTheme = "github-dark"
     #  第三方库配置
