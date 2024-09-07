@@ -2,6 +2,7 @@
 title: "我"
 date: 2021-01-31
 draft: false
+lastmod: 2024-09-07
 ---
 ---
 
@@ -24,7 +25,7 @@ draft: false
 不过，欢迎你，无意中发现这里的有缘人。
 
 {{< /admonition >}}
-本着个人古怪的习惯原则，就不加评论系统了，小伙伴可以在各个平台找到我：
+小伙伴可以在各个平台找到我：
 
 + {{< link "https://www.douban.com/people/142688580" "豆瓣" >}}
 + {{< link "https://weibo.com/u/2353080015" "微博" >}}
