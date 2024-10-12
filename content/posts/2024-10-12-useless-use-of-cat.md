@@ -16,9 +16,7 @@ hiddenFromSearch: false
 
 之后在StackExchange上的一个[问答](https://superuser.com/questions/192052/advantages-of-cating-file-and-piping-to-grep)里看到了“[UUOC](https://en.wikipedia.org/wiki/Cat_(Unix)#Useless_use_of_cat)”这个概念。
 
-```
-The purpose of cat is to concatenate (or "catenate") files. If it's only one file, concatenating it with nothing at all is a waste of time, and costs you a process.
-```
+> The purpose of cat is to concatenate (or "catenate") files. If it's only one file, concatenating it with nothing at all is a waste of time, and costs you a process.
 
 大体意思就是以`cat`命令本身设计初衷（连接文件内容），只拿来做一个文件内容的输出，不仅浪费[资源](https://superuser.com/a/192058)，也浪费[时间和一个进程](http://www.smallo.ruhr.de/award.html)。应该使用替代方法就是使用输入重定向`<`，比如把文件内容给一个变量：`a=$(<filename)`；或者配合文本处理的其他命令：`<filename grep keyword`等等。
 
