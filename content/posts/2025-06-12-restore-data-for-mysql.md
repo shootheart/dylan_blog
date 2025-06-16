@@ -19,11 +19,11 @@ toc: true
 
 因为一个OpenStack虚拟机映射存储卷错误的问题，需要修改 `nova` 数据库的 `block_device_mapping` 表，然后操作 `UPDATE` 忘了加 `WHERE`，把整个表都修改了，4000多条数据，无语。。
 
-![](image-20250613172308274.png)
+![](https://dylanblog.oss-cn-beijing.aliyuncs.com/2025-06-12-restore-data-for-mysql/image-20250613172308274.png)
 
 不知所措的时候突然想起数据库开了binlog，想着是不是能把数据恢复回来。
 
-![](问题记录/assets/通过mysql的binlog恢复UPDATE误操作数据-2025-06-12.assets/image%201.png)
+![](https://dylanblog.oss-cn-beijing.aliyuncs.com/2025-06-12-restore-data-for-mysql/image-20250613172118263.png)
 
 ## 尝试恢复
 
@@ -60,9 +60,10 @@ mysqlbinlog   【参数 】 【binlog文件】
 
 找到了执行批量 `UPDATE` 命令所在的position：
 
-![](问题记录/assets/通过mysql的binlog恢复UPDATE误操作数据-2025-06-12.assets/image.png)
+![](https://dylanblog.oss-cn-beijing.aliyuncs.com/2025-06-12-restore-data-for-mysql/image-20250613171121980.png)
 
-![](image%202.png)
+![](https://dylanblog.oss-cn-beijing.aliyuncs.com/2025-06-12-restore-data-for-mysql/image-20250613171848552.png)
+
 > 即便是同时执行的许多条`UPDATE`语句，每条语句也都有自己的position，而且positions是聚集在了一起。
 
 之后将这一时间段的`UPDATE`语句导出为sql：
@@ -313,5 +314,7 @@ mysql -u root -p -D nova < restore2_3.sql
 ## 参考
 
 https://www.cnblogs.com/mimeng/p/17090952.html
+
 https://www.cnblogs.com/gomysql/p/3582058.html
+
 https://blog.csdn.net/jkzyx123/article/details/127094632
