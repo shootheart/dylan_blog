@@ -1,5 +1,5 @@
 ---
-id: 通过mysql的binlog恢复UPDATE误操作数据-2025-06-12
+id: 通过mysql的binlog恢复UPDATE误操作数据
 aliases: []
 tags:
   - 数据库
@@ -10,7 +10,7 @@ draft: false
 hiddenFromHomePage: false
 hiddenFromSearch: false
 lastmod: 2025-06-12T00:00:00+08:00
-title: 通过mysql的binlog恢复UPDATE误操作的数据-2025-06-12
+title: 通过mysql的binlog恢复UPDATE误操作的数据
 toc: true
 ---
 
