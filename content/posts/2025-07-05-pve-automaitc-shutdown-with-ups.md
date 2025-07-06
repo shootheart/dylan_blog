@@ -136,4 +136,5 @@ Jul 06 15:26:09 Nas nut-monitor[3281]: Auto logout and shutdown proceeding
 实际上 PVE 服务器的关机操作不需要额外的操作，在正常的 `shutdown` 过程中会自动尝试关闭所有的虚拟机/容器，同时 zfs pool 也不需要执行额外的卸载命令，操作系统在关闭的过程中会自动进行处理。 
 
 > https://www.reddit.com/r/Proxmox/comments/st7i6j/do_i_need_to_do_anything_special_to_shutdown/
+>
 > https://forums.freebsd.org/threads/safe-and-clean-shutdown-with-zfs.45498/
