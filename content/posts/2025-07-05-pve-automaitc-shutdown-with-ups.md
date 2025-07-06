@@ -16,7 +16,7 @@ hiddenFromSearch: false
 
 购买的是山特 TG-BOX 850，这个型号支持 USB 连接设备从而实现断电自动关机的功能。
 
-NAS 目前使用的是 PVE（基于 Debian 系统），关于 Linux 系统与 UPS 的集成，选择的是 [NUT]() 项目。老牌的开源 UPS 管理软件，而且目前还在活跃开发中，相比 [apcupsd]()，似乎使用的人更多。
+NAS 目前使用的是 PVE（基于 Debian 系统），关于 Linux 系统与 UPS 的集成，选择的是 [NUT](https://en.wikipedia.org/wiki/Network_UPS_Tools) 项目。老牌的开源 UPS 管理软件，而且目前还在活跃开发中，相比 [apcupsd](https://en.wikipedia.org/wiki/Apcupsd)，似乎使用的人更多（何况 apcupsd 已经近十年没有更新了）。
 
 ## 安装
 
