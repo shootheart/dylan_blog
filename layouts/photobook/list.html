@@ -1,0 +1,27 @@
+{{- define "title" }}{{ .Title | default "相册" }} - {{ .Site.Title }}{{ end -}}
+
+{{- define "content" -}}
+<div class="page archive pb-list-page">
+    <h2 class="single-title animated pulse faster">{{ .Title | default "相册" }}</h2>
+
+    <div class="pb-album-grid">
+    {{- range .Pages }}
+        {{- /* 封面与张数都来自 front matter 里的 photos（由 album-build.py 写入） */ -}}
+        {{- $photos := .Params.photos | default slice -}}
+        {{- $cover := .Params.featuredImage -}}
+        {{- if not $cover -}}
+            {{- with $photos }}{{ $cover = (index . 0).small }}{{ end -}}
+        {{- end -}}
+        <a class="pb-album" href="{{ .RelPermalink }}">
+            <div class="pb-album-cover">
+                {{- with $cover }}
+                <img src="{{ . }}" loading="lazy" decoding="async" alt="">
+                {{- end }}
+            </div>
+            <h3 class="pb-album-title">{{ .Title }}</h3>
+            <div class="pb-album-meta">{{ .Date.Format "2006-01" }} · {{ len $photos }} 张</div>
+        </a>
+    {{- end }}
+    </div>
+</div>
+{{- end -}}

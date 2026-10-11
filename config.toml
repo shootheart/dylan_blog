@@ -48,13 +48,21 @@ theme = "LoveIt"
         title = "影评"
         weight = 3
       [[languages.zh-cn.menu.main]]
+        identifier = "photobook"
+        pre = ""
+        post = ""
+        name = "相册"
+        url = "/photobook/"
+        title = "照片书"
+        weight = 4
+      [[languages.zh-cn.menu.main]]
         identifier = "about"
         pre = ""
         post = ""
         name = "关于"
         url = "/about/"
         title = "关于我"
-        weight = 4
+        weight = 5
       [[languages.zh-cn.menu.main]]
         identifier = "github"
         pre = "<i class='fab fa-github fa-fw'></i>"
@@ -62,7 +70,7 @@ theme = "LoveIt"
         name = ""
         url = "https://github.com/shootheart"
         title = "GitHub"
-        weight = 5
+        weight = 6
 
 [params]
   #  LoveIt 主题版本
@@ -435,6 +443,7 @@ theme = "LoveIt"
     #  第三方库配置
     [params.page.library]
       [params.page.library.css]
+        photobook = "css/photobook.css"
         # someCSS = "some.css"
         # 位于 "assets/"
         # 或者

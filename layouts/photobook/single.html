@@ -1,0 +1,82 @@
+{{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
+
+{{- define "content" -}}
+    {{- /* 照片数据由 album-build.py 写入 front matter */ -}}
+    {{- $photos := .Params.photos | default slice -}}
+    {{- $groups := .Params.groups | default dict -}}
+    {{- $total := len $photos -}}
+
+<div class="page single special pb-page">
+    <h1 class="single-title animated pulse faster">{{ .Title }}</h1>
+
+    {{- /* ===== 隐藏节点 1/2：组说明，每组只存一份 ===== */ -}}
+    {{- range $gid, $g := $groups }}
+        {{- if or $g.title $g.text }}
+    <div hidden>
+        <div class="pb-grp" id="pb-grp-{{ $gid }}">
+            {{- with $g.title }}<h3 class="pb-grp-title">{{ . }}</h3>{{ end }}
+            {{- with $g.text }}<div class="pb-grp-text">{{ . | markdownify }}</div>{{ end }}
+        </div>
+    </div>
+        {{- end }}
+    {{- end }}
+
+    {{- /* ===== 隐藏节点 2/2：每张照片（组插槽 + 单张信息，全部按需渲染） ===== */ -}}
+    <div hidden>
+    {{- range $i, $p := $photos }}
+        {{- $grp := dict -}}
+        {{- with $p.group -}}{{- with index $groups . }}{{ $grp = . }}{{ end -}}{{- end -}}
+        {{- $hasShot := or $p.alt $p.text $p.exif }}
+    <div class="pb-cap{{ if $grp }} pb-cap--grp{{ end }}" id="pb-cap-{{ add $i 1 }}">
+        <div class="pb-cap-index">{{ printf "%02d / %02d" (add $i 1) $total }}</div>
+
+        {{- with $grp }}
+        <div class="pb-slot" data-pb-group="{{ $p.group }}"></div>
+        {{- end }}
+
+        {{- if $hasShot }}
+        <div class="pb-shot">
+            {{- with $p.alt }}<h2 class="pb-cap-title">{{ . }}</h2>{{ end }}
+            {{- with $p.text }}<div class="pb-shot-text">{{ . | markdownify }}</div>{{ end }}
+            {{- with $p.exif }}<p class="pb-cap-exif">{{ . }}</p>{{ end }}
+        </div>
+        {{- end }}
+    </div>
+    {{- end }}
+    </div>
+
+    {{- /* ===== 照片网格：必须在 id="content" 内，主题 theme.js 只扫描该元素 ===== */ -}}
+    <div class="content" id="content">
+        <div class="pb-grid">
+        {{- range $i, $p := $photos }}
+            <figure class="pb-item">
+                <a class="lightgallery"
+                   href="{{ $p.large }}"
+                   data-sub-html="#pb-cap-{{ add $i 1 }}"
+                   data-thumbnail="{{ $p.tiny }}"
+                   data-lg-size="{{ $p.width }}-{{ $p.height }}">
+                    <img src="{{ $p.small }}"
+                         srcset="{{ $p.tiny }} 320w, {{ $p.small }} 900w"
+                         sizes="(max-width:599px) 100vw, (max-width:991px) 50vw, 33vw"
+                         width="{{ $p.width }}" height="{{ $p.height }}"
+                         loading="lazy" decoding="async" alt="{{ $p.alt }}">
+                </a>
+            </figure>
+        {{- end }}
+        </div>
+    </div>
+</div>
+
+{{- /* ===== 组说明注入：走主题自带的 scriptArr 通道，不改 themes/ ===== */ -}}
+{{- $pbjs := `document.addEventListener("DOMContentLoaded",function(){
+  var root=document.getElementById("content"); if(!root)return;
+  root.addEventListener("onAfterAppendSubHtml",function(){
+    var sub=document.querySelector(".lg-outer .lg-sub-html"); if(!sub)return;
+    var slot=sub.querySelector(".pb-slot"); if(!slot)return;
+    var g=slot.getAttribute("data-pb-group");
+    var src=g?document.getElementById("pb-grp-"+g):null;
+    slot.innerHTML=src?src.innerHTML:"";
+  });
+});` -}}
+{{- $_ := .Page.Scratch.SetInMap "this" "scriptArr" (slice $pbjs) -}}
+{{- end -}}

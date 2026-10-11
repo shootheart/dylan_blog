@@ -1,0 +1,25 @@
+# ============================================================
+# 照片书（photobook）配置
+#
+#   1) 本地跑 album-build.py 压缩图片，并把 photos / groups 写进 index.md
+#   2) 手动把 output_dir 下的图上传到 OSS
+#   3) 手动创建 content/photobook/<album>.md（只写 title/date 等）
+#
+# 用法见仓库根目录 album-build.py 的头部注释。
+# ============================================================
+
+# OSS 前缀
+url_prefix: "https://dylanblog.oss-cn-beijing.aliyuncs.com/photobook"
+
+# 目录（相对于本文件所在目录，即 ~/dylan_blog）
+albums_dir:  "albums"
+output_dir:  ".build/photobook"
+content_dir: "content/photobook"
+
+sizes:
+  tiny:   { max: 320,  quality: 75 }
+  small:  { max: 900,  quality: 82 }
+  large:  { max: 2000, quality: 85 }
+
+# 上传 OSS 时建议携带的缓存头
+cache_control: "public,max-age=31536000,immutable"

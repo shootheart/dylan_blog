@@ -1,0 +1,207 @@
+/* ============================================================
+   照片书 photobook
+   1) 无缝瀑布流（保持原始比例，无文字，明暗色跟随主题）
+   2) 相册列表封面网格
+   3) 灯箱：桌面端左图右文 / 移动端保持主题默认
+   ============================================================ */
+
+/* ---------- 1. 无缝瀑布流 ---------- */
+/* 缝隙：由 column-gap（横向）与 item 的 margin-bottom（纵向）共同构成，
+   两者用同一个变量，视觉上必然对称。改 --pb-gap 一处即可。
+   0 = 完全无缝 / 2 / 3 / 5 / 8 */
+.pb-grid {
+  --pb-gap: 3px;
+  column-width: 300px;
+  column-count: 3;
+  column-gap: var(--pb-gap);
+}
+@media (max-width: 991px) { .pb-grid { column-count: 2; } }
+@media (max-width: 599px) { .pb-grid { column-count: 1; --pb-gap: 2px; } }
+
+.pb-item {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  /* 不能用 inline-block：行盒会在底部多出一段由 line-height 撑出的空白，
+     导致竖向缝隙比横向大。用普通块级，缝隙完全由 margin 决定。 */
+  display: block;
+  width: 100%;
+  margin: 0 0 var(--pb-gap) 0;
+  padding: 0;
+}
+
+.pb-item img {
+  width: 100%;
+  height: auto;                /* 保持原始比例，高度自然错落 */
+  display: block;
+  border-radius: 0;
+  background: rgba(128, 128, 128, .08);
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+.pb-item a:hover img {
+  transform: scale(1.02);
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+}
+
+/* 隐藏节点：灯箱说明的文字源（只存一份） */
+[hidden] { display: none; }
+
+/* ---------- 2. 相册列表封面网格 ---------- */
+.pb-album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 28px;
+}
+.pb-album {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.pb-album-cover {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, .08);
+}
+.pb-album-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+.pb-album:hover .pb-album-cover img { transform: scale(1.06); }
+.pb-album-title {
+  margin: 13px 0 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.pb-album-meta {
+  font-size: 12px;
+  opacity: .6;
+}
+
+/* ---------- 3. 灯箱：桌面端左图右文（<992px 内的规则不生效） ---------- */
+@media screen and (min-width: 992px) {
+
+  /* 3.1 左区：舞台压到 62vw，强制左对齐
+     （!important 覆盖库写入的行内 style="width:100%" + CSS 的 margin:auto；
+       .lg-image 是 max-width:100%/max-height:100% 自适应，无 JS 像素测量） */
+  .lg-outer .lg {
+    width: 62vw !important;
+    height: 100vh !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* 3.2 右区：说明文字栏（.lg-sub-html 是 position:fixed，相对视口，可自由定位） */
+  .lg-outer .lg-sub-html {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 62vw;
+    width: auto;
+    padding: 72px 56px 56px;
+    background: rgba(17, 17, 19, .95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-left: 1px solid rgba(255, 255, 255, .14);
+    color: rgba(255, 255, 255, .9);
+    font-size: 15px;
+    line-height: 1.85;
+    text-align: left;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* 3.3 右栏三层内容：序号 / 组说明 / 单张信息 —— 全部可选，无占位 */
+  .lg-sub-html .pb-cap-index {
+    font-size: 12px;
+    letter-spacing: .18em;
+    color: rgba(255, 255, 255, .42);
+    margin-bottom: 26px;
+  }
+  .lg-sub-html .pb-grp-title {
+    margin: 0 0 14px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #fff;
+  }
+  .lg-sub-html .pb-grp-text { margin: 0; }
+  .lg-sub-html .pb-grp-text p { margin: 0 0 12px; }
+  .lg-sub-html .pb-grp-text p:last-child { margin-bottom: 0; }
+
+  /* 分隔线挂在 .pb-shot 容器上；容器按需渲染，无内容时连分隔线都不出现 */
+  .lg-sub-html .pb-shot {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, .12);
+  }
+  /* 没有组说明时：不要分隔线、不要那 44px 空档 */
+  .lg-sub-html .pb-cap:not(.pb-cap--grp) .pb-shot {
+    margin-top: 14px;
+    padding-top: 0;
+    border-top: none;
+  }
+  .lg-sub-html .pb-cap-title {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, .95);
+  }
+  .lg-sub-html .pb-shot-text { margin: 0; }
+  .lg-sub-html .pb-shot-text p { margin: 0 0 10px; }
+  .lg-sub-html .pb-shot-text p:last-child { margin-bottom: 0; }
+  .lg-sub-html .pb-cap-exif {
+    margin: 16px 0 0;
+    font-size: 12px;
+    line-height: 1.95;
+    color: rgba(255, 255, 255, .45);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  /* 3.4 关闭按钮移到右栏右上角 */
+  .lg-outer .lg-toolbar { left: auto; right: 0; width: auto; background: none; }
+  .lg-outer .lg-close {
+    position: fixed;
+    top: 16px;
+    right: 22px;
+    z-index: 1100;
+    color: rgba(255, 255, 255, .55);
+  }
+  .lg-outer .lg-close:hover { color: #fff; }
+
+  /* 3.5 缩略图条限制在左区底部 */
+  .lg-outer .lg-thumbnail,
+  .lg-outer .lg-thumbnail-outer {
+    left: 0;
+    width: 62vw;
+  }
+}
+
+/* ---------- 4. 移动端：保持主题默认底部说明条，仅微调排版 ---------- */
+@media (max-width: 991px) {
+  .lg-sub-html { font-size: 14px; line-height: 1.7; }
+  .lg-sub-html .pb-cap-index {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+  .lg-sub-html .pb-grp-title { font-size: 15px; margin-bottom: 8px; }
+  .lg-sub-html .pb-grp-text {
+    max-height: 4.5em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  .lg-sub-html .pb-shot { margin-top: 12px; padding-top: 10px; }
+  .lg-sub-html .pb-cap:not(.pb-cap--grp) .pb-shot { margin-top: 8px; padding-top: 0; }
+  .lg-sub-html .pb-cap-title { font-size: 13px; margin-bottom: 6px; }
+  .lg-sub-html .pb-shot-text p { margin-bottom: 6px; }
+  .lg-sub-html .pb-cap-exif { font-size: 11px; margin-top: 8px; }
+}
