@@ -79,12 +79,13 @@ def load_cfg():
 
 def paths(cfg, album):
     albums_dir = os.path.join(ROOT, cfg.get("albums_dir", "albums"))
-    src = os.path.join(albums_dir, album, cfg.get("source_file", "source.md"))
-    photos = os.path.join(albums_dir, album, "photos")
+    base = os.path.join(albums_dir, album)          # source.md 所在目录
+    src = os.path.join(base, cfg.get("source_file", "source.md"))
+    photos = os.path.join(base, "photos")
     md = os.path.join(ROOT, cfg.get("content_dir", "content/photobook"),
                       "%s.md" % album)
     out = os.path.join(ROOT, cfg.get("output_dir", ".build/photobook"), album)
-    return src, photos, md, out
+    return src, photos, base, md, out
 
 
 # ================================================================ 图片工具
@@ -190,32 +191,78 @@ def fit(w, h, maxdim):
     return max(1, int(w * r + 0.5)), max(1, int(h * r + 0.5))
 
 
-def list_photos(photos_dir):
-    """递归列出 photos/ 下的图片，返回相对 photos/ 的 posix 路径（已排序）"""
-    if not os.path.isdir(photos_dir):
+def list_photos(base):
+    """递归列出相册目录下所有图片，返回相对相册目录的 posix 路径（已排序）
+
+    基准与 source.md 一致，所以这里的路径可以直接抄进 source.md。
+    """
+    if not os.path.isdir(base):
         return []
     out = []
-    for root, _dirs, files in os.walk(photos_dir):
+    for root, dirs, files in os.walk(base):
+        dirs[:] = [d for d in dirs if not d.startswith(".")]
         for f in files:
             if f.lower().endswith(IMG_EXT):
-                rel = os.path.relpath(os.path.join(root, f), photos_dir)
+                rel = os.path.relpath(os.path.join(root, f), base)
                 out.append(rel.replace(os.sep, "/"))
     return sorted(out)
 
 
-def photo_path(photos_dir, rel):
-    """相对 posix 路径 -> 本地实际路径"""
-    return os.path.join(photos_dir, *rel.split("/"))
+def resolve_target(base, albums_dir, raw):
+    """解析 source.md 里的图片引用。
+
+    相对路径的基准是 source.md 所在目录（与普通 markdown 一致）：
+        ![](photos/a.jpg)      正确写法
+        ![](a.jpg)             自动回退到 photos/a.jpg（简写）
+        ![](../shared/a.jpg)   相册目录之外的共享图库（不能跳出 albums/）
+    绝对路径与外链也支持：
+        ![](/data/photos/a.jpg)          本机绝对路径
+        ![](~/Pictures/a.jpg)            家目录
+        ![](https://.../a.jpg)           直接引用，不压缩不上传
+
+    返回 dict：
+        kind = "url"  -> {"kind", "url"}
+        kind = "file" -> {"kind", "path", "rel", "sub", "name"}
+    """
+    p = raw.strip().replace("\\", "/")
+    if URL_RE.match(p) or p.startswith("//"):
+        return {"kind": "url", "url": raw.strip()}
+    if p.startswith("~/"):
+        p = os.path.expanduser(p)
+    if os.path.isabs(p):
+        fp = os.path.normpath(p)
+        if not os.path.exists(fp):
+            raise FileNotFoundError(p)
+        # 外部绝对路径：OSS 侧按平铺存放
+        return {"kind": "file", "path": fp, "rel": None, "sub": "",
+                "name": os.path.splitext(os.path.basename(fp))[0]}
+    if p == "":
+        raise ValueError("图片路径为空")
+
+    n = posixpath.normpath(p)
+    root = os.path.normpath(albums_dir)
+    cand = os.path.normpath(os.path.join(base, *n.split("/")))
+    if not (cand == root or cand.startswith(root + os.sep)):
+        raise ValueError("相对路径不能跳出 albums/ 目录")
+    if not os.path.exists(cand):
+        fb = os.path.normpath(os.path.join(base, "photos", *n.split("/")))
+        if os.path.exists(fb):
+            cand = fb
+        else:
+            raise FileNotFoundError(p)
+    rel = os.path.relpath(cand, base).replace(os.sep, "/")
+    sub = posixpath.dirname(rel)
+    if sub == ".." or sub.startswith("../") or sub.startswith("/"):
+        sub = ""                     # 相册目录之外：OSS 侧平铺存放
+    return {"kind": "file", "path": cand, "rel": rel, "sub": sub,
+            "name": os.path.splitext(os.path.basename(rel))[0]}
 
 
-def url_for(prefix, album, tier, rel, w, h):
+def url_for(prefix, album, tier, sub, name, w, h):
     """构造 OSS URL，保留子目录结构；顶层文件不产生多余斜杠。
 
     文件名含空格或非 ASCII 时做百分号编码（OSS 上存的仍是原名）。
     """
-    stem = posixpath.splitext(rel)[0]
-    name = posixpath.basename(stem)
-    sub = posixpath.dirname(stem)
     slash = (sub + "/") if sub else ""
     fname = "%s_%dx%d.jpg" % (name, w, h)
     return "%s/%s/%s/%s" % (prefix,
@@ -225,21 +272,6 @@ def url_for(prefix, album, tier, rel, w, h):
 
 
 URL_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.\-]*://")
-
-
-def norm_rel(path):
-    """把 source.md 里的图片路径规范成 photos/ 下的相对 posix 路径"""
-    p = path.replace("\\", "/").strip()
-    if URL_RE.match(p) or p.startswith("//"):
-        raise ValueError("外链图片不支持，请把图片放进 photos/ 并用相对路径")
-    if p.startswith("/"):
-        raise ValueError("绝对路径不支持，请用相对 photos/ 的路径")
-    n = posixpath.normpath(p)
-    if n == ".." or n.startswith("../") or n.startswith("/"):
-        raise ValueError("路径不能跳出 photos/ 目录")
-    if n in (".", ""):
-        raise ValueError("图片路径为空")
-    return n
 
 
 # ================================================================ markdown 解析
@@ -308,7 +340,7 @@ def drop_top_key(fm_lines, key):
     return out
 
 
-def parse_source(text):
+def parse_source(text, base, albums_dir):
     """解析 source.md -> (fm_lines, fm_dict, prose, groups, photos, errors, warns)"""
     fm_lines, body = split_front_matter(text)
     if fm_lines is None:
@@ -365,11 +397,14 @@ def parse_source(text):
             if not path:
                 continue                  # ![]() 占位
             try:
-                rel = norm_rel(path)
+                tgt = resolve_target(base, albums_dir, path)
+            except FileNotFoundError:
+                errors.append("第 %d 行：找不到图片 %s" % (lineno, path))
+                continue
             except ValueError as e:
                 errors.append("第 %d 行：%s（%s）" % (lineno, e, path))
                 continue
-            ph = {"file": rel}
+            ph = {"file": path, "_t": tgt}
             t = title or alt
             if t:
                 ph["alt"] = t
@@ -495,25 +530,30 @@ def skeleton_hint(album, filenames):
 
 
 def build_album(cfg, album):
-    src, photos_dir, md_path, _ = paths(cfg, album)
-    filenames = list_photos(photos_dir)
+    src, _photos_dir, base, md_path, _ = paths(cfg, album)
+    albums_dir = os.path.join(ROOT, cfg.get("albums_dir", "albums"))
+    local_files = list_photos(base)          # 只用于「未使用文件」提示
 
     if not os.path.exists(src):
         print("[error] 找不到 %s" % src)
-        if filenames:
-            print("        photos/ 里已有这些照片，可照抄下面的骨架创建：\n")
-            print(skeleton_hint(album, filenames))
+        if local_files:
+            print("        该相册目录下已有这些照片，可照抄下面的骨架创建：\n")
+            print(skeleton_hint(album, local_files))
         else:
-            print("        先把原图放进 %s/ 再创建 source.md" % photos_dir)
+            print("        先把原图放进 %s/photos/ 再创建 source.md" % base)
         return False
 
     with open(src, encoding="utf-8") as f:
         src_text = f.read()
 
-    fm_lines, fm, prose, groups, photos, errors, warns = parse_source(src_text)
+    fm_lines, fm, prose, groups, photos, errors, warns = parse_source(
+        src_text, base, albums_dir)
     if errors:
         for e in errors:
             print("[error] %s: %s" % (src, e))
+        if local_files:
+            print("        该相册目录下现有：%s"
+                  % ", ".join(local_files[:10]))
         print("        已放弃写入，正式 md 未改动")
         return False
     for w in warns:
@@ -526,57 +566,57 @@ def build_album(cfg, album):
     large_max = int(cfg["sizes"]["large"]["max"])
 
     seen = set()
-    seen_group = set()
     for p in photos:
-        f = p["file"]
-        if f in seen:
-            print("[error] %s: 图片重复出现：%s" % (src, f))
+        t = p["_t"]
+        key = t["url"] if t["kind"] == "url" else t["path"]
+        if key in seen:
+            print("[error] %s: 图片重复出现：%s" % (src, p["file"]))
             print("        已放弃写入，正式 md 未改动")
             return False
-        seen.add(f)
-        fp = photo_path(photos_dir, f)
-        if not os.path.exists(fp):
-            print("[error] %s: 找不到图片 %s" % (src, f))
-            print("        photos/ 下现有：%s" % ", ".join(filenames[:12]))
-            print("        已放弃写入，正式 md 未改动")
-            return False
+        seen.add(key)
         g = p.get("group")
         if g and g not in groups:
-            print("[error] %s: %s 引用了未定义的 group「%s」" % (src, f, g))
+            print("[error] %s: %s 引用了未定义的 group「%s」" % (src, p["file"], g))
             return False
-        seen_group.add(g)
 
     cover = str(fm.get("cover") or "").strip()
     featured = None
+    cover_tgt = None
     if cover:
         try:
-            cover_rel = norm_rel(cover)
-        except ValueError as e:
-            print("[error] %s: cover %s（%s）" % (src, e, cover))
-            return False
-        if not os.path.exists(photo_path(photos_dir, cover_rel)):
-            print("[error] %s: cover 指向的文件不在 photos/ 里：%s" % (src, cover))
-            print("        photos/ 下现有：%s" % ", ".join(filenames[:12]))
+            cover_tgt = resolve_target(base, albums_dir, cover)
+        except (ValueError, FileNotFoundError) as e:
+            print("[error] %s: cover %s" % (src, e))
             print("        已放弃写入，正式 md 未改动")
             return False
-        if cover_rel not in seen:
-            print("[info] 封面 %s 不在文章的图片里，只用作列表页封面" % cover_rel)
-        cmax = int(cfg["sizes"]["small"]["max"])
-        cw, ch = fit(*oriented_size(photo_path(photos_dir, cover_rel)), cmax)
-        featured = url_for(prefix, album, "small", cover_rel, cw, ch)
+        if cover_tgt["kind"] == "url":
+            print("[warn] cover 是外链 URL，列表页会直接引用它")
+            featured = cover_tgt["url"]
+        else:
+            ckey = cover_tgt["path"]
+            if ckey not in seen:
+                print("[info] 封面 %s 不在文章的图片里，只用作列表页封面" % cover)
+            cmax = int(cfg["sizes"]["small"]["max"])
+            cw, ch = fit(*oriented_size(cover_tgt["path"]), cmax)
+            featured = url_for(prefix, album, "small",
+                               cover_tgt["sub"], cover_tgt["name"], cw, ch)
 
     out_photos = []
     for p in photos:
-        f = p["file"]
-        fp = photo_path(photos_dir, f)
-        w, h = oriented_size(fp)
+        t = p["_t"]
         item = {}
-        for tier in TIERS:
-            maxdim = int(cfg["sizes"][tier]["max"])
-            tw, th = fit(w, h, maxdim)
-            item[tier] = url_for(prefix, album, tier, f, tw, th)
-        lw, lh = fit(w, h, large_max)
-        item["width"], item["height"] = lw, lh
+        if t["kind"] == "url":
+            # 外链：直接引用，不压缩不上传；尺寸未知则不输出
+            item["tiny"] = item["small"] = item["large"] = t["url"]
+        else:
+            w, h = oriented_size(t["path"])
+            for tier in TIERS:
+                maxdim = int(cfg["sizes"][tier]["max"])
+                tw, th = fit(w, h, maxdim)
+                item[tier] = url_for(prefix, album, tier,
+                                     t["sub"], t["name"], tw, th)
+            lw, lh = fit(w, h, large_max)
+            item["width"], item["height"] = lw, lh
         if p.get("group"):
             item["group"] = p["group"]
         if p.get("alt"):
@@ -587,9 +627,10 @@ def build_album(cfg, album):
         if ex:
             item["exif"] = ex
         else:
-            auto = exif_of_file(fp)
-            if auto:
-                item["exif"] = auto
+            if t["kind"] == "file":
+                auto = exif_of_file(t["path"])
+                if auto:
+                    item["exif"] = auto
         out_photos.append(item)
 
     doc = {"photos": out_photos}
@@ -606,9 +647,15 @@ def build_album(cfg, album):
     print("[ok] %s: %d 张，%d 个组 -> %s"
           % (album, len(out_photos), len(groups), md_path))
 
-    unused = [f for f in filenames if f not in seen]
+    used_rel = set()
+    for p in photos:
+        if p["_t"]["kind"] == "file" and p["_t"].get("rel"):
+            used_rel.add(p["_t"]["rel"])
+    if cover_tgt and cover_tgt["kind"] == "file" and cover_tgt.get("rel"):
+        used_rel.add(cover_tgt["rel"])
+    unused = [f for f in local_files if f not in used_rel]
     if unused:
-        print("[hint] photos/ 里有 %d 张没写进 source.md：%s"
+        print("[hint] 相册目录下有 %d 张没写进 source.md：%s"
               % (len(unused), ", ".join(unused[:8])))
     return True
 
@@ -616,31 +663,62 @@ def build_album(cfg, album):
 # ================================================================ images
 
 def images_album(cfg, album, force=False):
-    _, photos_dir, _, out = paths(cfg, album)
-    files = list_photos(photos_dir)
-    if not files:
-        print("[skip] %s: photos 目录为空或不存在" % album)
+    src, _pd, base, _md, out = paths(cfg, album)
+    albums_dir = os.path.join(ROOT, cfg.get("albums_dir", "albums"))
+
+    # 处理集合 = source.md 里引用的图片（相对/绝对路径）+ cover
+    targets_in = []
+    if not os.path.exists(src):
+        print("[hint] %s 不存在，只处理相册目录下的图片" % src)
+        for rel in list_photos(base):
+            targets_in.append((os.path.join(base, *rel.split("/")),
+                               posixpath.dirname(rel),
+                               posixpath.splitext(posixpath.basename(rel))[0]))
+    else:
+        with open(src, encoding="utf-8") as f:
+            _fm, fm, _prose, _groups, photos, errors, _warns = parse_source(
+                f.read(), base, albums_dir)
+        if errors:
+            for e in errors:
+                print("[error] %s: %s" % (src, e))
+            print("        图片不处理，请先修好 source.md")
+            return False
+        for p in photos:
+            t = p["_t"]
+            if t["kind"] == "file":
+                targets_in.append((t["path"], t["sub"], t["name"]))
+        cv = str((fm or {}).get("cover") or "").strip()
+        if cv:
+            try:
+                ct = resolve_target(base, albums_dir, cv)
+            except (ValueError, FileNotFoundError):
+                ct = None
+            if ct and ct["kind"] == "file":
+                targets_in.append((ct["path"], ct["sub"], ct["name"]))
+
+    if not targets_in:
+        print("[skip] %s: 没有需要压缩的图片" % album)
         return False
 
     total = 0
-    for rel in files:
-        src = photo_path(photos_dir, rel)
-        stem = posixpath.splitext(rel)[0]
-        base = posixpath.basename(stem)
-        sub = posixpath.dirname(stem)
+    done = set()
+    for fpath, sub, base_name in targets_in:
+        if fpath in done:
+            continue
+        done.add(fpath)
         targets = []
         for tier in TIERS:
             maxdim = int(cfg["sizes"][tier]["max"])
             dst_dir = os.path.join(out, tier, sub) if sub else os.path.join(out, tier)
             os.makedirs(dst_dir, exist_ok=True)
-            targets.append((tier, dst_dir, base, maxdim,
+            targets.append((tier, dst_dir, base_name, maxdim,
                             int(cfg["sizes"][tier]["quality"])))
-        w0, h0 = oriented_size(src)
+        w0, h0 = oriented_size(fpath)
         if not force and all(
                 os.path.exists(os.path.join(d, "%s_%dx%d.jpg" % (b, *fit(w0, h0, md_))))
                 for _t, d, b, md_, _q in targets):
             continue
-        with Image.open(src) as raw:
+        with Image.open(fpath) as raw:
             im = ImageOps.exif_transpose(raw).convert("RGB")
             ow, oh = im.size
             for _tier, dst_dir, base_, maxdim, quality in targets:

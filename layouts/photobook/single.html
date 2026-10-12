@@ -59,11 +59,13 @@
                    href="{{ $p.large }}"
                    data-sub-html="#pb-cap-{{ add $i 1 }}"
                    data-thumbnail="{{ $p.tiny }}"
-                   data-lg-size="{{ $p.width }}-{{ $p.height }}">
+                   {{- with $p.width }} data-lg-size="{{ $p.width }}-{{ $p.height }}"{{ end }}>
                     <img src="{{ $p.small }}"
+                         {{- if ne $p.tiny $p.small }}
                          srcset="{{ $p.tiny }} 320w, {{ $p.small }} 900w"
                          sizes="(max-width:599px) 100vw, (max-width:991px) 50vw, 33vw"
-                         width="{{ $p.width }}" height="{{ $p.height }}"
+                         {{- end }}
+                         {{- with $p.width }} width="{{ $p.width }}" height="{{ $p.height }}"{{ end }}
                          loading="lazy" decoding="async" alt="{{ $p.alt }}">
                 </a>
             </figure>
