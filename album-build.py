@@ -47,8 +47,10 @@ source.md 固定格式：
 """
 import json
 import os
+import posixpath
 import re
 import sys
+from urllib.parse import quote
 
 import yaml
 from PIL import Image, ImageOps
@@ -189,9 +191,55 @@ def fit(w, h, maxdim):
 
 
 def list_photos(photos_dir):
+    """递归列出 photos/ 下的图片，返回相对 photos/ 的 posix 路径（已排序）"""
     if not os.path.isdir(photos_dir):
         return []
-    return [f for f in sorted(os.listdir(photos_dir)) if f.lower().endswith(IMG_EXT)]
+    out = []
+    for root, _dirs, files in os.walk(photos_dir):
+        for f in files:
+            if f.lower().endswith(IMG_EXT):
+                rel = os.path.relpath(os.path.join(root, f), photos_dir)
+                out.append(rel.replace(os.sep, "/"))
+    return sorted(out)
+
+
+def photo_path(photos_dir, rel):
+    """相对 posix 路径 -> 本地实际路径"""
+    return os.path.join(photos_dir, *rel.split("/"))
+
+
+def url_for(prefix, album, tier, rel, w, h):
+    """构造 OSS URL，保留子目录结构；顶层文件不产生多余斜杠。
+
+    文件名含空格或非 ASCII 时做百分号编码（OSS 上存的仍是原名）。
+    """
+    stem = posixpath.splitext(rel)[0]
+    name = posixpath.basename(stem)
+    sub = posixpath.dirname(stem)
+    slash = (sub + "/") if sub else ""
+    fname = "%s_%dx%d.jpg" % (name, w, h)
+    return "%s/%s/%s/%s" % (prefix,
+                           quote(album, safe=""),
+                           tier,
+                           quote(slash + fname, safe="/-_.~"))
+
+
+URL_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.\-]*://")
+
+
+def norm_rel(path):
+    """把 source.md 里的图片路径规范成 photos/ 下的相对 posix 路径"""
+    p = path.replace("\\", "/").strip()
+    if URL_RE.match(p) or p.startswith("//"):
+        raise ValueError("外链图片不支持，请把图片放进 photos/ 并用相对路径")
+    if p.startswith("/"):
+        raise ValueError("绝对路径不支持，请用相对 photos/ 的路径")
+    n = posixpath.normpath(p)
+    if n == ".." or n.startswith("../") or n.startswith("/"):
+        raise ValueError("路径不能跳出 photos/ 目录")
+    if n in (".", ""):
+        raise ValueError("图片路径为空")
+    return n
 
 
 # ================================================================ markdown 解析
@@ -200,9 +248,35 @@ TOP_KEY_RE = re.compile(r"^([A-Za-z_][\w-]*)\s*:(.*)$")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
 QUOTE_RE = re.compile(r"^\s*>\s?(.*)$")
 IMAGE_RE = re.compile(r"^!\[([^\]]*)\]\(([^)]*)\)\s*$")
-INNER_TITLE_RE = re.compile(r"^(.*?)\s*\"([^\"]*)\"$")
+INNER_TITLE_RE = re.compile(r'\s+"([^"]*)"$')
 EXIF_RE = re.compile(r"^<!--\s*exif\s*:\s*(.*?)\s*-->$", re.I)
 GROUP_ID_RE = re.compile(r"^(.*?)\s*\{#([^}\s]+)\}\s*$")
+
+
+def _unquote(p):
+    """去掉路径外层的引号或尖括号"""
+    p = p.strip()
+    if len(p) >= 2 and p[0] == p[-1] and p[0] in "\"'":
+        return p[1:-1].strip()
+    if p.startswith("<") and p.endswith(">"):
+        return p[1:-1].strip()
+    return p
+
+
+def split_image_inner(inner):
+    """拆分 markdown 图片的括号内部分 -> (路径, 标题)
+
+    支持：
+        a.jpg                -> ("a.jpg", "")
+        a.jpg "标题 带空格"   -> ("a.jpg", "标题 带空格")
+        <my photo.jpg>       -> ("my photo.jpg", "")
+        "a b.jpg"            -> ("a b.jpg", "")
+    """
+    inner = inner.strip()
+    m = INNER_TITLE_RE.search(inner)
+    if m:
+        return _unquote(inner[:m.start()]), m.group(1)
+    return _unquote(inner), ""
 
 
 def split_front_matter(text):
@@ -287,14 +361,15 @@ def parse_source(text):
         if m:
             flush_quote()
             alt, inner = m.group(1), m.group(2).strip()
-            mi = INNER_TITLE_RE.match(inner)
-            path, title = (mi.group(1).strip(), mi.group(2)) if mi else (inner, "")
+            path, title = split_image_inner(inner)
             if not path:
                 continue                  # ![]() 占位
-            if os.path.basename(path) != path:
-                errors.append("第 %d 行：图片只支持纯文件名，不支持路径：%s" % (lineno, path))
+            try:
+                rel = norm_rel(path)
+            except ValueError as e:
+                errors.append("第 %d 行：%s（%s）" % (lineno, e, path))
                 continue
-            ph = {"file": path}
+            ph = {"file": rel}
             t = title or alt
             if t:
                 ph["alt"] = t
@@ -459,7 +534,7 @@ def build_album(cfg, album):
             print("        已放弃写入，正式 md 未改动")
             return False
         seen.add(f)
-        fp = os.path.join(photos_dir, f)
+        fp = photo_path(photos_dir, f)
         if not os.path.exists(fp):
             print("[error] %s: 找不到图片 %s" % (src, f))
             print("        photos/ 下现有：%s" % ", ".join(filenames[:12]))
@@ -474,30 +549,32 @@ def build_album(cfg, album):
     cover = str(fm.get("cover") or "").strip()
     featured = None
     if cover:
-        if os.path.basename(cover) != cover or not os.path.exists(
-                os.path.join(photos_dir, cover)):
+        try:
+            cover_rel = norm_rel(cover)
+        except ValueError as e:
+            print("[error] %s: cover %s（%s）" % (src, e, cover))
+            return False
+        if not os.path.exists(photo_path(photos_dir, cover_rel)):
             print("[error] %s: cover 指向的文件不在 photos/ 里：%s" % (src, cover))
             print("        photos/ 下现有：%s" % ", ".join(filenames[:12]))
             print("        已放弃写入，正式 md 未改动")
             return False
-        if cover not in seen:
-            print("[info] 封面 %s 不在文章的图片里，只用作列表页封面" % cover)
-        cstem = os.path.splitext(cover)[0]
+        if cover_rel not in seen:
+            print("[info] 封面 %s 不在文章的图片里，只用作列表页封面" % cover_rel)
         cmax = int(cfg["sizes"]["small"]["max"])
-        cw, ch = fit(*oriented_size(os.path.join(photos_dir, cover)), cmax)
-        featured = "%s/%s/small/%s_%dx%d.jpg" % (prefix, album, cstem, cw, ch)
+        cw, ch = fit(*oriented_size(photo_path(photos_dir, cover_rel)), cmax)
+        featured = url_for(prefix, album, "small", cover_rel, cw, ch)
 
     out_photos = []
     for p in photos:
         f = p["file"]
-        fp = os.path.join(photos_dir, f)
-        stem = os.path.splitext(f)[0]
+        fp = photo_path(photos_dir, f)
         w, h = oriented_size(fp)
         item = {}
         for tier in TIERS:
             maxdim = int(cfg["sizes"][tier]["max"])
             tw, th = fit(w, h, maxdim)
-            item[tier] = "%s/%s/%s/%s_%dx%d.jpg" % (prefix, album, tier, stem, tw, th)
+            item[tier] = url_for(prefix, album, tier, f, tw, th)
         lw, lh = fit(w, h, large_max)
         item["width"], item["height"] = lw, lh
         if p.get("group"):
@@ -546,27 +623,31 @@ def images_album(cfg, album, force=False):
         return False
 
     total = 0
-    for f in files:
-        src = os.path.join(photos_dir, f)
-        stem = os.path.splitext(f)[0]
-        pending = []
+    for rel in files:
+        src = photo_path(photos_dir, rel)
+        stem = posixpath.splitext(rel)[0]
+        base = posixpath.basename(stem)
+        sub = posixpath.dirname(stem)
+        targets = []
         for tier in TIERS:
             maxdim = int(cfg["sizes"][tier]["max"])
-            dst_dir = os.path.join(out, tier)
+            dst_dir = os.path.join(out, tier, sub) if sub else os.path.join(out, tier)
             os.makedirs(dst_dir, exist_ok=True)
-            dst = os.path.join(dst_dir, "%s_tmp_%d" % (stem, maxdim))
-            pending.append([tier, dst_dir, stem, maxdim, dst,
-                            int(cfg["sizes"][tier]["quality"])])
-        if not force and all(os.path.exists(p[4] + ".jpg") for p in pending):
+            targets.append((tier, dst_dir, base, maxdim,
+                            int(cfg["sizes"][tier]["quality"])))
+        w0, h0 = oriented_size(src)
+        if not force and all(
+                os.path.exists(os.path.join(d, "%s_%dx%d.jpg" % (b, *fit(w0, h0, md_))))
+                for _t, d, b, md_, _q in targets):
             continue
         with Image.open(src) as raw:
             im = ImageOps.exif_transpose(raw).convert("RGB")
             ow, oh = im.size
-            for tier, dst_dir, stem_, maxdim, dst, quality in pending:
-                final = os.path.join(dst_dir, "%s_%dx%d.jpg" % (stem_, *fit(ow, oh, maxdim)))
+            for _tier, dst_dir, base_, maxdim, quality in targets:
+                w, h = fit(ow, oh, maxdim)
+                final = os.path.join(dst_dir, "%s_%dx%d.jpg" % (base_, w, h))
                 if not force and os.path.exists(final):
                     continue
-                w, h = fit(ow, oh, maxdim)
                 work = im.resize((w, h), Image.LANCZOS)
                 tmp = final + ".part"
                 work.save(tmp, format="JPEG", quality=quality,
