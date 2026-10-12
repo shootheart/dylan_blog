@@ -26,5 +26,7 @@ node_modules/
 .hugo_build.lock
 script.sh
 
+# 照片书：全部本地编辑内容（原图、source.md）与压缩产物
+# git 只保留最终产物 content/photobook/<album>.md
 albums/
 .build/
