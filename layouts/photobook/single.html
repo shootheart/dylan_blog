@@ -45,6 +45,11 @@
     {{- end }}
     </div>
 
+    {{- /* 前言（source.md 里第一个标题之前的普通段落，没有则不渲染） */ -}}
+    {{- with .Content }}
+    <div class="pb-prose">{{ . }}</div>
+    {{- end }}
+
     {{- /* ===== 照片网格：必须在 id="content" 内，主题 theme.js 只扫描该元素 ===== */ -}}
     <div class="content" id="content">
         <div class="pb-grid">

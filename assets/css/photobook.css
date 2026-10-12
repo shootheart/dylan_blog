@@ -49,6 +49,12 @@
 [hidden] { display: none; }
 
 /* ---------- 2. 相册列表封面网格 ---------- */
+/* 相册前言（source.md 里写的正文）*/
+.pb-prose {
+  max-width: 760px;
+  margin: 0 auto 34px;
+}
+
 .pb-album-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

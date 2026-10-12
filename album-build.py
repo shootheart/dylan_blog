@@ -1,33 +1,49 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-照片书图片处理器 —— 替代 hugophotoswipe，只做「压缩 + 生成元数据」。
+照片书处理器 —— 照片书（photobook）的唯一工具。
 
-读取 photobook.yml 的配置，把 albums/<name>/photos/ 里的原图压成
-tiny/small/large 三档（EXIF 自动旋转，手机竖拍可摆正），并把
-captions.yaml 中的组说明与单张说明写进
-content/photobook/<name>.md 的 front matter。
+你手写 albums/<name>/source.md（元数据 + 组标题 + 组说明 + 图片顺序），
+本脚本把它转成 Hugo 能直接用的文章 md，并负责压缩原图。
 
-用法:
-    cd ~/dylan_blog
-    python3 album-build.py                  # 处理全部相册
-    python3 album-build.py kyoto-autumn     # 只处理一个相册
-    python3 album-build.py -f kyoto-autumn  # 强制重建（忽略已有产物）
-    python3 album-build.py --init           # 只把 EXIF 回填进 captions.yaml
+source.md、原图、.build/ 全部不进 git；git 里只保留
+content/photobook/<name>.md 这一个产物。
 
-产物:
-    .build/photobook/<name>/{tiny,small,large}/*.jpg   待上传 OSS
-    content/photobook/<name>.md                         front matter 里的
-                                                       photos / groups
+两条独立命令：
+    python3 album-build.py <name>              build（默认）解析 source.md -> 正式 md，秒级
+    python3 album-build.py images <name>        只压缩图片 -> .build/，分钟级
 
-EXIF:
-    python3 album-build.py --init kyoto-autumn
-        扫描 photos/，把每张照片的 EXIF 拼成
-            "Canon EOS R5 · 35mm · f/2.0 · 1/200s · ISO 400"
-        直接写回 captions.yaml（已填过的不动，注释与排版保留）。
-        文件不存在时自动创建骨架。
+build 只读原图的尺寸与 EXIF，不需要先跑 images。
 
-    也可以在 captions.yaml 里写 exif: auto，让 build 时再从 EXIF 解析。
+source.md 固定格式：
+
+    ---
+    title: "正定"
+    date: 2026-10-07T00:00:00+08:00
+    description: "正定古城"
+    cover: IMG_20260101_133717.jpg
+    ---
+
+    这里可以写前言，会保留到正式文章的正文。
+
+    ## 夜骑
+
+    > 这一组的说明文字，所有照片共用。
+
+    ![](IMG_20260101_133717.jpg "单张标题")
+    > 这一张自己的补充文字，可多段。
+    <!-- exif: 手动覆盖 EXIF（可省略） -->
+
+    ![](IMG_20260101_144714.jpg)
+
+规则：
+    ## 任意级别标题      开一个新 group，标题文字即 groups.<id>.title
+    > 引用块（标题之后）  group 说明
+    > 引用块（图片之后）  该照片的文字
+    ![](文件 "标题")      一张照片，顺序即页面与灯箱顺序
+    exif                 一律自动从 EXIF 生成，可用 <!-- exif: ... --> 覆盖
+
+用法见 README 注释与 album-build.py --help。
 """
 import json
 import os
@@ -38,10 +54,11 @@ import yaml
 from PIL import Image, ImageOps
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-TIERS = ("tiny", "small", "large")
 IMG_EXT = (".jpg", ".jpeg", ".png")
+TIERS = ("tiny", "small", "large")
 
 # EXIF 标签
+T_ORIENT = 274
 T_MAKE = 271
 T_MODEL = 272
 T_EXIF_IFD = 0x8769
@@ -51,10 +68,27 @@ T_ISO = 34855
 T_FOCAL = 37386
 
 
-# ---------------------------------------------------------------- EXIF
+# ================================================================ 配置
+
+def load_cfg():
+    with open(os.path.join(ROOT, "photobook.yml"), encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+
+def paths(cfg, album):
+    albums_dir = os.path.join(ROOT, cfg.get("albums_dir", "albums"))
+    src = os.path.join(albums_dir, album, cfg.get("source_file", "source.md"))
+    photos = os.path.join(albums_dir, album, "photos")
+    md = os.path.join(ROOT, cfg.get("content_dir", "content/photobook"),
+                      "%s.md" % album)
+    out = os.path.join(ROOT, cfg.get("output_dir", ".build/photobook"), album)
+    return src, photos, md, out
+
+
+# ================================================================ 图片工具
 
 def _read_exif(img):
-    """返回 IFD0 + Exif 子 IFD 合并后的标签字典，失败返回 {}"""
+    """IFD0 + Exif 子 IFD 合并后的标签字典"""
     try:
         flat = img._getexif()
         if flat:
@@ -73,7 +107,6 @@ def _read_exif(img):
 
 
 def _num(v):
-    """EXIF 数值可能是 IFDRational 或 (num, den) 元组"""
     if v is None:
         return None
     try:
@@ -86,7 +119,7 @@ def _num(v):
 
 
 def exif_line(exif):
-    """把 EXIF 标签拼成 '相机 · 焦距 · 光圈 · 快门 · ISO'"""
+    """把 EXIF 拼成 '相机 · 焦距 · 光圈 · 快门 · ISO'"""
     if not exif:
         return ""
 
@@ -95,11 +128,9 @@ def exif_line(exif):
         return v.strip() if isinstance(v, str) else v
 
     parts = []
-
     make = str(g(T_MAKE) or "").strip()
     model = str(g(T_MODEL) or "").strip()
     if make and model.lower().startswith(make.lower()):
-        # 避免 "Canon Canon EOS R5" / "Nikon NIKON Z 9"
         model = model[len(make):].strip()
     cam = " ".join(x for x in (make, model) if x)
     if cam:
@@ -107,8 +138,8 @@ def exif_line(exif):
 
     focal = _num(g(T_FOCAL))
     if focal:
-        focal = round(focal)
-        parts.append("%dmm" % focal if focal >= 10 else "%.0fmm" % (focal * 10))
+        f = round(focal)
+        parts.append("%dmm" % f if f >= 10 else "%.0fmm" % (f * 10))
 
     fnum = _num(g(T_FNUMBER))
     if fnum:
@@ -117,20 +148,17 @@ def exif_line(exif):
     exp = _num(g(T_EXPOSURE))
     if exp:
         if exp >= 1:
-            s = "%gs" % round(exp, 1)
-            parts.append(s[:-2] + "s" if s.endswith(".0s") else s)
+            parts.append(("%gs" % round(exp, 1)).replace(".0s", "s"))
         else:
             parts.append("1/%ds" % round(1 / exp))
 
     iso = _num(g(T_ISO))
     if iso:
         parts.append("ISO %d" % round(iso))
-
     return " · ".join(parts)
 
 
 def exif_of_file(path):
-    """读一张图的 EXIF 并拼成字符串，无可用信息返回 ''"""
     try:
         with Image.open(path) as img:
             return exif_line(_read_exif(img))
@@ -138,380 +166,462 @@ def exif_of_file(path):
         return ""
 
 
-# ---------------------------------------------------------------- captions 回填
-
-def _indent_of(lines):
-    for l in lines:
-        if l.strip() and l[0].isspace():
-            return " " * (len(l) - len(l.lstrip()))
-    return "  "
-
-
-def merge_exif(text, missing):
-    """把缺失的 exif 写进 captions.yaml 文本，尽量不破坏原有排版与注释。
-
-    missing: [(filename, exif_string), ...]
-    """
-    lines = text.splitlines() if text else []
-
-    for fname, value in missing:
-        quoted = json.dumps(value, ensure_ascii=False)
-        head = re.compile(r"^%s\s*:(.*)$" % re.escape(fname))
-        hits = [i for i, l in enumerate(lines) if head.match(l)]
-        if len(hits) > 1:
-            print("[warn] %s: 在 captions.yaml 里出现了 %d 次，"
-                  "请只保留一处（已改写最后一处）" % (fname, len(hits)))
-        idx = hits[-1] if hits else None
-
-        if idx is None:
-            if lines and lines[-1].strip():
-                lines.append("")
-            lines.append("%s:" % fname)
-            lines.append("  exif: %s" % quoted)
-            continue
-
-        raw = head.match(lines[idx]).group(1)
-        cm = re.match(r"^(.*?)\s+#(.*)$", raw)      # 拆出行内注释
-        inline = cm.group(1).strip() if cm else raw.strip()
-        comment = "  #" + cm.group(2) if cm else ""
-
-        if inline:
-            if inline in ("{}", "{ }"):        # 05.jpg: {}  → 展开成块
-                lines[idx] = "%s:" % fname
-                lines.insert(idx + 1, "  exif: %s%s" % (quoted, comment))
-            else:
-                print("[warn] %s: 行内写法 '%s: %s' 无法安全改写，"
-                      "请改成块状后重跑" % (fname, fname, inline))
-            continue
-
-        # 块尾：下一个顶格非空行或文件结尾
-        end = idx + 1
-        while end < len(lines):
-            l = lines[end]
-            if l.strip() and not l[0].isspace():
-                break
-            end += 1
-
-        exif_re = re.compile(r"^(\s*)exif\s*:")
-        patched = False
-        for i in range(idx + 1, end):
-            m = exif_re.match(lines[i])
-            if m:
-                lines[i] = "%sexif: %s" % (m.group(1), quoted)
-                patched = True
-                break
-        if not patched:
-            lines.insert(end, "%sexif: %s" % (_indent_of(lines[idx + 1:end]), quoted))
-
-    return "\n".join(lines).rstrip("\n") + "\n"
+def oriented_size(path):
+    """按 EXIF 方向摆正后的 (宽, 高)，只读文件头不解码"""
+    with Image.open(path) as img:
+        w, h = img.size
+        try:
+            o = img.getexif().get(T_ORIENT)
+        except Exception:
+            o = None
+    if o in (5, 6, 7, 8):
+        w, h = h, w
+    return w, h
 
 
-def cmd_init(cfg, album):
-    """只把 EXIF 回填进 captions.yaml，不压缩图片、不生成 data"""
-    adir = os.path.join(ROOT, cfg.get("albums_dir", "albums"), album)
-    photosd = os.path.join(adir, "photos")
-    capfile = os.path.join(adir, "captions.yaml")
-
-    if not os.path.isdir(photosd):
-        print("[skip] %s: 没有 photos 目录" % album)
-        return
-
-    files = [f for f in sorted(os.listdir(photosd)) if f.lower().endswith(IMG_EXT)]
-    if not files:
-        print("[skip] %s: photos 目录为空" % album)
-        return
-
-    text = "" if not os.path.exists(capfile) else \
-        open(capfile, encoding="utf-8").read()
-    try:
-        data = yaml.safe_load(text) or {}
-    except Exception as e:
-        print("[error] %s: captions.yaml 解析失败 %s" % (capfile, e))
-        return
-    if not isinstance(data, dict):
-        print("[error] %s: 顶层必须是字典" % capfile)
-        return
-
-    missing = []
-    no_exif = []
-    for fname in files:
-        entry = data.get(fname)
-        cur = entry.get("exif") if isinstance(entry, dict) else None
-        cur = "" if cur is None else str(cur).strip()
-        if cur and cur.lower() != "auto":
-            continue                      # 已填过，不动
-        line = exif_of_file(os.path.join(photosd, fname))
-        if line:
-            missing.append((fname, line))
-        else:
-            no_exif.append(fname)
-
-    done = len(files) - len(missing) - len(no_exif)
-    print("[info] %s: 共 %d 张，已填 %d 张，"
-          "可从 EXIF 填充 %d 张，无 EXIF %d 张"
-          % (album, len(files), done, len(missing), len(no_exif)))
-    if no_exif:
-        print("       无 EXIF（截图 / 已去除元数据的图）：%s"
-              % ", ".join(no_exif))
-
-    if not missing:
-        print("[skip] %s: captions.yaml 无需改动 -> %s" % (album, capfile))
-        return
-
-    out = merge_exif(text, missing)
-    with open(capfile, "w", encoding="utf-8") as f:
-        f.write(out)
-    print("[ok] %s: 回填 %d 张的 exif -> %s"
-          % (album, len(missing), capfile))
+def fit(w, h, maxdim):
+    """等比缩放到长边不超过 maxdim（与 images 命令共用，保证文件名一致）"""
+    m = max(w, h)
+    if m <= maxdim:
+        return w, h
+    r = maxdim / float(m)
+    return max(1, int(w * r + 0.5)), max(1, int(h * r + 0.5))
 
 
-# ---------------------------------------------------------------- front matter
+def list_photos(photos_dir):
+    if not os.path.isdir(photos_dir):
+        return []
+    return [f for f in sorted(os.listdir(photos_dir)) if f.lower().endswith(IMG_EXT)]
 
-# 由脚本托管的顶层字段（每次 build 会被整段重写）
-MANAGED_KEYS = ("photos", "groups")
-# 已废弃的顶层字段（旧的 photoData，切换到 front matter 后无用了）
-DROP_KEYS = ("photoData",)
+
+# ================================================================ markdown 解析
 
 TOP_KEY_RE = re.compile(r"^([A-Za-z_][\w-]*)\s*:(.*)$")
-
-
-def _in_block(fm, i, n):
-    """从 i 开始，判断是否仍在同一个 YAML 顶层区块内。
-
-    区块包含：空行、缩进行、以及与父键同缩进的序列项（`- xxx`）。
-    返回该区块结束后的行号。
-    """
-    while i < n:
-        l = fm[i]
-        if not l.strip() or l[0].isspace() or l.startswith("-"):
-            i += 1
-            continue
-        break
-    return i
+HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
+QUOTE_RE = re.compile(r"^\s*>\s?(.*)$")
+IMAGE_RE = re.compile(r"^!\[([^\]]*)\]\(([^)]*)\)\s*$")
+INNER_TITLE_RE = re.compile(r"^(.*?)\s*\"([^\"]*)\"$")
+EXIF_RE = re.compile(r"^<!--\s*exif\s*:\s*(.*?)\s*-->$", re.I)
+GROUP_ID_RE = re.compile(r"^(.*?)\s*\{#([^}\s]+)\}\s*$")
 
 
 def split_front_matter(text):
     """返回 (front matter 行列表 or None, 正文行列表)"""
     lines = text.splitlines()
-    if not lines or lines[0].strip() != "---":
+    start = 0
+    while start < len(lines) and not lines[start].strip():
+        start += 1
+    if start >= len(lines) or lines[start].strip() != "---":
         return None, lines
-    for i in range(1, len(lines)):
+    for i in range(start + 1, len(lines)):
         if lines[i].strip() == "---":
-            return lines[1:i], lines[i + 1:]
+            return lines[start + 1:i], lines[i + 1:]
     return None, lines
 
 
-def sync_front_matter(md_path, doc):
-    """把 doc 里的 groups / photos 写进 markdown 的 front matter。
-
-    只替换 photos: 与 groups: 两段以及 DROP_KEYS 里的单行，
-    其余 front matter 字段、注释、缩进、空行、正文全部原样保留。
-    """
-    text = open(md_path, encoding="utf-8").read()
-    fm, body = split_front_matter(text)
-    if fm is None:
-        raise ValueError("front matter 未找到（首行必须是 ---，且有闭合的 --- ）")
-
-    # 1)剔除旧区块
-    kept, i, n = [], 0, len(fm)
+def drop_top_key(fm_lines, key):
+    """删除一个顶层字段（含其缩进块）"""
+    out, i, n = [], 0, len(fm_lines)
     while i < n:
-        m = TOP_KEY_RE.match(fm[i])
-        if m and (m.group(1) in MANAGED_KEYS or m.group(1) in DROP_KEYS):
-            i = _in_block(fm, i + 1, n)
+        m = TOP_KEY_RE.match(fm_lines[i])
+        if m and m.group(1) == key:
+            i += 1
+            while i < n and (not fm_lines[i].strip() or fm_lines[i][0].isspace()):
+                i += 1
             continue
-        kept.append(fm[i])
+        out.append(fm_lines[i])
         i += 1
-
-    # 2) 追加新区块
-    block = ""
-    if doc.get("groups"):
-        block += yaml.safe_dump({"groups": doc["groups"]}, allow_unicode=True,
-                                sort_keys=False, default_flow_style=False,
-                                width=10000)
-    block += yaml.safe_dump({"photos": doc["photos"]}, allow_unicode=True,
-                            sort_keys=False, default_flow_style=False,
-                            width=10000)
-
-    new_fm = kept + block.rstrip("\n").split("\n")
-    while new_fm and not new_fm[-1].strip():
-        new_fm.pop()
-
-    out = "\n".join(["---"] + new_fm + ["---"] + body)
-    with open(md_path, "w", encoding="utf-8") as f:
-        f.write(out if out.endswith("\n") else out + "\n")
+    return out
 
 
-# ---------------------------------------------------------------- 主流程
+def parse_source(text):
+    """解析 source.md -> (fm_lines, fm_dict, prose, groups, photos, errors, warns)"""
+    fm_lines, body = split_front_matter(text)
+    if fm_lines is None:
+        return None, None, [], {}, [], ["front matter 未找到（应以 --- 开头并有闭合的 --- ）"], []
 
-def resolve_md(content_dir, album):
-    """定位相册页markdown。
-
-    优先扁平写法 content/photobook/<album>.md（与 content/posts 一致），
-    兼容旧的 page bundle 写法 content/photobook/<album>/index.md。
-    两者都不存在时返回扁平路径，供报错提示。
-    """
-    flat = os.path.join(content_dir, "%s.md" % album)
-    bundled = os.path.join(content_dir, album, "index.md")
-    if os.path.exists(flat):
-        return flat
-    if os.path.exists(bundled):
-        return bundled
-    return flat
-
-
-def build(cfg, album, force=False):
-    albums_dir = os.path.join(ROOT, cfg.get("albums_dir", "albums"))
-    out_root = os.path.join(ROOT, cfg.get("output_dir", ".build/photobook"))
-    content_dir = os.path.join(ROOT, cfg.get("content_dir", "content/photobook"))
-    prefix = str(cfg["url_prefix"]).rstrip("/")
-    sizes = cfg["sizes"]
-
-    adir = os.path.join(albums_dir, album)
-    photosd = os.path.join(adir, "photos")
-    capfile = os.path.join(adir, "captions.yaml")
-    md_path = resolve_md(content_dir, album)
-    if not os.path.exists(capfile):
-        print("[hint] %s: 还没有 captions.yaml，"
-              "可用 python3 album-build.py --init %s 自动创建并填充 exif"
-              % (capfile, album))
-    if not os.path.exists(md_path):
-        print("[error] 找不到 %s" % md_path)
-        print("        请先手动创建该文件并写好 title / date / description，"
-              "脚本只会写入 photos 与 groups")
-        return
-    caps = {}
-    if os.path.exists(capfile):
-        with open(capfile, encoding="utf-8") as f:
-            caps = yaml.safe_load(f) or {}
-
-    if not os.path.isdir(photosd):
-        print("[skip] %s: 没有 photos 目录" % album)
-        return
-
-    files = [f for f in sorted(os.listdir(photosd)) if f.lower().endswith(IMG_EXT)]
-    if not files:
-        print("[skip] %s: photos 目录为空" % album)
-        return
-
-    # ---- 组说明（可选；只限相册内） ----
-    groups = {}
-    if isinstance(caps.get("groups"), dict):
-        for gid, g in caps["groups"].items():
-            if not isinstance(g, dict):
-                continue
-            node = {}
-            if g.get("title"):
-                node["title"] = str(g["title"]).strip()
-            if g.get("text"):
-                node["text"] = str(g["text"]).strip()
-            if node:
-                groups[str(gid)] = node
-
-    photos = []
-    grand = 0
-    for fname in files:
-        src = os.path.join(photosd, fname)
-        stem = os.path.splitext(fname)[0]
-
-        targets = {}
-        for t in TIERS:
-            maxdim = int(sizes[t]["max"])
-            dst_dir = os.path.join(out_root, album, t)
-            os.makedirs(dst_dir, exist_ok=True)
-            targets[t] = (
-                os.path.join(dst_dir, "%s_%d.jpg" % (stem, maxdim)),
-                maxdim,
-                int(sizes[t]["quality"]),
-            )
-
-        pending = [t for t in TIERS if force or not os.path.exists(targets[t][0])]
-        im = None
-        if pending:
-            with Image.open(src) as raw:
-                # EXIF 自动旋转：手机竖拍的照片在这里摆正
-                im = ImageOps.exif_transpose(raw).convert("RGB")
-                for t in pending:
-                    dst, maxdim, quality = targets[t]
-                    work = im.copy()
-                    work.thumbnail((maxdim, maxdim), Image.LANCZOS)
-                    work.save(dst, quality=quality, optimize=True, progressive=True)
-
-        urls = {}
-        dims = {}
-        for t in TIERS:
-            dst = targets[t][0]
-            with Image.open(dst) as out:
-                dims[t] = out.size
-            urls[t] = "%s/%s/%s/%s_%d.jpg" % (
-                prefix, album, t, stem, int(sizes[t]["max"]))
-        grand += sum(os.path.getsize(targets[t][0]) for t in TIERS)
-        if im is not None:
-            im.close()
-
-        item = {
-            "tiny": urls["tiny"],
-            "small": urls["small"],
-            "large": urls["large"],
-            "width": dims["large"][0],
-            "height": dims["large"][1],
-        }
-
-        # ---- 单张说明（全部可选） ----
-        c = caps.get(fname)
-        if isinstance(c, dict):
-            grp = c.get("group")
-            if grp:
-                item["group"] = str(grp).strip()
-            for key, field in (("title", "alt"), ("text", "text"), ("exif", "exif")):
-                v = c.get(key)
-                if v is None:
-                    continue
-                v = str(v).strip()
-                if not v:
-                    continue
-                if key == "exif" and v.lower() == "auto":
-                    v = exif_of_file(src)
-                if v:
-                    item[field] = v
-
-        if "group" in item and item["group"] not in groups:
-            print("[warn] %s/%s: captions.yaml 里没有 groups.%s 的定义，忽略归组"
-                  % (album, fname, item["group"]))
-            item.pop("group")
-
-        photos.append(item)
-
-    doc = {"groups": groups, "photos": photos}
     try:
-        sync_front_matter(md_path, doc)
-    except ValueError as e:
-        print("[error] %s: %s" % (md_path, e))
-        return
-    print("[ok] %s: %d 张，压缩后共 %.1f MB -> %s (front matter)"
-          % (album, len(photos), grand / 1024.0 / 1024.0, md_path))
+        fm = yaml.safe_load("\n".join(fm_lines)) or {}
+    except Exception as e:
+        return fm_lines, None, [], {}, [], ["front matter 不是合法 YAML：%s" % e], []
+    if not isinstance(fm, dict):
+        return fm_lines, None, [], {}, [], ["front matter 顶层必须是字典"], []
+
+    groups, photos, prose = {}, [], []
+    errors, warns = [], []
+    cur_group = None
+    last_photo = None
+    seen_heading = False
+    prose_mode = True          # 还没遇到任何结构化内容，仍在前言区
+    qbuf, qowner = [], None
+
+    def owner_now():
+        if last_photo is not None:
+            return ("photo", last_photo)
+        if cur_group is not None:
+            return ("group", cur_group)
+        return None
+
+    def flush_quote():
+        nonlocal qbuf, qowner
+        if qbuf and qowner:
+            body_txt = "\n".join(qbuf).strip("\n")
+            if body_txt.strip():
+                kind, owner = qowner
+                key = "text"
+                target = owner if kind == "photo" else groups.get(owner, {})
+                old = (target.get(key) or "").strip()
+                target[key] = (old + "\n" + body_txt).strip() if old else body_txt
+        qbuf, qowner = [], None
+
+    for lineno, raw in enumerate(body, 1):
+        line = raw.rstrip()
+        s = line.strip()
+
+        if not s:
+            if prose_mode and prose:
+                prose.append("")     # 保留段落分隔
+            continue
+
+        m = IMAGE_RE.match(s)
+        if m:
+            flush_quote()
+            alt, inner = m.group(1), m.group(2).strip()
+            mi = INNER_TITLE_RE.match(inner)
+            path, title = (mi.group(1).strip(), mi.group(2)) if mi else (inner, "")
+            if not path:
+                continue                  # ![]() 占位
+            if os.path.basename(path) != path:
+                errors.append("第 %d 行：图片只支持纯文件名，不支持路径：%s" % (lineno, path))
+                continue
+            ph = {"file": path}
+            t = title or alt
+            if t:
+                ph["alt"] = t
+            if cur_group:
+                ph["group"] = cur_group
+            photos.append(ph)
+            last_photo = ph
+            prose_mode = False
+            continue
+
+        m = EXIF_RE.match(s)
+        if m:
+            flush_quote()
+            if last_photo is not None:
+                last_photo["exif"] = m.group(1).strip()
+            else:
+                warns.append("第 %d 行：exif 注释必须紧跟在某张图片后面，已忽略" % lineno)
+            continue
+
+        m = HEADING_RE.match(s)
+        if m:
+            flush_quote()
+            last_photo = None
+            seen_heading = True
+            text = m.group(2).strip()
+            mid = GROUP_ID_RE.match(text)
+            gid, gtitle = (mid.group(2), mid.group(1)) if mid else (text, text)
+            gid = gid.strip()
+            if not gid:
+                errors.append("第 %d 行：标题不能为空" % lineno)
+                continue
+            if gid in groups:
+                gid2 = "%s-%d" % (gid, len(groups) + 1)
+                warns.append("第 %d 行：group id「%s」重复，已改为「%s」" % (lineno, gid, gid2))
+                gid = gid2
+            groups[gid] = {"title": gtitle}
+            cur_group = gid
+            prose_mode = False
+            continue
+
+        m = QUOTE_RE.match(line)
+        if m:
+            own = owner_now()
+            if own is None:
+                errors.append("第 %d 行：引用块必须跟在某个标题或某张图片后面" % lineno)
+                qbuf, qowner = [], None
+                continue
+            if qowner is not None and qowner != own:
+                flush_quote()
+            if qowner is None:
+                qowner = own
+            qbuf.append(m.group(1).strip())
+            continue
+
+        flush_quote()
+        if seen_heading or last_photo is not None:
+            warns.append("第 %d 行：固定格式下这里只接受 `>` 或图片，已忽略：%s"
+                         % (lineno, s[:40]))
+        elif prose_mode:
+            prose.append(line)
+        else:
+            prose_mode = False
+
+    flush_quote()
+
+    # 丢掉没有任何照片的空 group
+    used = set(p.get("group") for p in photos if p.get("group"))
+    for gid in list(groups):
+        if gid not in used:
+            warns.append("跳过空 group「%s」" % groups[gid].get("title") or gid)
+            groups.pop(gid)
+
+    return fm_lines, fm, prose, groups, photos, errors, warns
+
+
+# ================================================================ build
+
+def render_article(src_text, doc, prose):
+    fm_lines, _ = split_front_matter(src_text)
+    kept = drop_top_key(fm_lines, "cover")
+
+    blocks = []
+    if doc.get("featuredImage"):
+        blocks.append("featuredImage: %s" % json.dumps(doc["featuredImage"]))
+    if doc.get("groups"):
+        blocks.append(yaml.safe_dump({"groups": doc["groups"]}, allow_unicode=True,
+                                     sort_keys=False, default_flow_style=False,
+                                     width=10000).rstrip("\n"))
+    blocks.append(yaml.safe_dump({"photos": doc["photos"]}, allow_unicode=True,
+                                 sort_keys=False, default_flow_style=False,
+                                 width=10000).rstrip("\n"))
+
+    lines = ["---"] + kept
+    for b in blocks:
+        lines.extend(b.split("\n"))
+    lines.append("---")
+    lines.extend(prose)
+    while lines and not lines[-1].strip():
+        lines.pop()
+    return "\n".join(lines) + "\n"
+
+
+def skeleton_hint(album, filenames):
+    lines = [
+        "        ---",
+        '        title: ""',
+        "        date: %s" % "2026-01-01T00:00:00+08:00",
+        '        description: ""',
+        '        hiddenFromSearch: true',
+        "        lightgallery: true",
+        "        ---",
+        "",
+        "        ## 第一组",
+        "",
+        "> 这一组的说明文字。",
+        "",
+    ]
+    for f in filenames[:6]:
+        lines.append('        ![](%s)' % f)
+    if len(filenames) > 6:
+        lines.append("        # ... 还有 %d 张" % (len(filenames) - 6))
+    return "\n".join(lines)
+
+
+def build_album(cfg, album):
+    src, photos_dir, md_path, _ = paths(cfg, album)
+    filenames = list_photos(photos_dir)
+
+    if not os.path.exists(src):
+        print("[error] 找不到 %s" % src)
+        if filenames:
+            print("        photos/ 里已有这些照片，可照抄下面的骨架创建：\n")
+            print(skeleton_hint(album, filenames))
+        else:
+            print("        先把原图放进 %s/ 再创建 source.md" % photos_dir)
+        return False
+
+    with open(src, encoding="utf-8") as f:
+        src_text = f.read()
+
+    fm_lines, fm, prose, groups, photos, errors, warns = parse_source(src_text)
+    if errors:
+        for e in errors:
+            print("[error] %s: %s" % (src, e))
+        print("        已放弃写入，正式 md 未改动")
+        return False
+    for w in warns:
+        print("[warn] %s: %s" % (src, w))
+    if not photos:
+        print("[error] %s: 没有解析到任何图片" % src)
+        return False
+
+    prefix = str(cfg["url_prefix"]).rstrip("/")
+    large_max = int(cfg["sizes"]["large"]["max"])
+
+    seen = set()
+    seen_group = set()
+    for p in photos:
+        f = p["file"]
+        if f in seen:
+            print("[error] %s: 图片重复出现：%s" % (src, f))
+            print("        已放弃写入，正式 md 未改动")
+            return False
+        seen.add(f)
+        fp = os.path.join(photos_dir, f)
+        if not os.path.exists(fp):
+            print("[error] %s: 找不到图片 %s" % (src, f))
+            print("        photos/ 下现有：%s" % ", ".join(filenames[:12]))
+            print("        已放弃写入，正式 md 未改动")
+            return False
+        g = p.get("group")
+        if g and g not in groups:
+            print("[error] %s: %s 引用了未定义的 group「%s」" % (src, f, g))
+            return False
+        seen_group.add(g)
+
+    cover = str(fm.get("cover") or "").strip()
+    featured = None
+    if cover:
+        if os.path.basename(cover) != cover or not os.path.exists(
+                os.path.join(photos_dir, cover)):
+            print("[error] %s: cover 指向的文件不在 photos/ 里：%s" % (src, cover))
+            print("        photos/ 下现有：%s" % ", ".join(filenames[:12]))
+            print("        已放弃写入，正式 md 未改动")
+            return False
+        if cover not in seen:
+            print("[info] 封面 %s 不在文章的图片里，只用作列表页封面" % cover)
+        cstem = os.path.splitext(cover)[0]
+        cmax = int(cfg["sizes"]["small"]["max"])
+        cw, ch = fit(*oriented_size(os.path.join(photos_dir, cover)), cmax)
+        featured = "%s/%s/small/%s_%dx%d.jpg" % (prefix, album, cstem, cw, ch)
+
+    out_photos = []
+    for p in photos:
+        f = p["file"]
+        fp = os.path.join(photos_dir, f)
+        stem = os.path.splitext(f)[0]
+        w, h = oriented_size(fp)
+        item = {}
+        for tier in TIERS:
+            maxdim = int(cfg["sizes"][tier]["max"])
+            tw, th = fit(w, h, maxdim)
+            item[tier] = "%s/%s/%s/%s_%dx%d.jpg" % (prefix, album, tier, stem, tw, th)
+        lw, lh = fit(w, h, large_max)
+        item["width"], item["height"] = lw, lh
+        if p.get("group"):
+            item["group"] = p["group"]
+        if p.get("alt"):
+            item["alt"] = p["alt"]
+        if p.get("text"):
+            item["text"] = p["text"]
+        ex = p.get("exif")
+        if ex:
+            item["exif"] = ex
+        else:
+            auto = exif_of_file(fp)
+            if auto:
+                item["exif"] = auto
+        out_photos.append(item)
+
+    doc = {"photos": out_photos}
+    if groups:
+        doc["groups"] = groups
+    if featured:
+        doc["featuredImage"] = featured
+
+    text = render_article(src_text, doc, prose)
+    os.makedirs(os.path.dirname(md_path), exist_ok=True)
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write(text)
+
+    print("[ok] %s: %d 张，%d 个组 -> %s"
+          % (album, len(out_photos), len(groups), md_path))
+
+    unused = [f for f in filenames if f not in seen]
+    if unused:
+        print("[hint] photos/ 里有 %d 张没写进 source.md：%s"
+              % (len(unused), ", ".join(unused[:8])))
+    return True
+
+
+# ================================================================ images
+
+def images_album(cfg, album, force=False):
+    _, photos_dir, _, out = paths(cfg, album)
+    files = list_photos(photos_dir)
+    if not files:
+        print("[skip] %s: photos 目录为空或不存在" % album)
+        return False
+
+    total = 0
+    for f in files:
+        src = os.path.join(photos_dir, f)
+        stem = os.path.splitext(f)[0]
+        pending = []
+        for tier in TIERS:
+            maxdim = int(cfg["sizes"][tier]["max"])
+            dst_dir = os.path.join(out, tier)
+            os.makedirs(dst_dir, exist_ok=True)
+            dst = os.path.join(dst_dir, "%s_tmp_%d" % (stem, maxdim))
+            pending.append([tier, dst_dir, stem, maxdim, dst,
+                            int(cfg["sizes"][tier]["quality"])])
+        if not force and all(os.path.exists(p[4] + ".jpg") for p in pending):
+            continue
+        with Image.open(src) as raw:
+            im = ImageOps.exif_transpose(raw).convert("RGB")
+            ow, oh = im.size
+            for tier, dst_dir, stem_, maxdim, dst, quality in pending:
+                final = os.path.join(dst_dir, "%s_%dx%d.jpg" % (stem_, *fit(ow, oh, maxdim)))
+                if not force and os.path.exists(final):
+                    continue
+                w, h = fit(ow, oh, maxdim)
+                work = im.resize((w, h), Image.LANCZOS)
+                tmp = final + ".part"
+                work.save(tmp, format="JPEG", quality=quality,
+                          optimize=True, progressive=True)
+                os.replace(tmp, final)
+                total += os.path.getsize(final)
+        im.close()
+    print("[ok] %s: 压缩完成，本轮新增 %.1f MB -> %s"
+          % (album, total / 1024.0 / 1024.0, out))
+    print("       上传：ossutil cp -r %s oss://your-bucket/photobook/ --update" % out)
+    return True
+
+
+# ================================================================ CLI
+
+USAGE = """用法:
+    python3 album-build.py [build] <album>...   解析 source.md -> content/photobook/<album>.md
+    python3 album-build.py [build]             处理全部相册
+    python3 album-build.py images <album>...   只压缩原图 -> .build/
+    python3 album-build.py images              压缩全部相册
+    python3 album-build.py -f images <album>   强制重新压缩
+"""
 
 
 def main():
     args = sys.argv[1:]
-    force = "-f" in args
-    init = "--init" in args
-    args = [a for a in args if a not in ("-f", "--init")]
-
-    with open(os.path.join(ROOT, "photobook.yml"), encoding="utf-8") as f:
-        cfg = yaml.safe_load(f)
-
-    albums_dir = os.path.join(ROOT, cfg.get("albums_dir", "albums"))
-    if not args and os.path.isdir(albums_dir):
-        args = [d for d in sorted(os.listdir(albums_dir))
-                if os.path.isdir(os.path.join(albums_dir, d))]
-
-    if not args:
-        print("没有找到相册。新建一个相册目录：")
-        print("  mkdir -p albums/<name>/photos && touch albums/<name>/captions.yaml")
+    if "-h" in args or "--help" in args:
+        print(USAGE)
         return
 
-    for a in args:
-        cmd_init(cfg, a) if init else build(cfg, a, force=force)
+    mode = "build"
+    if args and args[0] in ("build", "images"):
+        mode = args.pop(0)
+    force = False
+    if "-f" in args:
+        force = True
+        args.remove("-f")
+    albums = args
+
+    cfg = load_cfg()
+    if not albums:
+        albums_dir = os.path.join(ROOT, cfg.get("albums_dir", "albums"))
+        albums = [d for d in sorted(os.listdir(albums_dir))
+                  if os.path.isdir(os.path.join(albums_dir, d))] \
+            if os.path.isdir(albums_dir) else []
+    if not albums:
+        print("没有找到相册。新建：")
+        print("  mkdir -p albums/<name>/photos && touch albums/<name>/source.md")
+        return
+
+    for a in albums:
+        if mode == "images":
+            images_album(cfg, a, force=force)
+        else:
+            build_album(cfg, a)
 
 
 if __name__ == "__main__":
